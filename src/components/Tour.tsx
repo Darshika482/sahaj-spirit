@@ -16,8 +16,8 @@ export default function Tour({ onRegisterClick }: TourProps) {
   });
 
   useEffect(() => {
-    // Target: 6 November 2026 (the specified Sahaj Tour date)
-    const targetDate = new Date('2026-11-06T08:00:00Z').getTime();
+    // Target: 6 September 2026 (the specified Sahaj Tour date)
+    const targetDate = new Date('2026-09-06T08:00:00Z').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -305,7 +305,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 delay={0.2}
                 className="font-sans text-[14px] leading-[1.65] text-ink-soft mb-2"
               >
-                On <strong>November 6, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
+                On <strong>September 6, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
               </BlurText>
             </div>
 
@@ -337,7 +337,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-sans text-[9px] tracking-wider text-[#8B8B8B] uppercase font-bold">Date</span>
-                  <span className="font-sans text-xs font-semibold text-ink leading-tight">6 Nov 2026</span>
+                  <span className="font-sans text-xs font-semibold text-ink leading-tight">6 Sep 2026</span>
                 </div>
               </div>
 
@@ -413,7 +413,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 <div className="w-[1px] h-full bg-ink" />
                 <div className="w-[4px] h-full bg-ink" />
               </div>
-              <span className="font-mono text-[8px] tracking-[0.35em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-06112026-CONFIRMED</span>
+              <span className="font-mono text-[8px] tracking-[0.35em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-06092026-CONFIRMED</span>
             </div>
 
             {/* Book Ticket Button with Shimmer sweep */}

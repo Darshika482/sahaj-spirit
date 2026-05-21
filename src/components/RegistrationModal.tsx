@@ -119,7 +119,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
             <div className="p-6 pb-2 flex justify-between items-center border-b border-teal/10">
               <div className="flex flex-col text-left">
                 <span className="font-sans font-bold text-[10px] uppercase tracking-widest text-teal">
-                  SAHAJ SUMMIT • 6 NOV 2026
+                  SAHAJ SUMMIT • 6 SEP 2026
                 </span>
                 <h3 className="font-serif text-22 text-ink mt-0.5 font-medium leading-none">
                   {isSubmitted ? 'Your Assembly Pass' : 'Secure Your Seat'}
@@ -326,7 +326,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                         </div>
                         <div>
                           <span className="text-ink-mute uppercase text-[9px] tracking-wider block">DEPARTURE DATE</span>
-                          <span className="text-[13px] font-medium text-ink block mt-0.5">06 Nov 2026, 06:00 AM</span>
+                          <span className="text-[13px] font-medium text-ink block mt-0.5">06 Sep 2026, 06:00 AM</span>
                         </div>
                       </div>
 

@@ -328,7 +328,7 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                 </h2>
                 
                 <p className="font-sans text-[16px] text-ink-soft max-w-xl leading-relaxed mb-10">
-                  Join hundreds of youth on 6 Nov 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
+                  Join hundreds of youth on 6 Sep 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
                 </p>
 
                 <motion.button
