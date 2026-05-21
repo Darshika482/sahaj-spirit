@@ -1,4 +1,4 @@
-export const SAHAJ_EASE = [0.22, 1, 0.36, 1];
+export const SAHAJ_EASE = [0.22, 1, 0.36, 1] as const;
 
 export const fadeInUp = {
   hidden: { opacity: 0, y: 30 },

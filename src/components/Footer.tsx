@@ -1,8 +1,23 @@
-import { motion } from 'motion/react';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'motion/react';
 import BlurText from './shared/BlurText';
 import sahajSummit from '../assets/hero/sahaj sumit.png';
 
 export default function Footer() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Map scroll progress to horizontal translations for text (opposite directions)
+  const xLeft = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
+  const xRight = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
+  
+  // Multi-axis parallax: vertical translation for foreground image
+  const yImage = useTransform(scrollYProgress, [0, 1], [30, -30]);
+
   const handleScrollTo = (id: string) => {
     const el = document.querySelector(id);
     if (el) {
@@ -12,36 +27,78 @@ export default function Footer() {
 
   return (
     <footer id="contact" className="bg-[#FBF7F0] border-t border-teal/10 py-16 sm:py-24 px-6 sm:px-12 lg:px-20 relative select-none">
+      {/* Mobile-Only Ambient Glow (Spans 100% width of the mobile viewport, hidden on desktop) */}
+      <div 
+        style={{ backgroundImage: 'radial-gradient(ellipse at center, rgba(43, 168, 158, 0.16) 0%, rgba(243, 112, 33, 0.08) 60%, transparent 100%)' }}
+        className="absolute left-0 right-0 top-0 h-[480px] md:hidden blur-[60px] pointer-events-none z-0 select-none w-full" 
+      />
+
       <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
 
-        {/* Branding: summit collage alongside outlined wordmark */}
-        <div className="mb-16 grid w-full grid-cols-1 items-center gap-8 overflow-hidden select-none lg:grid-cols-[minmax(0,280px)_1fr] lg:gap-12 xl:grid-cols-[minmax(0,320px)_1fr]">
+        {/* Branding: Cinematic layered showcase */}
+        <div 
+          ref={containerRef}
+          className="relative w-full min-h-[380px] sm:min-h-[480px] flex items-center justify-center mb-20 overflow-hidden select-none"
+        >
+          {/* Ambient Lighting Background Glows (Multi-tonal & Ultra-soft, hidden on mobile) */}
+          <div className="absolute inset-0 hidden md:flex items-center justify-center pointer-events-none z-0 select-none">
+            {/* Teal Glow (Offset Top-Left) */}
+            <div 
+              style={{ backgroundImage: 'radial-gradient(circle, rgba(43, 168, 158, 0.12) 0%, transparent 70%)' }}
+              className="absolute w-[360px] h-[360px] sm:w-[580px] sm:h-[580px] rounded-full blur-[100px] -translate-x-12 -translate-y-8" 
+            />
+            {/* Orange Glow (Offset Bottom-Right) */}
+            <div 
+              style={{ backgroundImage: 'radial-gradient(circle, rgba(243, 112, 33, 0.08) 0%, transparent 70%)' }}
+              className="absolute w-[360px] h-[360px] sm:w-[580px] sm:h-[580px] rounded-full blur-[100px] translate-x-12 translate-y-8" 
+            />
+          </div>
+
+          {/* Background Layer: Giant Outlined Text with Scroll-Driven Parallax */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none select-none z-0 gap-2">
+            <motion.div
+              style={{ x: xLeft }}
+              initial={{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 0.15, scale: 1, filter: 'blur(0px)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
+              className="w-full text-center"
+            >
+              <h2 className="font-serif font-black text-[clamp(72px,16vw,240px)] text-transparent text-stroke-teal-thick leading-[0.85] select-none tracking-wider uppercase">
+                SAHAJ
+              </h2>
+            </motion.div>
+            
+            <motion.div
+              style={{ x: xRight }}
+              initial={{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }}
+              whileInView={{ opacity: 0.15, scale: 1, filter: 'blur(0px)' }}
+              viewport={{ once: true }}
+              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
+              className="w-full text-center"
+            >
+              <h2 className="font-serif font-black text-[clamp(72px,16vw,240px)] text-transparent text-stroke-teal-thick leading-[0.85] select-none tracking-wider uppercase">
+                SPIRIT
+              </h2>
+            </motion.div>
+          </div>
+
+          {/* Foreground Layer: Center Collage Image with Multi-Axis Depth Parallax */}
           <motion.div
-            initial={{ opacity: 0, y: 32, filter: 'blur(12px)' }}
-            whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            style={{ y: yImage }}
+            initial={{ opacity: 0, scale: 0.92 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto w-full max-w-[280px] lg:mx-0 lg:max-w-none"
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] drop-shadow-[0_25px_60px_rgba(43,168,158,0.25)] flex justify-center"
           >
             <img
               src={sahajSummit}
               alt="Sahaj Summit — youth performances, speakers, and live music"
-              className="h-auto w-full max-h-[420px] object-contain object-center"
+              className="h-auto w-full max-h-[440px] object-contain object-center select-none pointer-events-none"
               draggable={false}
             />
           </motion.div>
-
-          <div className="w-full text-center lg:text-left">
-            <motion.h2
-              initial={{ opacity: 0, y: 40, filter: 'blur(18px)' }}
-              whileInView={{ opacity: 0.15, y: 0, filter: 'blur(0px)' }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.08 }}
-              className="font-serif font-normal text-[clamp(50px,13vw,200px)] text-transparent text-stroke-teal-thick leading-none select-none tracking-wider uppercase font-bold"
-            >
-              SAHAJ SPIRIT
-            </motion.h2>
-          </div>
         </div>
 
         {/* 3 Columns & Info Info */}

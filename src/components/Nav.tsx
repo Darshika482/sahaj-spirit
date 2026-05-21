@@ -14,9 +14,40 @@ interface NavProps {
   onRegisterClick?: () => void;
 }
 
+function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
+  return (
+    <div className="w-5 h-3.5 flex flex-col justify-between items-center relative">
+      <motion.span
+        animate={{
+          rotate: isOpen ? 45 : 0,
+          y: isOpen ? 6 : 0,
+        }}
+        transition={{ duration: 0.25, ease: 'easeInOut' }}
+        className="w-full h-[2px] bg-teal rounded-full origin-center"
+      />
+      <motion.span
+        animate={{
+          opacity: isOpen ? 0 : 1,
+        }}
+        transition={{ duration: 0.2, ease: 'easeInOut' }}
+        className="w-full h-[2px] bg-teal rounded-full"
+      />
+      <motion.span
+        animate={{
+          rotate: isOpen ? -45 : 0,
+          y: isOpen ? -6 : 0,
+        }}
+        transition={{ duration: 0.25, ease: 'easeInOut' }}
+        className="w-full h-[2px] bg-teal rounded-full origin-center"
+      />
+    </div>
+  );
+}
+
 export default function Nav({ onRegisterClick }: NavProps) {
   const [activeLink, setActiveLink] = useState('Home');
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLinkClick = (name: string, href: string) => {
     setActiveLink(name);
@@ -95,36 +126,18 @@ export default function Nav({ onRegisterClick }: NavProps) {
           })}
         </div>
 
-        {/* Right: CTA Pill */}
-        <div className="flex items-center gap-3">
-          {/* Simple Mobile Menu Toggler */}
-          <div className="md:hidden flex items-center pr-1">
-            <select
-              value={activeLink}
-              onChange={(e) => {
-                const link = navLinks.find(l => l.name === e.target.value);
-                if (link) handleLinkClick(link.name, link.href);
-              }}
-              className="bg-transparent border border-teal/20 text-ink-soft text-xs rounded-full px-2 py-1 font-sans focus:outline-none focus:ring-1 focus:ring-teal"
-            >
-              {navLinks.map((link) => (
-                <option key={link.name} value={link.name} className="bg-cream text-ink">
-                  {link.name}
-                </option>
-              ))}
-            </select>
-          </div>
-
+        {/* Right: CTA Pill & Mobile Menu Toggle */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <motion.button
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
             onClick={onRegisterClick}
-            className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-5 py-2.5 rounded-full font-sans font-medium text-[13px] sm:text-[14px] flex items-center gap-1.5 shadow-[0_8px_20px_-8px_rgba(243,112,33,0.4)] transition-colors duration-300 pointer-events-auto"
+            className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-4 py-2 sm:px-5 sm:py-2.5 rounded-full font-sans font-medium text-[12px] sm:text-[14px] flex items-center gap-1.5 shadow-[0_8px_20px_-8px_rgba(243,112,33,0.4)] transition-colors duration-300 pointer-events-auto cursor-pointer"
             data-cursor-label="orange"
           >
-            Register
+            <span>Register</span>
             <svg
-              className="w-4 h-4"
+              className="w-3.5 h-3.5 sm:w-4 sm:h-4"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -133,8 +146,70 @@ export default function Nav({ onRegisterClick }: NavProps) {
               <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
           </motion.button>
+
+          {/* Mobile Menu Toggle Button */}
+          <motion.button
+            whileTap={{ scale: 0.92 }}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden w-10 h-10 rounded-full border border-teal/10 hover:border-teal/20 flex items-center justify-center bg-[#FBF7F0]/40 backdrop-blur-sm cursor-pointer select-none transition-colors duration-300 pointer-events-auto"
+            aria-label="Toggle mobile menu"
+            data-cursor-label="view"
+          >
+            <HamburgerIcon isOpen={isMobileMenuOpen} />
+          </motion.button>
         </div>
       </motion.nav>
+
+      {/* Mobile Dropdown Menu Card */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute top-[calc(100%+0.5rem)] left-4 right-4 bg-[#F7F3EC]/95 backdrop-blur-xl rounded-3xl p-6 border border-teal/15 shadow-[0_24px_48px_-12px_rgba(43,168,158,0.22)] flex flex-col gap-4 md:hidden z-30"
+          >
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link, idx) => {
+                const isSelected = activeLink === link.name;
+                return (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.04, duration: 0.3 }}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleLinkClick(link.name, link.href);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`flex items-center justify-between px-5 py-3 rounded-2xl font-sans font-medium text-[15px] transition-all duration-300 ${
+                      isSelected
+                        ? 'bg-teal/10 text-teal font-semibold border-l-4 border-teal'
+                        : 'text-ink-soft hover:bg-teal/5 hover:text-ink border-l-4 border-transparent'
+                    }`}
+                  >
+                    <span>{link.name}</span>
+                    {isSelected && (
+                      <svg
+                        className="w-4 h-4 text-teal"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    )}
+                  </motion.a>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
