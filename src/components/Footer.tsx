@@ -11,9 +11,9 @@ export default function Footer() {
     offset: ["start end", "end start"]
   });
 
-  // Map scroll progress to horizontal translations for text (opposite directions)
-  const xLeft = useTransform(scrollYProgress, [0, 1], ["-12%", "12%"]);
-  const xRight = useTransform(scrollYProgress, [0, 1], ["12%", "-12%"]);
+  // Map scroll progress to horizontal translations (constant direction, converging in the middle)
+  const xLeft = useTransform(scrollYProgress, [0, 1], ["-30%", "30%"]);
+  const xRight = useTransform(scrollYProgress, [0, 1], ["30%", "-30%"]);
   
   // Multi-axis parallax: vertical translation for foreground image
   const yImage = useTransform(scrollYProgress, [0, 1], [30, -30]);
@@ -100,7 +100,7 @@ export default function Footer() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] drop-shadow-[0_25px_60px_rgba(43,168,158,0.25)] flex justify-center"
+            className="relative z-10 w-full max-w-[280px] sm:max-w-[340px] flex justify-center"
           >
             <img
               src={sahajSummit}
