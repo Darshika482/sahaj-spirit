@@ -75,3 +75,31 @@ html.lenis, html.lenis body {
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
+
+@media (pointer: fine) {
+  body, a, button, select, [role="button"], input, textarea, .cursor-pointer {
+    cursor: none !important;
+  }
+
+  /* Restore default system cursor inside form modals / dialogs */
+  .show-system-cursor,
+  .show-system-cursor * {
+    cursor: auto !important;
+  }
+  .show-system-cursor input,
+  .show-system-cursor textarea {
+    cursor: text !important;
+  }
+  .show-system-cursor a,
+  .show-system-cursor button,
+  .show-system-cursor select,
+  .show-system-cursor label,
+  .show-system-cursor select option,
+  .show-system-cursor [type="checkbox"],
+  .show-system-cursor [type="submit"],
+  .show-system-cursor [role="button"],
+  .show-system-cursor .cursor-pointer {
+    cursor: pointer !important;
+  }
+}
+

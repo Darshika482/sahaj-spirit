@@ -69,32 +69,27 @@ export default function Nav({ onRegisterClick }: NavProps) {
                 onMouseEnter={() => setHoveredLink(link.name)}
                 onMouseLeave={() => setHoveredLink(null)}
                 className={`relative px-4 py-2 font-sans font-medium text-[14px] transition-colors duration-300 rounded-full ${
-                  isSelected ? 'text-teal' : 'text-ink-soft hover:text-ink'
+                  isSelected ? 'text-teal font-semibold' : 'text-ink-soft hover:text-ink'
                 }`}
                 data-cursor-label="view"
               >
-                {/* Active Underline (Framer Motion layoutId) */}
+                {/* Active Underline */}
                 {isSelected && (
                   <motion.div
                     layoutId="navUnderline"
-                    className="absolute inset-0 bg-teal/5 rounded-full"
+                    className="absolute inset-0 bg-teal/10 border border-teal/20 rounded-full"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   />
                 )}
-                {/* Hover tiny line indicator */}
-                <AnimatePresence>
-                  {isHovered && !isSelected && (
-                    <motion.div
-                      layoutId="navHoverUnderline"
-                      className="absolute bottom-1 left-4 right-4 h-0.5 bg-teal/30 rounded-full"
-                      initial={{ opacity: 0, scaleX: 0 }}
-                      animate={{ opacity: 1, scaleX: 1 }}
-                      exit={{ opacity: 0, scaleX: 0 }}
-                      transition={{ duration: 0.2 }}
-                    />
-                  )}
-                </AnimatePresence>
-                <span>{link.name}</span>
+                {/* Hover Neon Laser Outline Tracker */}
+                {isHovered && !isSelected && (
+                  <motion.div
+                    layoutId="navHoverPill"
+                    className="absolute inset-0 bg-transparent border border-[#2BA89E]/50 rounded-full shadow-[0_0_12px_rgba(43,168,158,0.35),inset_0_0_6px_rgba(43,168,158,0.15)]"
+                    transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+                  />
+                )}
+                <span className="relative z-10">{link.name}</span>
               </a>
             );
           })}

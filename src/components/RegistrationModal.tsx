@@ -109,7 +109,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             transition={{ type: 'spring', duration: 0.5, ease: SAHAJ_EASE }}
-            className="relative bg-[#F7F3EC] w-full max-w-lg rounded-2xl overflow-hidden border border-teal/15 shadow-[0_24px_64px_rgba(26,26,26,0.2)] max-h-[90vh] flex flex-col pointer-events-auto"
+            className="relative bg-[#F7F3EC] w-full max-w-lg rounded-2xl overflow-hidden border border-teal/15 shadow-[0_24px_64px_rgba(26,26,26,0.2)] max-h-[90vh] flex flex-col pointer-events-auto show-system-cursor"
           >
             
             {/* Soft decorative color wash */}
