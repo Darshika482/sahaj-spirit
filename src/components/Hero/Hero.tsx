@@ -9,7 +9,6 @@ import bubble6 from '../../assets/hero/bubble-6.png';
 import bgTexture from '../../assets/hero/bg-texture.png';
 import heroBg from '../../assets/hero/hero-bg.png';
 import sahajLogo from '../../assets/hero/logo.png';
-import sahajSummitCollage from '../../assets/hero/sahaj-summit-collage.png';
 import { SAHAJ_EASE } from '../../lib/motion';
 
 interface HeroProps {
@@ -227,27 +226,7 @@ export default function Hero({ onTourClick, onPhilosophyClick }: HeroProps) {
       </svg>
 
       <div className="relative grid min-h-[calc(100vh-7rem)] items-center gap-10 px-4 pb-12 pt-4 sm:px-8 lg:grid-cols-[1.05fr_1fr] lg:gap-12 lg:px-16 xl:px-20">
-        <div className="relative order-2 flex min-h-[360px] items-center justify-center overflow-visible lg:order-1 lg:min-h-[640px]">
-          {/* Sahaj Summit youth collage — sits beside the orbit sphere on the left */}
-          <motion.div
-            aria-hidden
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, ease: SAHAJ_EASE, delay: 0.35 }}
-            className="pointer-events-none absolute bottom-4 left-0 z-0 w-[min(200px,42vw)] sm:bottom-6 sm:w-[min(220px,36vw)] lg:bottom-8 lg:w-[min(240px,20vw)] lg:-left-4 xl:-left-8"
-          >
-            <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_50px_-16px_rgba(0,0,0,0.18)]">
-              <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-[32%] bg-gradient-to-b from-[#fdfcfa] via-[#fdfcfa]/90 to-transparent" />
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-[12%] bg-gradient-to-t from-[#f8f6f3] to-transparent" />
-              <img
-                src={sahajSummitCollage}
-                alt=""
-                className="block h-auto w-full"
-                draggable={false}
-              />
-            </div>
-          </motion.div>
-
+        <div className="relative order-2 flex min-h-[360px] items-center justify-center lg:order-1 lg:min-h-[640px]">
           {/* Sphere wrapper:                                                                  */}
           {/*   • aspect-square keeps it perfectly round                                        */}
           {/*   • max-w 680px is ~10% smaller than the prior 760px                              */}
@@ -255,7 +234,7 @@ export default function Hero({ onTourClick, onPhilosophyClick }: HeroProps) {
           {/*     ~13% beyond the orbit) from cropping below the fold on shorter screens.      */}
           {/*     16rem reserves room for navbar, section padding, and bubble overflow.        */}
           <div
-            className="relative z-[1] aspect-square w-full"
+            className="relative aspect-square w-full"
             style={{ maxWidth: 'min(680px, calc(100vh - 16rem))' }}
           >
             <ConnectionWeb />
