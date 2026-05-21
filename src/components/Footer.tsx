@@ -1,4 +1,5 @@
 import { motion } from 'motion/react';
+import BlurText from './shared/BlurText';
 
 export default function Footer() {
   const handleScrollTo = (id: string) => {
@@ -14,11 +15,11 @@ export default function Footer() {
         
         {/* Massive Outlined Typography filling the width */}
         <div className="w-full text-center overflow-hidden mb-16 select-none">
-          <motion.h2 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 0.15, y: 0 }}
+          <motion.h2
+            initial={{ opacity: 0, y: 40, filter: 'blur(18px)' }}
+            whileInView={{ opacity: 0.15, y: 0, filter: 'blur(0px)' }}
             viewport={{ once: true }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
             className="font-serif font-normal text-[clamp(50px,13vw,200px)] text-transparent text-stroke-teal-thick leading-none select-none tracking-wider uppercase font-bold"
           >
             SAHAJ SPIRIT
@@ -30,9 +31,12 @@ export default function Footer() {
           
           {/* Column 1: Contact */}
           <div className="flex flex-col items-start gap-4">
-            <h4 className="font-sans font-bold text-[12px] uppercase tracking-[0.2em] text-teal">
+            <BlurText
+              as="h4"
+              className="font-sans font-bold text-[12px] uppercase tracking-[0.2em] text-teal"
+            >
               Contact Organizing Team
-            </h4>
+            </BlurText>
             <div className="flex flex-col gap-3 font-sans text-[15px] text-ink-soft">
               <div>
                 <span className="font-semibold text-ink block">Sandesh Jain</span>
@@ -51,9 +55,13 @@ export default function Footer() {
 
           {/* Column 2: Movement Navigation Links */}
           <div className="flex flex-col items-start gap-4">
-            <h4 className="font-sans font-bold text-[12px] uppercase tracking-[0.2em] text-teal">
+            <BlurText
+              as="h4"
+              delay={0.1}
+              className="font-sans font-bold text-[12px] uppercase tracking-[0.2em] text-teal"
+            >
               The Movement
-            </h4>
+            </BlurText>
             <div className="flex flex-col gap-3 font-sans text-[15px] font-medium text-ink-soft">
               <button 
                 onClick={() => handleScrollTo('#home')} 
@@ -88,9 +96,13 @@ export default function Footer() {
 
           {/* Column 3: Social Connectivity */}
           <div className="flex flex-col items-start gap-4">
-            <h4 className="font-sans font-bold text-[12px] uppercase tracking-[0.2em] text-teal">
+            <BlurText
+              as="h4"
+              delay={0.2}
+              className="font-sans font-bold text-[12px] uppercase tracking-[0.2em] text-teal"
+            >
               Connect Globally
-            </h4>
+            </BlurText>
             <div className="flex flex-col gap-3 font-sans text-[15px] text-ink-soft">
               <a 
                 href="https://instagram.com/sahajspirit" 

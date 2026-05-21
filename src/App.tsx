@@ -3,6 +3,7 @@ import LenisProvider from './components/shared/LenisProvider';
 import Cursor from './components/shared/Cursor';
 import Nav from './components/Nav';
 import Hero from './components/Hero/Hero';
+import LogoTicker from './components/LogoTicker';
 import Philosophy from './components/Philosophy';
 import Experiences from './components/Experiences/Experiences';
 import Tour from './components/Tour';
@@ -44,6 +45,9 @@ export default function App() {
           onTourClick={handleTourScroll} 
           onPhilosophyClick={handlePhilosophyScroll} 
         />
+
+        {/* Marquee ticker of brand + partner logos */}
+        <LogoTicker />
 
         {/* Philosophy details block describing Samyakta, Sahajta, Samyama */}
         <Philosophy />

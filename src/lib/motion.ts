@@ -33,3 +33,36 @@ export const fadeIn = {
     },
   },
 };
+
+export const blurFadeUp = {
+  hidden: { opacity: 0, y: 24, filter: 'blur(14px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.9,
+      ease: SAHAJ_EASE,
+    },
+  },
+};
+
+export const blurWordContainer = (staggerChildren = 0.07, delayChildren = 0) => ({
+  hidden: {},
+  visible: {
+    transition: { staggerChildren, delayChildren },
+  },
+});
+
+export const blurWordChild = {
+  hidden: { opacity: 0, y: 18, filter: 'blur(10px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.7,
+      ease: SAHAJ_EASE,
+    },
+  },
+};

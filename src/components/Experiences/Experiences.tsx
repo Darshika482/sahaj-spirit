@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { experiences } from './experienceData';
 import ExperiencePanel from './ExperiencePanel';
+import CyclingImage from './CyclingImage';
+import BlurText from '../shared/BlurText';
 import { SAHAJ_EASE } from '../../lib/motion';
 
 interface ExperiencesProps {
@@ -92,27 +94,34 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
         {/* Mobile Intro */}
         <div className="w-full text-center py-10 border-b border-teal/10">
           <div className="w-12 h-[1px] bg-teal mx-auto mb-4" />
-          <h2 className="font-serif text-[32px] sm:text-[40px] text-ink leading-tight font-normal mb-6">
-            Nine ways to come home to yourself.
-          </h2>
-          <p className="font-sans text-[15px] text-ink-soft max-w-md mx-auto">
+          <BlurText
+            as="h2"
+            mode="words"
+            stagger={0.06}
+            duration={0.8}
+            className="font-serif text-[32px] sm:text-[40px] text-ink leading-tight font-normal mb-6"
+            text="Nine ways to come home to yourself."
+          />
+          <BlurText
+            as="p"
+            delay={0.2}
+            className="font-sans text-[15px] text-ink-soft max-w-md mx-auto"
+          >
             Explore the key immersive components that structure the Soulful Alliance of Happiness and Joy.
-          </p>
+          </BlurText>
         </div>
 
         {/* Mobile Experience List */}
         <div className="flex flex-col gap-16">
-          {experiences.map((item, idx) => (
+          {experiences.map((item) => (
             <div key={item.id} className="flex flex-col gap-6 bg-[#FBF7F0]/60 p-6 rounded-2xl border border-teal/5">
-              {/* Image */}
-              <div className="w-full aspect-[4/3] rounded-xl overflow-hidden shadow-md">
-                <img
-                  src={item.image}
-                  alt={item.alt}
-                  referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {/* Image (cycles every 1.5s, paused on hover) */}
+              <CyclingImage
+                images={item.images}
+                alt={item.alt}
+                intervalMs={1500}
+                className="w-full aspect-[4/3] rounded-xl shadow-md"
+              />
 
               {/* Text Meta */}
               <div>
@@ -133,9 +142,19 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                   “{item.tagline}”
                 </p>
 
-                <p className="font-sans text-[14px] leading-relaxed text-ink-soft">
+                <p className="font-sans text-[14px] leading-relaxed text-ink-soft mb-6">
                   {item.body}
                 </p>
+
+                {/* CTA */}
+                <motion.button
+                  whileTap={{ scale: 0.98 }}
+                  onClick={onTourClick}
+                  className="group bg-orange hover:bg-orange-hover text-[#F7F3EC] px-6 py-3 rounded-full font-sans font-medium text-[14px] inline-flex items-center gap-2 shadow-[0_8px_20px_-8px_rgba(243,112,33,0.5)] transition-colors duration-300"
+                >
+                  <span>Experience this at Sahaj Tour</span>
+                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </motion.button>
               </div>
             </div>
           ))}
@@ -288,6 +307,7 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                   item={experiences[currentStep - 1]}
                   index={currentStep - 1}
                   total={experiences.length}
+                  onTourClick={onTourClick}
                 />
               </motion.div>
             )}

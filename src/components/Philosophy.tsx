@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { fadeInUp, staggerContainer } from '../lib/motion';
+import BlurText from './shared/BlurText';
 
 const philosophyPillars = [
   {
@@ -29,15 +30,27 @@ export default function Philosophy() {
       <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
         {/* Header Block */}
         <div className="w-full text-center max-w-3xl mb-16 sm:mb-24">
-          <span className="font-sans font-medium text-[12px] uppercase tracking-[0.18em] text-teal block mb-4">
+          <BlurText
+            as="span"
+            className="font-sans font-medium text-[12px] uppercase tracking-[0.18em] text-teal block mb-4"
+          >
             OUR SOULFUL MANIFESTO
-          </span>
-          <h2 className="font-serif text-[clamp(36px,5vw,64px)] font-normal text-ink leading-[1.1] tracking-tight mb-6">
+          </BlurText>
+          <BlurText
+            as="h2"
+            duration={1}
+            delay={0.05}
+            className="font-serif text-[clamp(36px,5vw,64px)] font-normal text-ink leading-[1.1] tracking-tight mb-6"
+          >
             A Return to the <span className="italic text-teal">Unforced Blueprints</span> of Your Being
-          </h2>
-          <p className="font-sans text-[16px] sm:text-[18px] leading-[1.6] text-ink-soft">
+          </BlurText>
+          <BlurText
+            as="p"
+            delay={0.2}
+            className="font-sans text-[16px] sm:text-[18px] leading-[1.6] text-ink-soft"
+          >
             Founded in 2024, Sahaj Spirit is a secular, spiritual alliance designed specifically for modern youth. We bridge timeless principles and contemporary realities to guide you home.
-          </p>
+          </BlurText>
         </div>
 
         {/* Pillars Grid */}

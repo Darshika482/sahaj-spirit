@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import { fadeInUp, staggerContainer } from '../lib/motion';
+import BlurText from './shared/BlurText';
 
 interface TourProps {
   onRegisterClick?: () => void;
@@ -74,25 +75,33 @@ export default function Tour({ onRegisterClick }: TourProps) {
         
         {/* Collaboration Brand Header */}
         <div className="w-full text-center max-w-4xl mb-16">
-          <motion.span 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
+          <BlurText
+            as="span"
             className="font-sans font-medium text-[11px] sm:text-[12px] uppercase tracking-[0.2em] text-teal block mb-4"
           >
             SAHAJ CHAPTERS • THE FLAGSHIP EVENT
-          </motion.span>
-          
-          <h2 className="font-serif text-[clamp(40px,5.5vw,72px)] font-normal text-ink leading-none tracking-tight mb-4">
-            <span className="italic text-teal">Sahaj Summit</span>
-          </h2>
-          
-          <p className="font-sans text-[15px] sm:text-[16px] tracking-wide text-ink-soft uppercase font-semibold flex flex-wrap items-center justify-center gap-1.5 mt-2">
+          </BlurText>
+
+          <BlurText
+            as="h2"
+            mode="words"
+            stagger={0.07}
+            duration={0.9}
+            delay={0.05}
+            className="font-serif text-[clamp(40px,5.5vw,72px)] font-normal text-ink leading-none tracking-tight mb-4 italic text-teal"
+            text="Sahaj Summit"
+          />
+
+          <BlurText
+            as="p"
+            delay={0.25}
+            className="font-sans text-[15px] sm:text-[16px] tracking-wide text-ink-soft uppercase font-semibold flex flex-wrap items-center justify-center gap-1.5 mt-2"
+          >
             <span>In collaboration with</span>
             <span className="text-teal border border-teal/20 px-2.5 py-0.5 rounded-full text-xs">JITO North Zone</span>
             <span>&</span>
             <span className="text-teal border border-teal/20 px-2.5 py-0.5 rounded-full text-xs">JITO Aligarh</span>
-          </p>
+          </BlurText>
         </div>
 
         {/* Big Countdown Timer - JetBrains Mono vibe */}
@@ -143,15 +152,27 @@ export default function Tour({ onRegisterClick }: TourProps) {
           
           {/* Left: Beautiful Context Detail Card (col-span-5) */}
           <div className="col-span-1 lg:col-span-5 bg-[#FBF7F0]/80 p-8 sm:p-10 border border-teal/5 rounded-2xl flex flex-col items-start text-left shadow-lg">
-            <h3 className="font-serif text-[32px] font-normal text-ink leading-tight mb-4">
+            <BlurText
+              as="h3"
+              duration={0.9}
+              className="font-serif text-[32px] font-normal text-ink leading-tight mb-4"
+            >
               The Ancient Soil
-            </h3>
-            <p className="font-sans text-[15px] sm:text-[16px] leading-[1.6] text-ink-soft mb-6">
+            </BlurText>
+            <BlurText
+              as="p"
+              delay={0.1}
+              className="font-sans text-[15px] sm:text-[16px] leading-[1.6] text-ink-soft mb-6"
+            >
               The Sahaj Summit is not just a destination. It is held on the birthplace of multiple Jain Tirthankaras — where the soil itself vibrates with the memories of massive renunciations, absolute stillness, and ultimate wisdom.
-            </p>
-            <p className="font-sans text-[15px] sm:text-[16px] leading-[1.6] text-ink-soft mb-8">
+            </BlurText>
+            <BlurText
+              as="p"
+              delay={0.2}
+              className="font-sans text-[15px] sm:text-[16px] leading-[1.6] text-ink-soft mb-8"
+            >
               On <strong>November 6, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
-            </p>
+            </BlurText>
 
             {/* Travel Details bullets */}
             <div className="flex flex-col gap-3 font-sans text-xs uppercase tracking-widest text-teal font-medium w-full border-t border-teal/10 pt-6">

@@ -1,43 +1,48 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { ExperienceItem } from './experienceData';
 import { SAHAJ_EASE } from '../../lib/motion';
+import CyclingImage from './CyclingImage';
 
 interface ExperiencePanelProps {
   item: ExperienceItem;
   index: number;
   total: number;
+  onTourClick?: () => void;
 }
 
-export default function ExperiencePanel({ item, index, total }: ExperiencePanelProps) {
-  const formattedIndex = item.id;
+export default function ExperiencePanel({ item, onTourClick }: ExperiencePanelProps) {
 
   // Variants according to guidelines
   const numberVariants = {
-    initial: { y: 60, opacity: 0 },
-    animate: { 
-      y: 0, 
-      opacity: 1, 
-      transition: { duration: 0.6, ease: SAHAJ_EASE } 
+    initial: { y: 60, opacity: 0, filter: 'blur(16px)' },
+    animate: {
+      y: 0,
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: { duration: 0.7, ease: SAHAJ_EASE },
     },
-    exit: { 
-      y: -60, 
-      opacity: 0, 
-      transition: { duration: 0.4, ease: SAHAJ_EASE } 
-    }
+    exit: {
+      y: -60,
+      opacity: 0,
+      filter: 'blur(12px)',
+      transition: { duration: 0.4, ease: SAHAJ_EASE },
+    },
   };
 
   const textVariants = {
-    initial: { y: 40, opacity: 0 },
-    animate: { 
-      y: 0, 
-      opacity: 1, 
-      transition: { duration: 0.6, delay: 0.1, ease: SAHAJ_EASE } 
+    initial: { y: 40, opacity: 0, filter: 'blur(10px)' },
+    animate: {
+      y: 0,
+      opacity: 1,
+      filter: 'blur(0px)',
+      transition: { duration: 0.7, delay: 0.1, ease: SAHAJ_EASE },
     },
-    exit: { 
-      y: -40, 
-      opacity: 0, 
-      transition: { duration: 0.5, ease: SAHAJ_EASE } 
-    }
+    exit: {
+      y: -40,
+      opacity: 0,
+      filter: 'blur(8px)',
+      transition: { duration: 0.5, ease: SAHAJ_EASE },
+    },
   };
 
   const imageVariants = {
@@ -53,8 +58,6 @@ export default function ExperiencePanel({ item, index, total }: ExperiencePanelP
       transition: { duration: 0.5, ease: SAHAJ_EASE } 
     }
   };
-
-  const progressPercent = ((index + 1) / total) * 100;
 
   return (
     <div className="w-full h-full flex items-center justify-center p-4 sm:p-8 lg:p-16">
@@ -73,7 +76,7 @@ export default function ExperiencePanel({ item, index, total }: ExperiencePanelP
             >
               {/* Massive outlined index */}
               <div className="font-serif font-normal text-[clamp(140px,18vw,280px)] text-transparent text-stroke-teal leading-none tracking-tight select-none">
-                {formattedIndex}
+                {item.id}
               </div>
               
               <div className="flex items-center gap-3 mt-4 lg:mt-2">
@@ -121,21 +124,18 @@ export default function ExperiencePanel({ item, index, total }: ExperiencePanelP
                   {item.body}
                 </p>
 
-                {/* Progress Indicator at the bottom of the column */}
-                <div className="mt-4 flex flex-col gap-2">
-                  <div className="flex justify-between items-center text-[12px] font-mono text-ink-mute tracking-widest uppercase">
-                    <span>PROGRESS</span>
-                    <span>{formattedIndex} / {String(total).padStart(2, '0')}</span>
-                  </div>
-                  {/* Progress bar container */}
-                  <div className="w-full h-[3px] bg-teal/10 rounded-full overflow-hidden">
-                    <motion.div 
-                      className="h-full bg-teal"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${progressPercent}%` }}
-                      transition={{ duration: 0.5, ease: 'easeOut' }}
-                    />
-                  </div>
+                {/* CTA: Register for the Sahaj Tour */}
+                <div className="mt-4 flex flex-wrap items-center gap-5">
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={onTourClick}
+                    className="group bg-orange hover:bg-orange-hover text-[#F7F3EC] px-7 py-3.5 rounded-full font-sans font-medium text-[15px] flex items-center gap-2.5 shadow-[0_10px_28px_-10px_rgba(243,112,33,0.55)] transition-colors duration-300 cursor-pointer pointer-events-auto"
+                    data-cursor-label="look"
+                  >
+                    <span>Experience this at Sahaj Tour</span>
+                    <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  </motion.button>
                 </div>
               </motion.div>
             </AnimatePresence>
@@ -143,23 +143,22 @@ export default function ExperiencePanel({ item, index, total }: ExperiencePanelP
 
           {/* Large Hero Image (col-span-5) */}
           <div className="col-span-1 md:col-span-5 order-1 md:order-2 flex justify-center">
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-[0_20px_48px_-12px_rgba(43,168,158,0.22)] border border-teal/5 bg-[#FBF7F0]">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={`img-${item.id}`}
-                  variants={imageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  src={item.image}
-                  alt={item.alt}
-                  referrerPolicy="no-referrer"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </AnimatePresence>
+            <motion.div
+              key={`img-wrap-${item.id}`}
+              variants={imageVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-[0_20px_48px_-12px_rgba(43,168,158,0.22)] border border-teal/5 bg-[#FBF7F0]"
+            >
+              <CyclingImage
+                images={item.images}
+                alt={item.alt}
+                className="absolute inset-0 w-full h-full"
+              />
               {/* Soft overlay vignette */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none" />
-            </div>
+            </motion.div>
           </div>
 
         </div>
