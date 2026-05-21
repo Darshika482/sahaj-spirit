@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'motion/react';
 
 export default function Cursor() {
   const [hoveredType, setHoveredType] = useState<string | null>(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [velocity, setVelocity] = useState({ x: 0, y: 0 });
   const [isInsideForm, setIsInsideForm] = useState(false);
 
@@ -19,25 +19,31 @@ export default function Cursor() {
   const outerX = useSpring(mouseX, outerSpringConfig);
   const outerY = useSpring(mouseY, outerSpringConfig);
 
-  useEffect(() => {
-    // Check if it is a touch device
-    const checkTouch = () => {
-      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-      setIsTouchDevice(hasTouch);
-    };
+  const isVisibleRef = useRef(false);
 
-    checkTouch();
-
-    if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-      return;
+  const updateVisibility = (visible: boolean) => {
+    if (isVisibleRef.current !== visible) {
+      isVisibleRef.current = visible;
+      setIsVisible(visible);
     }
+  };
 
+  useEffect(() => {
     let lastX = 0;
     let lastY = 0;
     let lastTime = Date.now();
     let idleTimer: number;
 
+    const handleTouchStart = () => {
+      setIsTouchDevice(true);
+      updateVisibility(false);
+    };
+
     const moveMouse = (e: MouseEvent) => {
+      // If mouse moves, user is actively using a pointer device
+      setIsTouchDevice(false);
+      updateVisibility(true);
+
       const now = Date.now();
       const dt = now - lastTime;
       
@@ -53,7 +59,6 @@ export default function Cursor() {
         const vx = dx / dt; // pixels per ms
         const vy = dy / dt; // pixels per ms
         
-        // Cap velocity to keep the split within aesthetic limits
         const maxVel = 2.5;
         const cappedVx = Math.max(Math.min(vx, maxVel), -maxVel);
         const cappedVy = Math.max(Math.min(vy, maxVel), -maxVel);
@@ -65,8 +70,6 @@ export default function Cursor() {
       lastY = currentY;
       lastTime = now;
       
-      if (!isVisible) setIsVisible(true);
-
       clearTimeout(idleTimer);
       idleTimer = window.setTimeout(() => {
         setVelocity({ x: 0, y: 0 });
@@ -74,16 +77,12 @@ export default function Cursor() {
     };
 
     const handleMouseLeave = () => {
-      setIsVisible(false);
+      updateVisibility(false);
     };
 
     const handleMouseEnter = () => {
-      setIsVisible(true);
+      updateVisibility(true);
     };
-
-    window.addEventListener('mousemove', moveMouse);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -101,16 +100,21 @@ export default function Cursor() {
       }
     };
 
+    window.addEventListener('mousemove', moveMouse);
+    document.addEventListener('mouseleave', handleMouseLeave);
+    document.addEventListener('mouseenter', handleMouseEnter);
     window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', moveMouse);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
       window.removeEventListener('mouseover', handleMouseOver);
+      window.removeEventListener('touchstart', handleTouchStart);
       clearTimeout(idleTimer);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [mouseX, mouseY]);
 
   if (isTouchDevice || !isVisible) return null;
 
