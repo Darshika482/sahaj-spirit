@@ -41,8 +41,8 @@ const bubbles = [
     id: 'bubble-06',
     angle: 200,
     size: 152,
-    image: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?q=80&w=400&auto=format&fit=crop',
-    alt: 'Guided pilgrimage at the Sahaj Summit',
+    image: 'https://images.unsplash.com/photo-1533900298318-6b8da08a523e?q=80&w=400&auto=format&fit=crop',
+    alt: 'Sahaj Haat traditional mela and curated food stalls',
   },
   {
     id: 'bubble-07',

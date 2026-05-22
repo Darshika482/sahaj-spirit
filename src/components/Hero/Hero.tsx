@@ -12,7 +12,7 @@ import sahajLogo from '../../assets/hero/logo.png';
 import { SAHAJ_EASE } from '../../lib/motion';
 
 interface HeroProps {
-  onTourClick?: () => void;
+  onSummitClick?: () => void;
   onPhilosophyClick?: () => void;
 }
 
@@ -182,7 +182,7 @@ function CentralCircle() {
   );
 }
 
-export default function Hero({ onTourClick, onPhilosophyClick }: HeroProps) {
+export default function Hero({ onSummitClick, onPhilosophyClick }: HeroProps) {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#fdfcfa] via-white to-[#f8f6f3] pt-28 lg:pt-32">
       <div className="absolute inset-0">
@@ -318,10 +318,10 @@ export default function Hero({ onTourClick, onPhilosophyClick }: HeroProps) {
           >
             <button
               className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-[#f47f1f] to-[#ff9a3d] px-8 py-4 shadow-xl transition-all duration-300 hover:scale-105 hover:from-[#e67010] hover:to-[#f47f1f] hover:shadow-2xl"
-              onClick={onTourClick}
+              onClick={onSummitClick}
             >
               <span className="font-['Inter_Tight',sans-serif] text-base font-semibold text-white">
-                Experience Sahaj Tour '26
+                Experience Sahaj Summit '26
               </span>
               <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 16 16">
                 <path d="M3.33333 8H12.6667" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />

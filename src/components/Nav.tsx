@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import sahajLogo from '../assets/hero/logo.png';
 
@@ -6,7 +6,7 @@ const navLinks = [
   { name: 'Home', href: '#home' },
   { name: 'Philosophy', href: '#philosophy' },
   { name: 'Experiences', href: '#experiences' },
-  { name: 'Sahaj Tour', href: '#tour' },
+  { name: 'Sahaj Summit', href: '#summit' },
   { name: 'Contact', href: '#contact' }
 ];
 
@@ -48,6 +48,37 @@ export default function Nav({ onRegisterClick }: NavProps) {
   const [activeLink, setActiveLink] = useState('Home');
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const triggerPoint = 250;
+      let currentActive = 'Home';
+
+      // Check if user has scrolled to the bottom of the page
+      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100;
+
+      if (isAtBottom) {
+        currentActive = 'Contact';
+      } else {
+        for (const link of navLinks) {
+          const el = document.querySelector(link.href);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            if (rect.top <= triggerPoint && rect.bottom > triggerPoint) {
+              currentActive = link.name;
+              break;
+            }
+          }
+        }
+      }
+      setActiveLink(currentActive);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Call once initially
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleLinkClick = (name: string, href: string) => {
     setActiveLink(name);

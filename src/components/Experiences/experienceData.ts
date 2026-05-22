@@ -16,7 +16,7 @@ export const experiences: ExperienceItem[] = [
     id: '01',
     script: 'Sahaj',
     title: 'Workshop',
-    tagline: 'Where Mahavira meets your Monday morning.',
+    tagline: 'Decoding Jain concepts to align with your natural, effortless state.',
     body: 'An educational session that translates Jain principles — non-violence, non-possessiveness, many-sided understanding — into the texture of an ordinary, modern life. Beyond sects. Beyond rituals. Just lived.',
     images: [
       u('1517245386807-bb43f82c33c4'),
@@ -119,14 +119,14 @@ export const experiences: ExperienceItem[] = [
   {
     id: '09',
     script: 'Sahaj',
-    title: 'Sahaj Summit',
-    tagline: 'Walking the ground where memory still breathes.',
-    body: 'Guided pilgrimage through the Sahaj Summit\'s ancient Jain temples — mythology, history, and presence layered into every step. The land itself becomes the teacher.',
+    title: 'Sahaj Haat',
+    tagline: 'An open-air experiential space at Chidayatan where culture, conversations, food, creativity, and conscious living come together.',
+    body: 'Designed with the charm of a traditional mela, Sahaj Haat will feature curated food stalls, engaging activities, sponsored experiences, and interactive spaces that allow youngsters to explore the spirit of Sahaj in a lively and memorable way.',
     images: [
-      u('1596176530529-78163a4f7af2'),
-      u('1566552881560-0be862a7c445'),
-      u('1602643163983-ed0babc39797'),
+      u('1533900298318-6b8da08a523e'),
+      u('1588166524941-3bf61a9c41db'),
+      u('1511795409-ef04bbd61622'),
     ],
-    alt: 'Sahaj Summit - Walking on sacred grounds of heritage and silence',
+    alt: 'Sahaj Haat - An open-air experiential traditional mela space',
   },
 ];

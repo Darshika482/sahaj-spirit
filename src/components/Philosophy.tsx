@@ -1,24 +1,8 @@
 import { motion } from 'motion/react';
 import { fadeInUp, staggerContainer } from '../lib/motion';
 import BlurText from './shared/BlurText';
+import sahajLogoExplained from '../assets/sahaj logo explained.jpg';
 
-const philosophyPillars = [
-  {
-    title: 'Effortlessness',
-    hindi: 'सहजता',
-    description: 'Stop fighting yourself. Modern life teaches you to constantly push, stress, and perform. Sahajta is the art of effortless alignment — letting go of psychological resistance to let your natural joy, calm, and intelligence breathe.',
-  },
-  {
-    title: 'Awareness',
-    hindi: 'सम्यक्त्व',
-    description: 'A quiet, unshakeable presence. Inspired by Mahavira’s pure perspective, we translate ancient Jain mindfulness into the speed of absolute modernity. It is not about escaping your Monday mornings, but meeting them fully awake.',
-  },
-  {
-    title: 'Compassion',
-    hindi: 'संयम',
-    description: 'Loving everything that breathes. Living with active non-violence (Ahimsa) and intentional simplicity. When we trim away the clutter of consumerism and validation-seeking, we discover we are already whole on our own.',
-  },
-];
 
 export default function Philosophy() {
   return (
@@ -29,7 +13,7 @@ export default function Philosophy() {
 
       <div className="w-full max-w-7xl mx-auto flex flex-col items-center">
         {/* Header Block */}
-        <div className="w-full text-center max-w-3xl mb-16 sm:mb-24">
+        <div className="w-full text-center max-w-3xl mb-8 sm:mb-12">
           <BlurText
             as="span"
             className="font-sans font-medium text-[12px] uppercase tracking-[0.18em] text-teal block mb-4"
@@ -53,40 +37,38 @@ export default function Philosophy() {
           </BlurText>
         </div>
 
-        {/* Pillars Grid */}
-        <motion.div 
+
+        {/* Gallery / Showcases */}
+        <motion.div
           variants={staggerContainer(0.12, 0.1)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="w-full grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12"
+          className="w-full flex flex-col gap-12 sm:gap-16"
         >
-          {philosophyPillars.map((pillar, idx) => (
-            <motion.div
-              key={pillar.title}
-              variants={fadeInUp}
-              className="bg-[#F7F3EC]/50 hover:bg-[#F7F3EC]/80 border border-teal/5 rounded-2xl p-8 sm:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.015)] transition-all duration-500 flex flex-col items-start text-left relative group overflow-hidden"
-            >
-              <div className="absolute -right-4 -top-4 font-serif text-[100px] text-teal/5 font-bold group-hover:scale-110 group-hover:text-teal/8 select-none transition-all duration-750">
-                {idx + 1}
+          {/* Card 1: Logo Explained */}
+          <motion.div
+            variants={fadeInUp}
+            className="group flex flex-col bg-[#F7F3EC]/50 hover:bg-[#F7F3EC]/80 border border-teal/5 rounded-2xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.015)] transition-all duration-500 w-full"
+          >
+            <div>
+              <div className="overflow-hidden rounded-xl bg-white border border-teal/5 flex items-center justify-center p-6 sm:p-8 relative w-full">
+                <img
+                  src={sahajLogoExplained}
+                  alt="Sahaj Logo Explained"
+                  className="w-full h-auto object-contain transition-transform duration-750 group-hover:scale-[1.01]"
+                  draggable={false}
+                />
               </div>
-
-              {/* Hindi Transliteration Label */}
-              <span className="font-script text-[32px] text-teal leading-none mb-2">
-                {pillar.hindi}
-              </span>
-
-              {/* Title */}
-              <h3 className="font-serif text-[26px] font-normal text-ink leading-tight mb-4 group-hover:text-teal transition-colors duration-300">
-                {pillar.title}
-              </h3>
-
-              {/* Description */}
-              <p className="font-sans text-[15px] sm:text-[16px] leading-[1.6] text-ink-soft relative z-10">
-                {pillar.description}
+              <h4 className="font-serif text-[22px] font-normal text-ink mt-6 mb-2">
+                The Sahaj Emblem Explained
+              </h4>
+              <p className="font-sans text-[15px] leading-[1.6] text-ink-soft">
+                A visual guide to the sacred geometry and profound spiritual symbolism integrated into the Sahaj Summit identity.
               </p>
-            </motion.div>
-          ))}
+            </div>
+          </motion.div>
+
         </motion.div>
       </div>
     </section>

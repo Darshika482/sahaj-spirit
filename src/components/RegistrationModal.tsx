@@ -297,7 +297,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
                     <div className="bg-teal text-white p-4 text-left flex justify-between items-center">
                       <div className="flex flex-col">
                         <span className="text-[9px] uppercase tracking-widest text-[#F7F3EC]/80">MEMBERSHIP SEAT</span>
-                        <span className="font-serif text-lg leading-none font-bold">SAHAJ TOUR '26</span>
+                        <span className="font-serif text-lg leading-none font-bold">SAHAJ SUMMIT '26</span>
                       </div>
                       <div className="text-right flex flex-col">
                         <span className="text-[9px] uppercase tracking-widest text-[#F7F3EC]/80">TICKET STATUS</span>

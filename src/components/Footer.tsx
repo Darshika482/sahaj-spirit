@@ -166,7 +166,7 @@ export default function Footer() {
                 { label: 'Home & Base', target: '#home' },
                 { label: 'Our Philosophy', target: '#philosophy' },
                 { label: '9 Experiences', target: '#experiences' },
-                { label: 'Sahaj Tour 2026', target: '#tour' },
+                { label: 'Sahaj Summit 2026', target: '#summit' },
               ].map((item, i) => (
                 <button
                   key={i}

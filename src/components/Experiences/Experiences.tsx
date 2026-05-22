@@ -7,10 +7,89 @@ import BlurText from '../shared/BlurText';
 import { SAHAJ_EASE } from '../../lib/motion';
 
 interface ExperiencesProps {
-  onTourClick?: () => void;
+  onSummitClick?: () => void;
 }
 
-export default function Experiences({ onTourClick }: ExperiencesProps) {
+function SiddhaJiIcon({ className = "w-10 h-10 text-teal/80" }: { className?: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 150 150"
+      className={`${className} fill-current select-none`}
+    >
+      <path d="m12.1 120.5c3.8 5.2 11.3 14.6 20.8 18.7 1.6 0.5 2.6 1.2 3.7 1.8 2.5 1.5 5.6 2.5 8 3.1 9.1 2.7 13.8 4.5 29.3 4.9 12.2 0.1 25.3-1.5 34.9-5.7 11-4.8 19.1-12.4 29.1-28.2-3.3 4-11.4 11.2-17.5 15.3-2.8 1.7-6.2 3.6-11.2 5-4.2 1.4-8.6 2.7-13.7 3.5-6.5 0.9-14.4 1.6-22.8 1.6-13.4-0.3-22.7-1-37.7-5.9-2.6-0.5-5.7-2.1-8.7-3.9-3.2-1.9-6.5-4-8.9-5.5-3.9-2.6-3.9-3-5.3-4.7z"/>
+      <path d="m126.8 110.7c-0.6-1.9-2.4-4.8-5.1-6.1-2-0.8-3.6-0.9-5-1.1-2.3-0.5-4.2-1.3-9-2-2.7-0.3-7.1-0.6-8.9-1.3l-3.4-1.4c3.8-2.1 6.7-4.2 9.2-5.8 2.1-1.2 3.8-3.3 5.6-5.8 1.5-2 1.2-4.9 0.8-6.5-0.6-4.3-1.6-8.8-2.3-14.6-1-7.5-4.1-16.8-6.7-22.2-0.9-1.6-2.2-2.1-3.4-3.1-1.6-1-2.4-1.3-4.3-2-3.9-1.4-5.6-1.6-10.9-2-1.3-0.2-2.9-0.6-4.4-1.1-0.4-0.2-0.9-5.6-0.4-6.3 1-1.2 1.5-2.2 1.9-3.9 0.4 1.7 2 1.3 2.2-0.6 0.9-2.7 2.4-6.4 2.5-8.7-0.1-1.7-1.5-1.9-2.9-0.4-0.2-0.6-0.4-1.9-0.4-3.2-0.5-5-2.9-10-6.3-10.7-1.3-0.4-5.6-1.1-8.5-0.4-1.1 0-2.1-0.1-3.1 0.4-3.5 1.3-7.4 6.2-7.3 14.3v0.9c-1.3-0.9-3.2-1.4-3 0.7 0.3 1.8 1.4 3.2 2.3 5.4 0.9 1.9 1.6 4.9 2.6 5 0.5 0 0.8-0.8 1.1-1.8 0.4 1.2 1.3 2.5 1.8 3.3 0.2 3.9 0.1 6.2-1.1 6.8-0.8 0.3-1.3 0.3-3 0.6-3.7 0.5-5 1.1-8.3 2.3-1.7 0.5-3.7 1.4-6.5 2.6-2.7 1.2-3.7 3.5-4.7 6.6-2.8 8.2-6 24.4-6.3 33 0 1.9 0.5 3.6 1 4.6 1.4 3.3 3.8 5.6 6.3 6.8 2.8 1.5 5.1 3.2 10.7 5.4 0.5 0.3 1.3 0.6 1.3 0.9-0.8 1.3-4.5 2.4-7.4 4.1-2.1 0.5-2.9-0.2-8.4 1.7-2.7 0.9-5.2 2-8.4 3.7-1.8 1-2.8 2.2-4.1 4.2-1.2 2-1.5 4.2-0.6 6.2 0.9 2.9 2.1 4.9 5.6 6.9 5.4 2.7 10.3 2.9 16.5 2.1 7.8-0.8 12.8-1.8 20.4-3.7 5.6-1.3 8.2-3.1 10-3.4 1.4-0.1 2.4 0.3 4.2 0.6 2.8 0.7 4.8 0.8 8 1.2 4.8 0.7 15.4 1.6 21.2 1.8 2.8 0 8-0.1 10.2-0.6 3.3-0.6 4.6-1.5 7.4-4.6 1.1-1.1 1.6-3.1 2-4.5 0.2-0.9 0.2-2.8-0.7-4.3zm-74.3-21.3c-1.3-0.6-1.9-2-3.1-3-1.7-1.6-3.8-3-6.2-4.2-0.2-1.3 0.9-5.3 1.5-7.2 1-3.5 1.9-8.9 2.7-9.9 0.6-0.2 3.2 4.1 3.6 6 0.5 1.8 1.7 3.4 2.2 5.9 0.8 4.2 0.4 12.7-0.7 12.4zm48-7.9c-1.1 1.5-4.4 3.9-6.5 6.4l-1.1 1.5c-1.3-1.5-2.3-5-2.3-9.4 0-2.1 0.3-4.6 1-6.5l3.9-10c0.5-0.5 1.1 4.1 2.2 7.1 1.4 4.9 3.3 10.3 2.8 10.9z"/>
+    </svg>
+  );
+}
+
+function UnderlineSvg() {
+  return (
+    <svg
+      className="absolute left-0 bottom-[-10px] sm:bottom-[-12px] w-full h-[10px] sm:h-[12px] text-orange/80 pointer-events-none"
+      viewBox="0 0 200 12"
+      fill="none"
+      preserveAspectRatio="none"
+    >
+      <motion.path
+        d="M 4 8 C 60 2, 140 2, 196 8 C 140 6, 60 6, 4 8"
+        stroke="currentColor"
+        strokeWidth="3"
+        strokeLinecap="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{ pathLength: 1, opacity: 1 }}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+      />
+    </svg>
+  );
+}
+
+function PremiumIconOrnament() {
+  return (
+    <div className="relative flex items-center justify-center mb-6 mt-2">
+      {/* Outer spinning dashed circle border */}
+      <motion.div
+        className="absolute w-20 h-20 rounded-full border border-dashed border-teal/30"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+      />
+      
+      {/* Outer ring with gradient glow pulsing */}
+      <motion.div
+        className="absolute w-16 h-16 rounded-full bg-teal/5 blur-md"
+        animate={{ scale: [1, 1.15, 1] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      {/* Orbiting orange sparkle dot */}
+      <div className="absolute w-20 h-20 pointer-events-none">
+        <motion.div
+          className="absolute w-2.5 h-2.5 rounded-full bg-orange shadow-[0_0_8px_var(--color-orange)]"
+          style={{
+            top: 0,
+            left: 'calc(50% - 5px)',
+            transformOrigin: '5px 40px', // radius is 40px (half of 80px)
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+        />
+      </div>
+
+      {/* Inner solid ring */}
+      <div className="w-14 h-14 rounded-full bg-[#FBF7F0] border border-teal/15 flex items-center justify-center relative shadow-sm">
+        {/* Floating icon */}
+        <motion.div
+          animate={{ y: [-3, 3, -3] }}
+          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <SiddhaJiIcon className="w-8 h-8 text-teal" />
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+export default function Experiences({ onSummitClick }: ExperiencesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -90,31 +169,41 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
   // --- MOBILE LAYOUT: Full-bleed vertical scroll of cards ---
   if (isMobile) {
     return (
-      <section id="experiences" className="bg-[#F7F3EC] py-20 px-4 sm:px-6 flex flex-col gap-12">
+      <section 
+        id="experiences" 
+        className="py-20 px-4 sm:px-6 bg-[#F7F3EC] flex flex-col gap-12"
+      >
         {/* Mobile Intro */}
-        <div className="w-full text-center py-10 border-b border-teal/10">
-          <div className="w-12 h-[1px] bg-teal mx-auto mb-4" />
+        <div className="w-full text-center py-12 border-b border-teal/10 flex flex-col items-center">
+          <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-teal/70 mb-3 block">
+            The Signature Paths
+          </span>
+          <PremiumIconOrnament />
           <BlurText
             as="h2"
-            mode="words"
-            stagger={0.06}
-            duration={0.8}
-            className="font-serif text-[32px] sm:text-[40px] text-ink leading-tight font-normal mb-6"
-            text="Nine ways to come home to yourself."
-          />
+            mode="fade"
+            duration={0.9}
+            className="font-serif text-[32px] sm:text-[40px] text-ink leading-[1.2] font-normal mb-8 max-w-md px-2"
+          >
+            Nine ways to come home{' '}
+            <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal to-teal-deep italic font-serif">
+              to yourself.
+              <UnderlineSvg />
+            </span>
+          </BlurText>
           <BlurText
             as="p"
             delay={0.2}
-            className="font-sans text-[15px] text-ink-soft max-w-md mx-auto"
+            className="font-sans text-[15px] text-ink-soft max-w-md mx-auto mt-2 leading-relaxed"
           >
-            Explore the key immersive components that structure the Soulful Alliance of Happiness and Joy.
+            Every Sahaj assembly hosts 9 signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
           </BlurText>
         </div>
 
         {/* Mobile Experience List */}
         <div className="flex flex-col gap-16">
           {experiences.map((item) => (
-            <div key={item.id} className="flex flex-col gap-6 bg-[#FBF7F0]/60 p-6 rounded-2xl border border-teal/5">
+            <div key={item.id} className="flex flex-col gap-6 bg-white/80 p-6 rounded-2xl border border-teal/5">
               {/* Image (cycles every 1.5s, paused on hover) */}
               <CyclingImage
                 images={item.images}
@@ -149,10 +238,10 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                 {/* CTA */}
                 <motion.button
                   whileTap={{ scale: 0.98 }}
-                  onClick={onTourClick}
+                  onClick={onSummitClick}
                   className="group bg-orange hover:bg-orange-hover text-[#F7F3EC] px-6 py-3 rounded-full font-sans font-medium text-[14px] inline-flex items-center gap-2 shadow-[0_8px_20px_-8px_rgba(243,112,33,0.5)] transition-colors duration-300"
                 >
-                  <span>Experience this at Sahaj Tour</span>
+                  <span>Experience this at Sahaj Summit</span>
                   <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </motion.button>
               </div>
@@ -167,10 +256,10 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
           </h4>
           <motion.button
             whileTap={{ scale: 0.98 }}
-            onClick={onTourClick}
+            onClick={onSummitClick}
             className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-6 py-3.5 rounded-full font-sans font-medium text-[14px] shadow-lg flex items-center gap-2"
           >
-            See Sahaj Tour 2026
+            See Sahaj Summit 2026
             <span className="inline-block">→</span>
           </motion.button>
         </div>
@@ -184,7 +273,7 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
       ref={containerRef}
       id="experiences" 
       className="relative w-full bg-[#F7F3EC]"
-      style={{ height: '1100vh' }} // 100vh per transition + entry + exit
+      style={{ height: '1100vh' }}
     >
       {/* Sticky Sub-wrapper */}
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-center select-none bg-gradient-to-b from-[#F7F3EC] via-[#FBF7F0] to-[#F7F3EC]">
@@ -273,23 +362,38 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                 transition={{ duration: 0.8, ease: SAHAJ_EASE }}
                 className="flex flex-col items-center justify-center text-center px-4"
               >
-                <div className="w-16 h-[1.5px] bg-teal mb-6" />
-                <h2 className="font-serif font-normal text-[clamp(44px,5.5vw,76px)] text-ink leading-tight max-w-4xl tracking-tight mb-8">
-                  Nine ways to come home <span className="italic text-teal">to yourself.</span>
+                <span className="font-mono text-xs uppercase tracking-[0.25em] text-teal/70 mb-3 block animate-pulse">
+                  The Signature Paths
+                </span>
+                <PremiumIconOrnament />
+                <h2 className="font-serif font-normal text-[clamp(44px,5.5vw,76px)] text-ink leading-tight max-w-4xl tracking-tight mb-10">
+                  Nine ways to come home{' '}
+                  <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal to-teal-deep italic font-serif pb-2">
+                    to yourself.
+                    <UnderlineSvg />
+                  </span>
                 </h2>
-                <p className="font-sans text-[17px] text-ink-soft max-w-lg leading-relaxed mb-6">
+                <p className="font-sans text-[17px] sm:text-[18px] text-ink-soft max-w-xl leading-relaxed mb-10">
                   Every Sahaj assembly hosts 9 signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
                 </p>
-                <motion.div
-                  animate={{ y: [0, 8, 0] }}
-                  transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-                  className="text-teal/50 font-sans text-xs uppercase tracking-widest mt-8 flex flex-col items-center gap-2"
-                >
-                  <span>SCROLL DOWN</span>
-                  <svg className="w-5 h-5 text-teal/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19 13l-7 7-7-7m14-6l-7 7-7-7" />
-                  </svg>
-                </motion.div>
+                <div className="mt-4 flex flex-col items-center gap-3">
+                  <span className="text-teal/60 font-sans text-xs uppercase tracking-[0.25em] font-medium">
+                    Scroll to explore
+                  </span>
+                  <div className="w-[1.5px] h-16 bg-teal/10 relative overflow-hidden rounded-full">
+                    <motion.div
+                      className="absolute top-0 left-0 w-full h-8 bg-gradient-to-b from-transparent via-teal to-transparent"
+                      animate={{
+                        y: [-32, 64],
+                      }}
+                      transition={{
+                        repeat: Infinity,
+                        duration: 1.8,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  </div>
+                </div>
               </motion.div>
             )}
 
@@ -307,7 +411,7 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                   item={experiences[currentStep - 1]}
                   index={currentStep - 1}
                   total={experiences.length}
-                  onTourClick={onTourClick}
+                  onSummitClick={onSummitClick}
                 />
               </motion.div>
             )}
@@ -322,7 +426,7 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                 transition={{ duration: 0.8, ease: SAHAJ_EASE }}
                 className="flex flex-col items-center justify-center text-center px-4"
               >
-                <div className="w-16 h-[1.5px] bg-teal mb-6" />
+                <SiddhaJiIcon className="w-10 h-10 text-teal mb-6" />
                 <h2 className="font-serif font-normal italic text-[clamp(40px,5vw,68px)] text-ink leading-tight max-w-4xl tracking-tight mb-10">
                   “And every one of these waits for you at the Sahaj Summit.”
                 </h2>
@@ -334,11 +438,11 @@ export default function Experiences({ onTourClick }: ExperiencesProps) {
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={onTourClick}
+                  onClick={onSummitClick}
                   className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-8 py-4.5 rounded-full font-sans font-medium text-16 flex items-center gap-2 shadow-[0_12px_28px_-8px_rgba(243,112,33,0.5)] transition-all duration-300 pointer-events-auto cursor-pointer"
                   data-cursor-label="look"
                 >
-                  <span>See Sahaj Tour 2026</span>
+                  <span>See Sahaj Summit 2026</span>
                   <span className="inline-block">→</span>
                 </motion.button>
               </motion.div>

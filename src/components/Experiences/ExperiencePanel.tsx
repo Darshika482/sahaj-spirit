@@ -7,10 +7,10 @@ interface ExperiencePanelProps {
   item: ExperienceItem;
   index: number;
   total: number;
-  onTourClick?: () => void;
+  onSummitClick?: () => void;
 }
 
-export default function ExperiencePanel({ item, onTourClick }: ExperiencePanelProps) {
+export default function ExperiencePanel({ item, onSummitClick }: ExperiencePanelProps) {
 
   // Variants according to guidelines
   const numberVariants = {
@@ -125,11 +125,11 @@ export default function ExperiencePanel({ item, onTourClick }: ExperiencePanelPr
                 <motion.button
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={onTourClick}
+                  onClick={onSummitClick}
                   className="group bg-orange hover:bg-orange-hover text-[#F7F3EC] px-7 py-3.5 rounded-full font-sans font-medium text-[15px] flex items-center gap-2.5 shadow-[0_10px_28px_-10px_rgba(243,112,33,0.55)] hover:shadow-[0_15px_32px_-8px_rgba(243,112,33,0.65)] transition-all duration-300 cursor-pointer pointer-events-auto"
                   data-cursor-label="look"
                 >
-                  <span>Experience this at Sahaj Tour</span>
+                  <span>Experience this at Sahaj Summit</span>
                   <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </motion.button>
               </div>

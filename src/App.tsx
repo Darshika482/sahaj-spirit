@@ -24,8 +24,8 @@ export default function App() {
     }
   };
 
-  const handleTourScroll = () => {
-    const el = document.querySelector('#tour');
+  const handleSummitScroll = () => {
+    const el = document.querySelector('#summit');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -42,7 +42,7 @@ export default function App() {
 
         {/* Hero Section centerpiece with dual-rotating clockwise-counter orb bubbles */}
         <Hero 
-          onTourClick={handleTourScroll} 
+          onSummitClick={handleSummitScroll} 
           onPhilosophyClick={handlePhilosophyScroll} 
         />
 
@@ -53,7 +53,7 @@ export default function App() {
         <Philosophy />
 
         {/* The Nine Immersive Experiences scrolling pins or responsive stacked sheets */}
-        <Experiences onTourClick={handleTourScroll} />
+        <Experiences onSummitClick={handleSummitScroll} />
 
         {/* The Sahaj tour details containing JITO sponsorships & Countdown ticks */}
         <Tour onRegisterClick={handleRegisterOpen} />

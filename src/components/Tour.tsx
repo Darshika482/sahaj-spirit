@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
-import { fadeInUp, staggerContainer } from '../lib/motion';
 import BlurText from './shared/BlurText';
 
 interface TourProps {
@@ -39,49 +38,6 @@ export default function Tour({ onRegisterClick }: TourProps) {
     return () => clearInterval(interval);
   }, []);
 
-  const tourFeatures = [
-    {
-      index: '01',
-      title: 'Ancient Heritage Bhraman',
-      desc: 'Guided silence walking tour through the Sahaj Summit’s mythological ruins, oldest temples, and calm meditation parks.',
-      icon: (
-        <svg className="w-5 h-5 transition-colors duration-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 21h18M5 21v-8a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v8M12 2v4M9 6h6M7 12V8a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4M10 21v-5a2 2 0 0 1 4 0v5" />
-        </svg>
-      )
-    },
-    {
-      index: '02',
-      title: 'Youth Summit Assembly',
-      desc: 'Connect with 500+ corporate professionals, students, and thinkers in highly raw modern debates and discussions.',
-      icon: (
-        <svg className="w-5 h-5 transition-colors duration-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 0 1-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-        </svg>
-      )
-    },
-    {
-      index: '03',
-      title: 'Divine Musical Keertan',
-      desc: 'An evening of live instrumental fusion and devotional jamming that resonates deep within your soul.',
-      icon: (
-        <svg className="w-5 h-5 transition-colors duration-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9 19V6l12-3v13M9 10l12-3M9 14l12-3M9 19c0 1.657-1.79 3-4 3s-4-1.343-4-3 1.79-3 4-3 4 1.343 4 3zm12-3c0 1.657-1.79 3-4 3s-4-1.343-4-3 1.79-3 4-3 4 1.343 4 3z" />
-        </svg>
-      )
-    },
-    {
-      index: '04',
-      title: 'Exquisite Jain Food',
-      desc: 'Sophisticated global dishes prepared purely according to traditional Jain spiritual standards.',
-      icon: (
-        <svg className="w-5 h-5 transition-colors duration-300" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707-.707M12 5a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm-4 7a4 4 0 0 1 8 0H8z" />
-        </svg>
-      )
-    }
-  ];
-
   // Circumference for radius 54 is ~339.3
   const circumference = 339.3;
   const secsRatio = timeLeft.seconds / 60;
@@ -90,7 +46,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
   const daysRatio = Math.min(timeLeft.days / 365, 1);
 
   return (
-    <section id="tour" className="py-24 sm:py-32 px-6 sm:px-12 bg-[#F7F3EC] border-t border-teal/5 relative overflow-hidden select-none">
+    <section id="summit" className="py-24 sm:py-32 px-6 sm:px-12 bg-[#F7F3EC] border-t border-teal/5 relative overflow-hidden select-none">
       
       {/* Ambient background glow behind title */}
       <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[350px] h-[350px] bg-gradient-radial from-teal/5 to-transparent blur-[80px] pointer-events-none" />
@@ -262,32 +218,31 @@ export default function Tour({ onRegisterClick }: TourProps) {
 
         </div>
 
-        {/* Content detail layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start w-full">
+        {/* Expanded Ticket Pass */}
+        <div className="w-full max-w-5xl mx-auto bg-[#FCF9F3] p-8 sm:p-10 border-4 border-double border-teal/15 rounded-3xl flex flex-col lg:flex-row items-stretch text-left shadow-[0_24px_64px_-24px_rgba(43,168,158,0.18)] relative overflow-visible">
           
-          {/* Left: Textured Pilgrimage Ticket Pass (col-span-5) */}
-          <div className="col-span-1 lg:col-span-5 bg-[#FCF9F3] p-8 sm:p-10 border-4 border-double border-teal/15 rounded-3xl flex flex-col items-stretch text-left shadow-[0_24px_64px_-24px_rgba(43,168,158,0.18)] relative overflow-visible">
-            
-            {/* Golden Seal Watermark Stamp */}
-            <div className="absolute top-6 right-6 w-14 h-14 rounded-full border border-orange/20 flex items-center justify-center text-center rotate-[15deg] pointer-events-none opacity-[0.35] select-none">
-              <div className="w-12 h-12 rounded-full border border-dashed border-orange/20 flex flex-col items-center justify-center p-0.5">
-                <span className="font-sans text-[6px] tracking-widest text-orange font-bold uppercase leading-none">SAHAJ</span>
-                <span className="font-script text-xs text-orange font-bold leading-tight my-0.5">Summit</span>
-                <span className="font-sans text-[5px] tracking-wider text-orange uppercase leading-none">2026</span>
-              </div>
+          {/* Golden Seal Watermark Stamp */}
+          <div className="absolute top-6 right-6 w-14 h-14 rounded-full border border-orange/20 flex items-center justify-center text-center rotate-[15deg] pointer-events-none opacity-[0.35] select-none">
+            <div className="w-12 h-12 rounded-full border border-dashed border-orange/20 flex flex-col items-center justify-center p-0.5">
+              <span className="font-sans text-[6px] tracking-widest text-orange font-bold uppercase leading-none">SAHAJ</span>
+              <span className="font-script text-xs text-orange font-bold leading-tight my-0.5">Summit</span>
+              <span className="font-sans text-[5px] tracking-wider text-orange uppercase leading-none">2026</span>
             </div>
+          </div>
 
+          {/* Left section: Ticket Main Stub */}
+          <div className="flex-grow flex flex-col justify-between text-left pr-0 lg:pr-8">
             {/* Ticket Header Stub */}
             <div className="flex justify-between items-center w-full mb-6 font-mono text-[9px] tracking-[0.25em] text-[#8B8B8B] uppercase border-b border-teal/5 pb-4">
               <span>SUMMIT PASS #2026</span>
-              <span className="text-teal font-bold">★ OFFICIAL ADMIT</span>
+              <span className="text-teal font-bold lg:hidden">★ OFFICIAL ADMIT</span>
             </div>
 
             <div className="flex flex-col items-start text-left">
               <BlurText
                 as="h3"
                 duration={0.9}
-                className="font-serif text-[32px] font-normal text-ink leading-tight mb-4"
+                className="font-serif text-[32px] sm:text-[36px] font-normal text-ink leading-tight mb-4"
               >
                 The Ancient Soil
               </BlurText>
@@ -295,7 +250,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
               <BlurText
                 as="p"
                 delay={0.1}
-                className="font-sans text-[14px] leading-[1.65] text-ink-soft mb-5"
+                className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-ink-soft mb-5"
               >
                 The Sahaj Summit is not just a destination. It is held on the birthplace of multiple Jain Tirthankaras — where the soil itself vibrates with the memories of massive renunciations, absolute stillness, and ultimate wisdom.
               </BlurText>
@@ -303,28 +258,14 @@ export default function Tour({ onRegisterClick }: TourProps) {
               <BlurText
                 as="p"
                 delay={0.2}
-                className="font-sans text-[14px] leading-[1.65] text-ink-soft mb-2"
+                className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-ink-soft mb-6"
               >
                 On <strong>September 6, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
               </BlurText>
             </div>
 
-            {/* Tear-off Line with Circle Bites */}
-            <div className="relative w-full my-8 flex items-center justify-center">
-              <div className="absolute left-0 right-0 border-t border-dashed border-teal/20" />
-              {/* Tear off instruction text */}
-              <span className="relative bg-[#FCF9F3] px-3.5 font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B]/60 uppercase z-10 select-none">
-                FOLD & TEAR ALONG THIS LINE
-              </span>
-              {/* Left Bite */}
-              <div className="absolute w-8 h-8 bg-[#F7F3EC] rounded-full -left-[48px] sm:-left-[56px] border border-teal/10 shadow-[inset_-3px_0_6px_rgba(0,0,0,0.02)] z-10" />
-              {/* Right Bite */}
-              <div className="absolute w-8 h-8 bg-[#F7F3EC] rounded-full -right-[48px] sm:-right-[56px] border border-teal/10 shadow-[inset_3px_0_6px_rgba(0,0,0,0.02)] z-10" />
-            </div>
-
             {/* Ticket Travel Details Stub */}
-            <div className="grid grid-cols-2 gap-y-5 gap-x-4 w-full">
-              
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-y-5 gap-x-4 w-full mt-auto pt-4 border-t border-teal/5">
               {/* DATE */}
               <div className="flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-teal/[0.04] flex items-center justify-center text-teal border border-teal/10 shrink-0">
@@ -384,36 +325,67 @@ export default function Tour({ onRegisterClick }: TourProps) {
                   <span className="font-sans text-xs font-semibold text-ink leading-tight">JITO Chapters</span>
                 </div>
               </div>
+            </div>
+          </div>
 
+          {/* Tear-off Line with Circle Bites (Mobile only) */}
+          <div className="relative w-full my-8 flex items-center justify-center lg:hidden">
+            <div className="absolute left-0 right-0 border-t border-dashed border-teal/20" />
+            <span className="relative bg-[#FCF9F3] px-3.5 font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B]/60 uppercase z-10 select-none">
+              FOLD & TEAR ALONG THIS LINE
+            </span>
+            <div className="absolute w-8 h-8 bg-[#F7F3EC] rounded-full -left-[48px] sm:-left-[56px] border border-teal/10 shadow-[inset_-3px_0_6px_rgba(0,0,0,0.02)] z-10" />
+            <div className="absolute w-8 h-8 bg-[#F7F3EC] rounded-full -right-[48px] sm:-right-[56px] border border-teal/10 shadow-[inset_3px_0_6px_rgba(0,0,0,0.02)] z-10" />
+          </div>
+
+          {/* Desktop Vertical Tear-off Line */}
+          <div className="hidden lg:flex flex-col items-center justify-center relative w-[1px] self-stretch mx-6 shrink-0">
+            <div className="absolute top-0 bottom-0 border-l border-dashed border-teal/20" />
+            <span className="absolute bg-[#FCF9F3] py-4 font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B]/60 uppercase rotate-90 whitespace-nowrap z-10 select-none">
+              FOLD & TEAR ALONG THIS LINE
+            </span>
+            <div className="absolute w-8 h-8 bg-[#F7F3EC] rounded-full -top-[56px] border border-teal/10 shadow-[inset_0_-3px_6px_rgba(0,0,0,0.02)] z-10" />
+            <div className="absolute w-8 h-8 bg-[#F7F3EC] rounded-full -bottom-[56px] border border-teal/10 shadow-[inset_0_3px_6px_rgba(0,0,0,0.02)] z-10" />
+          </div>
+
+          {/* Right section: Ticket Stub Barcode / Admit Stub */}
+          <div className="w-full lg:w-[320px] mt-8 lg:mt-0 flex flex-col justify-between items-stretch pl-0 lg:pl-8 pt-6 lg:pt-0 border-t lg:border-t-0 border-dashed border-teal/20 shrink-0">
+            
+            {/* Header Stub for Desktop */}
+            <div className="hidden lg:flex justify-between items-center w-full mb-6 font-mono text-[9px] tracking-[0.25em] text-[#8B8B8B] uppercase border-b border-teal/5 pb-4">
+              <span>★ OFFICIAL ADMIT</span>
             </div>
 
-            {/* Decorative SVG Barcode */}
-            <div className="w-full mt-8 flex flex-col items-center gap-2 border-t border-teal/10 pt-6">
-              <div className="flex items-center justify-center gap-[2px] h-9 w-full opacity-55">
-                <div className="w-[3px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[4px] h-full bg-ink" />
-                <div className="w-[2px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[3px] h-full bg-ink" />
-                <div className="w-[2px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[5px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[2px] h-full bg-ink" />
-                <div className="w-[4px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[3px] h-full bg-ink" />
-                <div className="w-[2px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[5px] h-full bg-ink" />
-                <div className="w-[2px] h-full bg-ink" />
-                <div className="w-[3px] h-full bg-ink" />
-                <div className="w-[1px] h-full bg-ink" />
-                <div className="w-[4px] h-full bg-ink" />
+            {/* Content actions */}
+            <div className="flex-grow flex flex-col justify-center items-center py-6">
+              {/* Decorative SVG Barcode */}
+              <div className="w-full flex flex-col items-center gap-2">
+                <div className="flex items-center justify-center gap-[2px] h-10 w-full opacity-70">
+                  <div className="w-[3px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[4px] h-full bg-ink" />
+                  <div className="w-[2px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[3px] h-full bg-ink" />
+                  <div className="w-[2px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[5px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[2px] h-full bg-ink" />
+                  <div className="w-[4px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[3px] h-full bg-ink" />
+                  <div className="w-[2px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[5px] h-full bg-ink" />
+                  <div className="w-[2px] h-full bg-ink" />
+                  <div className="w-[3px] h-full bg-ink" />
+                  <div className="w-[1px] h-full bg-ink" />
+                  <div className="w-[4px] h-full bg-ink" />
+                </div>
+                <span className="font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-06092026-CONFIRMED</span>
               </div>
-              <span className="font-mono text-[8px] tracking-[0.35em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-06092026-CONFIRMED</span>
             </div>
 
             {/* Book Ticket Button with Shimmer sweep */}
@@ -421,7 +393,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
               whileHover={{ scale: 1.015 }}
               whileTap={{ scale: 0.985 }}
               onClick={onRegisterClick}
-              className="relative overflow-hidden bg-orange text-[#F7F3EC] px-7 py-4 rounded-xl font-sans font-bold text-[13px] tracking-wider uppercase mt-6 w-full flex items-center justify-center gap-2 shadow-[0_10px_24px_-8px_rgba(243,112,33,0.4)] hover:shadow-[0_16px_36px_-8px_rgba(243,112,33,0.5)] transition-all duration-300 cursor-pointer border border-transparent group/btn"
+              className="relative overflow-hidden bg-orange text-[#F7F3EC] px-7 py-4 rounded-xl font-sans font-bold text-[13px] tracking-wider uppercase mt-4 w-full flex items-center justify-center gap-2 shadow-[0_10px_24px_-8px_rgba(243,112,33,0.4)] hover:shadow-[0_16px_36px_-8px_rgba(243,112,33,0.5)] transition-all duration-300 cursor-pointer border border-transparent group/btn"
               data-cursor-label="look"
             >
               {/* Shimmer Light element */}
@@ -434,49 +406,6 @@ export default function Tour({ onRegisterClick }: TourProps) {
               <span>Book My Ticket →</span>
             </motion.button>
           </div>
-
-          {/* Right: Feature columns (col-span-7) */}
-          <div className="col-span-1 lg:col-span-7 flex flex-col gap-8 w-full text-left">
-            <h4 className="font-sans font-bold text-[11px] sm:text-[12px] uppercase tracking-[0.25em] text-teal border-b border-teal/10 pb-4 w-full">
-              HIGHLIGHTS OF THE PILGRIMAGE
-            </h4>
-            
-            <motion.div 
-              variants={staggerContainer(0.08, 0)}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full"
-            >
-              {tourFeatures.map((feat) => (
-                <motion.div
-                  key={feat.title}
-                  variants={fadeInUp}
-                  className="bg-[#FBF7F0]/40 hover:bg-[#FBF7F0]/90 border border-teal/10 hover:border-teal/20 rounded-2xl p-6 sm:p-8 transition-all duration-500 flex flex-col items-start gap-5 relative group shadow-[0_4px_12px_rgba(43,168,158,0.02)] hover:shadow-[0_20px_40px_-10px_rgba(43,168,158,0.08)]"
-                >
-                  {/* Floating script index number in Caveat font */}
-                  <span className="absolute top-4 right-6 font-script text-[36px] font-bold text-teal/10 group-hover:text-teal/20 transition-colors duration-300 select-none">
-                    {feat.index}
-                  </span>
-
-                  {/* Icon Circle Badge Wrapper */}
-                  <div className="w-12 h-12 rounded-xl bg-teal/5 flex items-center justify-center text-teal group-hover:bg-teal group-hover:text-[#F7F3EC] transition-all duration-300 border border-teal/10 group-hover:border-transparent group-hover:scale-105 group-hover:shadow-[0_4px_12px_rgba(43,168,158,0.2)] shrink-0">
-                    {feat.icon}
-                  </div>
-                  
-                  <div>
-                    <h5 className="font-serif text-[21px] text-ink mb-2 group-hover:text-teal transition-colors duration-300">
-                      {feat.title}
-                    </h5>
-                    <p className="font-sans text-[14px] leading-[1.65] text-ink-soft">
-                      {feat.desc}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-
         </div>
 
       </div>

@@ -2,11 +2,11 @@ import { motion } from 'motion/react';
 import { SAHAJ_EASE } from '../../lib/motion';
 
 interface HeroContentProps {
-  onTourClick?: () => void;
+  onSummitClick?: () => void;
   onPhilosophyClick?: () => void;
 }
 
-export default function HeroContent({ onTourClick, onPhilosophyClick }: HeroContentProps) {
+export default function HeroContent({ onSummitClick, onPhilosophyClick }: HeroContentProps) {
   const headlinePart1 = "You are not broken.".split(" ");
   const headlinePart2 = "You are just forgetting".split(" ");
 
@@ -122,11 +122,11 @@ export default function HeroContent({ onTourClick, onPhilosophyClick }: HeroCont
         <motion.button
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
-          onClick={onTourClick}
+          onClick={onSummitClick}
           className="group relative bg-orange hover:bg-orange-hover text-[#F7F3EC] px-8 py-4.5 rounded-full font-sans font-medium text-16 flex items-center gap-2 shadow-[0_8px_24px_-8px_rgba(243,112,33,0.4)] transition-all duration-300 pointer-events-auto cursor-pointer"
           data-cursor-label="look"
         >
-          <span>Experience Sahaj Tour '26</span>
+          <span>Experience Sahaj Summit '26</span>
           <motion.span
             animate={{ x: [0, 4, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
