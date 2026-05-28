@@ -16,6 +16,7 @@ import RefundPage from './pages/RefundPage';
 import PricingPage from './pages/PricingPage';
 import DeliveryPage from './pages/DeliveryPage';
 import ContactPage from './pages/ContactPage';
+import AdminPage from './pages/AdminPage';
 
 function HomePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -57,6 +58,7 @@ export default function App() {
       <Route path="/pricing" element={<PricingPage />} />
       <Route path="/delivery" element={<DeliveryPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 }
