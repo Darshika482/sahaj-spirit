@@ -8,7 +8,6 @@ interface Member {
   name: string;
   gender: string;
   age: number;
-  dietary: string;
 }
 
 interface CreateOrderBody {
@@ -79,7 +78,6 @@ router.post('/create-order', async (req, res) => {
             name: m.name,
             gender: m.gender,
             age: m.age,
-            dietary: m.dietary,
           }))
         );
         if (memErr) console.error('[DB] Error creating members:', memErr);
