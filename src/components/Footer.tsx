@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'motion/react';
 import BlurText from './shared/BlurText';
 import sahajSummit from '../assets/hero/sahaj sumit.png';
@@ -250,9 +251,14 @@ export default function Footer() {
           <span>
             © 2026 SAHAJ SPIRIT FOUNDATION
           </span>
-          <span className="text-center sm:text-right">
-            SOULFUL ALLIANCE OF HAPPINESS AND JOY ®
-          </span>
+          <div className="flex flex-wrap justify-center sm:justify-end items-center gap-x-5 gap-y-2">
+            <Link to="/terms" className="hover:text-teal transition-colors duration-200">TERMS</Link>
+            <Link to="/privacy" className="hover:text-teal transition-colors duration-200">PRIVACY</Link>
+            <Link to="/refund" className="hover:text-teal transition-colors duration-200">REFUNDS</Link>
+            <Link to="/pricing" className="hover:text-teal transition-colors duration-200">PRICING</Link>
+            <Link to="/delivery" className="hover:text-teal transition-colors duration-200">DELIVERY</Link>
+            <Link to="/contact" className="hover:text-teal transition-colors duration-200">CONTACT</Link>
+          </div>
         </div>
 
       </div>
