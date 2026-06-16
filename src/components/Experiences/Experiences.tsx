@@ -171,10 +171,10 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
     return (
       <section 
         id="experiences" 
-        className="py-20 px-4 sm:px-6 bg-[#F7F3EC] flex flex-col gap-12"
+        className="py-20 bg-[#F7F3EC] flex flex-col gap-12"
       >
         {/* Mobile Intro */}
-        <div className="w-full text-center py-12 border-b border-teal/10 flex flex-col items-center">
+        <div className="w-full text-center py-12 border-b border-teal/10 flex flex-col items-center px-4 sm:px-6">
           <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-teal/70 mb-3 block">
             The Signature Paths
           </span>
@@ -200,49 +200,56 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
           </BlurText>
         </div>
 
-        {/* Mobile Experience List */}
-        <div className="flex flex-col gap-16">
+        {/* Mobile Experience Horizontal Scroll List */}
+        <div className="flex flex-row overflow-x-auto gap-6 px-4 sm:px-6 pb-8 snap-x snap-mandatory scrollbar-none items-stretch w-full">
           {experiences.map((item) => (
-            <div key={item.id} className="flex flex-col gap-6 bg-white/80 p-6 rounded-2xl border border-teal/5">
-              {/* Image (cycles every 1.5s, paused on hover) */}
-              <CyclingImage
-                images={item.images}
-                alt={item.alt}
-                intervalMs={1500}
-                className="w-full aspect-[4/3] rounded-xl shadow-md"
-              />
+            <div 
+              key={item.id} 
+              className="flex flex-col bg-white rounded-2xl border border-teal/10 shadow-sm overflow-hidden w-[85vw] max-w-[310px] shrink-0 snap-center"
+            >
+              {/* Image Section on Top */}
+              <div className="w-full aspect-[4/3] relative overflow-hidden">
+                <CyclingImage
+                  images={item.images}
+                  alt={item.alt}
+                  intervalMs={1500}
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
 
-              {/* Text Meta */}
-              <div>
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-script text-[22px] text-teal leading-none">
-                    {item.script}
-                  </span>
-                  <span className="font-mono text-[12px] text-teal border border-teal/20 px-2.5 py-0.5 rounded-full">
-                    {item.id}
-                  </span>
+              {/* Text Details Block Below */}
+              <div className="p-5 flex flex-col justify-between flex-grow bg-[#FBF7F0]/30 border-t border-teal/5">
+                <div>
+                  <div className="flex justify-between items-baseline mb-2">
+                    <span className="font-script text-[20px] text-teal leading-none">
+                      {item.script}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-teal/70">
+                      NO. {item.id}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-[22px] text-ink font-normal mb-1.5 leading-tight">
+                    {item.title}
+                  </h3>
+
+                  <p className="font-serif italic text-[13.5px] text-ink-soft mb-2.5 border-l border-teal/20 pl-2.5 leading-relaxed">
+                    “{item.tagline}”
+                  </p>
+
+                  <p className="font-sans text-[13px] leading-relaxed text-ink-soft mb-6">
+                    {item.body}
+                  </p>
                 </div>
 
-                <h3 className="font-serif text-[28px] text-ink font-normal mb-2 leading-tight">
-                  {item.title}
-                </h3>
-
-                <p className="font-serif italic text-[16px] text-ink-soft mb-3 border-l-2 border-teal/20 pl-3 leading-relaxed">
-                  “{item.tagline}”
-                </p>
-
-                <p className="font-sans text-[14px] leading-relaxed text-ink-soft mb-6">
-                  {item.body}
-                </p>
-
-                {/* CTA */}
+                {/* Compact Action Button */}
                 <motion.button
                   whileTap={{ scale: 0.98 }}
                   onClick={onSummitClick}
-                  className="group bg-orange hover:bg-orange-hover text-[#F7F3EC] px-6 py-3 rounded-full font-sans font-medium text-[14px] inline-flex items-center gap-2 shadow-[0_8px_20px_-8px_rgba(243,112,33,0.5)] transition-colors duration-300"
+                  className="w-full bg-orange hover:bg-orange-hover text-[#F7F3EC] py-2.5 rounded-full font-sans font-medium text-[13px] flex items-center justify-center gap-1.5 shadow-[0_6px_16px_-6px_rgba(243,112,33,0.5)] transition-colors duration-300"
                 >
-                  <span>Experience this at Sahaj Summit</span>
-                  <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
+                  <span>Book Experience</span>
+                  <span className="inline-block">→</span>
                 </motion.button>
               </div>
             </div>
@@ -250,18 +257,20 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
         </div>
 
         {/* Mobile Outro Card */}
-        <div className="w-full text-center py-16 bg-cream-warm rounded-2xl border border-teal/10 mt-8 flex flex-col items-center px-4">
-          <h4 className="font-serif italic text-[24px] sm:text-[30px] text-ink leading-snug mb-8 max-w-sm">
-            And every one of these waits for you at the Sahaj Summit.
-          </h4>
-          <motion.button
-            whileTap={{ scale: 0.98 }}
-            onClick={onSummitClick}
-            className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-6 py-3.5 rounded-full font-sans font-medium text-[14px] shadow-lg flex items-center gap-2"
-          >
-            See Sahaj Summit 2026
-            <span className="inline-block">→</span>
-          </motion.button>
+        <div className="px-4 sm:px-6 w-full">
+          <div className="w-full text-center py-12 bg-cream-warm rounded-2xl border border-teal/10 flex flex-col items-center px-4">
+            <h4 className="font-serif italic text-[22px] sm:text-[26px] text-ink leading-snug mb-6 max-w-sm">
+              And every one of these waits for you at the Sahaj Summit.
+            </h4>
+            <motion.button
+              whileTap={{ scale: 0.98 }}
+              onClick={onSummitClick}
+              className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-6 py-3 rounded-full font-sans font-medium text-[13px] shadow-md flex items-center gap-2"
+            >
+              See Sahaj Summit 2026
+              <span className="inline-block">→</span>
+            </motion.button>
+          </div>
         </div>
       </section>
     );
