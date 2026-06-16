@@ -150,7 +150,7 @@ export default function BulletinBoard() {
             transition={{ type: 'spring', stiffness: 260, damping: 20 }}
             className={`relative p-8 sm:p-9 rounded-xl border transition-all duration-300 min-h-[380px] flex flex-col justify-between group cursor-pointer ${
               challengeAccepted 
-                ? 'bg-teal/[0.02] border-teal/30 shadow-[0_16px_36px_-8px_rgba(43,168,158,0.1)]' 
+                ? 'bg-[#EAF6F5] border-teal/30 shadow-[0_16px_36px_-8px_rgba(43,168,158,0.1)]' 
                 : 'bg-[#FAF8F5] border-teal/5 shadow-[0_12px_28px_rgba(43,168,158,0.03),0_2px_4px_rgba(0,0,0,0.01)] hover:shadow-[0_24px_48px_rgba(43,168,158,0.07)]'
             }`}
           >
