@@ -14,6 +14,7 @@ import {
   X,
   ChevronRight,
   ChevronDown,
+  Check,
   AlertCircle,
 } from 'lucide-react';
 import { supabase, supabaseConfigured } from '../lib/supabase';
@@ -138,6 +139,134 @@ function EditorFieldLabel({ children }: { children: ReactNode }) {
   return <label className={editorLabelClass}>{children}</label>;
 }
 
+type EditorSectionId = typeof EDITOR_SECTIONS[number]['id'];
+
+function SectionPicker({
+  value,
+  onChange,
+}: {
+  value: EditorSectionId;
+  onChange: (id: EditorSectionId) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const selected = EDITOR_SECTIONS.find(s => s.id === value)!;
+
+  useEffect(() => {
+    if (!open) return;
+    const handleOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, [open]);
+
+  return (
+    <div ref={containerRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen(prev => !prev)}
+        aria-expanded={open}
+        aria-haspopup="listbox"
+        className={`w-full flex items-center justify-between gap-3 bg-white border rounded-xl px-4 py-3.5 text-left shadow-[0_4px_16px_rgba(26,26,26,0.04)] transition-all cursor-pointer ${
+          open
+            ? 'border-teal ring-2 ring-teal/15'
+            : 'border-teal/20 hover:border-teal/35'
+        }`}
+      >
+        <div className="min-w-0">
+          <span className="block text-[16px] font-semibold text-ink">{selected.label}</span>
+          <span className="block text-[13px] text-ink/50 mt-0.5">{selected.desc}</span>
+        </div>
+        <ChevronDown className={`w-5 h-5 text-teal shrink-0 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
+
+      {open && (
+        <ul
+          role="listbox"
+          className="absolute z-30 mt-2 w-full bg-white border border-teal/12 rounded-xl shadow-[0_20px_48px_rgba(26,26,26,0.12)] overflow-hidden py-1.5"
+        >
+          {EDITOR_SECTIONS.map(sub => {
+            const isSelected = value === sub.id;
+            return (
+              <li key={sub.id} role="option" aria-selected={isSelected}>
+                <button
+                  type="button"
+                  onClick={() => {
+                    onChange(sub.id);
+                    setOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-between gap-3 px-4 py-3 text-left transition-colors cursor-pointer ${
+                    isSelected ? 'bg-teal/[0.07]' : 'hover:bg-teal/[0.04]'
+                  }`}
+                >
+                  <div className="min-w-0">
+                    <span className={`block text-[15px] font-semibold ${isSelected ? 'text-teal' : 'text-ink'}`}>
+                      {sub.label}
+                    </span>
+                    <span className="block text-[13px] text-ink/50 mt-0.5">{sub.desc}</span>
+                  </div>
+                  {isSelected && <Check className="w-4 h-4 text-teal shrink-0" strokeWidth={2.5} />}
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function EditorSaveBar({
+  label,
+  saving,
+  onSave,
+  status,
+}: {
+  label: string;
+  saving: boolean;
+  onSave: () => void;
+  status: { type: 'success' | 'error'; text: string } | null;
+}) {
+  return (
+    <div className="sticky bottom-0 z-10 -mx-4 px-4 py-4 mt-6 bg-cream/95 backdrop-blur-md border-t border-teal/10 sm:mx-0 sm:rounded-2xl sm:border sm:shadow-[0_-8px_24px_rgba(26,26,26,0.06)]">
+      {status && (
+        <div
+          className={`mb-3 flex items-center gap-2.5 px-4 py-3 rounded-xl border ${
+            status.type === 'success'
+              ? 'bg-teal/10 text-teal border-teal/20'
+              : 'bg-red-50 text-red-700 border-red-200'
+          }`}
+        >
+          {status.type === 'success' ? (
+            <Check className="w-4 h-4 shrink-0" strokeWidth={2.5} />
+          ) : (
+            <AlertCircle className="w-4 h-4 shrink-0" />
+          )}
+          <span className="text-[14px] font-medium">{status.text}</span>
+        </div>
+      )}
+      <button
+        type="button"
+        onClick={onSave}
+        disabled={saving}
+        className="w-full bg-teal text-white px-6 py-3.5 rounded-xl font-medium text-[15px] shadow-sm hover:bg-teal-deep transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-60"
+      >
+        {saving ? (
+          <>
+            <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+            Saving changes...
+          </>
+        ) : (
+          label
+        )}
+      </button>
+    </div>
+  );
+}
+
 function BulletinSection({
   title,
   desc,
@@ -197,6 +326,9 @@ export default function AdminPage() {
   const [selectedExpId, setSelectedExpId] = useState<string>('01');
   const [openBulletinSection, setOpenBulletinSection] = useState<'thought' | 'word' | 'challenge' | null>('thought');
   const [editorMessage, setEditorMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [saveStatus, setSaveStatus] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const editorMessageTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const saveStatusTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [uploadingImage, setUploadingImage] = useState<string | null>(null); // tracks which field is uploading
   const sessionHandledRef = useRef(false);
 
@@ -338,10 +470,26 @@ export default function AdminPage() {
     }
   };
 
+  const showEditorMessage = (msg: { type: 'success' | 'error'; text: string }, autoHideMs?: number) => {
+    if (editorMessageTimeoutRef.current) clearTimeout(editorMessageTimeoutRef.current);
+    setEditorMessage(msg);
+    if (autoHideMs) {
+      editorMessageTimeoutRef.current = setTimeout(() => setEditorMessage(null), autoHideMs);
+    }
+  };
+
+  const showSaveStatus = (msg: { type: 'success' | 'error'; text: string }, autoHideMs?: number) => {
+    if (saveStatusTimeoutRef.current) clearTimeout(saveStatusTimeoutRef.current);
+    setSaveStatus(msg);
+    if (autoHideMs) {
+      saveStatusTimeoutRef.current = setTimeout(() => setSaveStatus(null), autoHideMs);
+    }
+  };
+
   const saveContent = async () => {
     if (!contentData) return;
     setSavingContent(true);
-    setEditorMessage(null);
+    setSaveStatus(null);
     try {
       const activeToken = token || (await supabase?.auth.getSession())?.data.session?.access_token;
       const res = await fetch('/api/admin/content', {
@@ -353,14 +501,13 @@ export default function AdminPage() {
         body: JSON.stringify(contentData),
       });
       if (res.ok) {
-        setEditorMessage({ type: 'success', text: 'Content updated successfully!' });
-        setTimeout(() => setEditorMessage(null), 4000);
+        showSaveStatus({ type: 'success', text: 'Content saved successfully!' }, 5000);
       } else {
         const errData = await res.json();
-        setEditorMessage({ type: 'error', text: errData.error || 'Failed to save content.' });
+        showSaveStatus({ type: 'error', text: errData.error || 'Failed to save content.' });
       }
     } catch (err: any) {
-      setEditorMessage({ type: 'error', text: err.message || 'Network error occurred while saving.' });
+      showSaveStatus({ type: 'error', text: err.message || 'Network error occurred while saving.' });
     } finally {
       setSavingContent(false);
     }
@@ -468,21 +615,20 @@ export default function AdminPage() {
         if (res.ok) {
           const data = await res.json();
           onSuccess(data.url);
-          setEditorMessage({ type: 'success', text: `Image "${file.name}" uploaded successfully!` });
-          setTimeout(() => setEditorMessage(null), 3000);
+          showEditorMessage({ type: 'success', text: `Image "${file.name}" uploaded successfully!` }, 4000);
         } else {
           const errData = await res.json();
-          setEditorMessage({ type: 'error', text: errData.error || 'Image upload failed.' });
+          showEditorMessage({ type: 'error', text: errData.error || 'Image upload failed.' });
         }
         setUploadingImage(null);
       };
       reader.onerror = () => {
-        setEditorMessage({ type: 'error', text: 'Failed to read image file.' });
+        showEditorMessage({ type: 'error', text: 'Failed to read image file.' });
         setUploadingImage(null);
       };
       reader.readAsDataURL(file);
     } catch (err: any) {
-      setEditorMessage({ type: 'error', text: err.message || 'Upload error.' });
+      showEditorMessage({ type: 'error', text: err.message || 'Upload error.' });
       setUploadingImage(null);
     }
   };
@@ -885,39 +1031,17 @@ export default function AdminPage() {
               <p className="text-[15px] text-ink/60 mt-1.5 leading-relaxed">Update comic panels, experiences, and bulletin board</p>
             </div>
 
-            {/* Editor notification banner */}
-            {editorMessage && (
-              <div className={`mb-6 p-4 rounded-xl border flex items-center justify-between shadow-sm transition-all duration-300 ${
-                editorMessage.type === 'success' 
-                  ? 'bg-teal/10 text-teal border-teal/20' 
-                  : 'bg-red-50 text-red-700 border-red-200'
-              }`}>
-                <span className="text-[15px] font-medium">{editorMessage.text}</span>
-                <button onClick={() => setEditorMessage(null)} className="text-[15px] hover:opacity-75 cursor-pointer">✕</button>
-              </div>
-            )}
-
-            {/* Section dropdown */}
+            {/* Section picker */}
             <div className="mb-6">
               <EditorFieldLabel>Choose section to edit</EditorFieldLabel>
-              <div className="relative">
-                <select
-                  value={activeSubTab}
-                  onChange={(e) => {
-                    const val = e.target.value as 'comic' | 'experiences' | 'bulletin';
-                    setActiveSubTab(val);
-                    if (val === 'bulletin') setOpenBulletinSection('thought');
-                  }}
-                  className="w-full appearance-none bg-white border border-teal/20 rounded-xl px-4 py-3.5 pr-11 text-[16px] font-medium text-ink shadow-sm focus:outline-none focus:border-teal focus:ring-2 focus:ring-teal/15 cursor-pointer"
-                >
-                  {EDITOR_SECTIONS.map(sub => (
-                    <option key={sub.id} value={sub.id}>
-                      {sub.label} — {sub.desc}
-                    </option>
-                  ))}
-                </select>
-                <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-teal pointer-events-none" />
-              </div>
+              <SectionPicker
+                value={activeSubTab}
+                onChange={(val) => {
+                  setActiveSubTab(val);
+                  setSaveStatus(null);
+                  if (val === 'bulletin') setOpenBulletinSection('thought');
+                }}
+              />
             </div>
 
             {loadingContent && !contentData && (
@@ -1019,23 +1143,12 @@ export default function AdminPage() {
                   ))}
                 </div>
                 
-                {/* Save Button */}
-                <div className="flex justify-end pt-4 border-t border-teal/10">
-                  <button
-                    onClick={saveContent}
-                    disabled={savingContent}
-                    className="w-full sm:w-auto bg-teal text-white px-6 py-3.5 rounded-xl font-medium text-[15px] shadow-sm hover:bg-teal-deep transition-all cursor-pointer flex items-center justify-center gap-2"
-                  >
-                    {savingContent ? (
-                      <>
-                        <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                        Saving changes...
-                      </>
-                    ) : (
-                      'Save Comic Content'
-                    )}
-                  </button>
-                </div>
+                <EditorSaveBar
+                  label="Save comic content"
+                  saving={savingContent}
+                  onSave={saveContent}
+                  status={saveStatus}
+                />
               </div>
             )}
 
@@ -1190,23 +1303,12 @@ export default function AdminPage() {
 
                 </div>
 
-                {/* Save Button */}
-                <div className="flex justify-end pt-4 border-t border-teal/10">
-                  <button
-                    onClick={saveContent}
-                    disabled={savingContent}
-                    className="w-full sm:w-auto bg-teal text-white px-6 py-3.5 rounded-xl font-medium text-[15px] shadow-sm hover:bg-teal-deep transition-all cursor-pointer flex items-center justify-center gap-2"
-                  >
-                    {savingContent ? (
-                      <>
-                        <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                        Saving changes...
-                      </>
-                    ) : (
-                      'Save Experiences Content'
-                    )}
-                  </button>
-                </div>
+                <EditorSaveBar
+                  label="Save experiences content"
+                  saving={savingContent}
+                  onSave={saveContent}
+                  status={saveStatus}
+                />
               </div>
             )}
 
@@ -1325,21 +1427,46 @@ export default function AdminPage() {
                   </div>
                 </BulletinSection>
 
-                {/* Save Button */}
-                <div className="flex justify-end pt-4 border-t border-teal/10">
-                  <button
-                    onClick={saveContent}
-                    disabled={savingContent}
-                    className="w-full sm:w-auto bg-teal text-white px-6 py-3.5 rounded-xl font-medium text-[15px] shadow-sm hover:bg-teal-deep transition-all cursor-pointer flex items-center justify-center gap-2"
+                <EditorSaveBar
+                  label="Save bulletin board"
+                  saving={savingContent}
+                  onSave={saveContent}
+                  status={saveStatus}
+                />
+              </div>
+            )}
+
+            {/* Upload toast */}
+            {editorMessage && (
+              <div className="fixed bottom-6 inset-x-4 z-50 sm:inset-x-auto sm:left-1/2 sm:-translate-x-1/2 sm:w-full sm:max-w-md">
+                <div
+                  className={`flex items-center gap-3 px-5 py-4 rounded-2xl border shadow-[0_16px_40px_rgba(26,26,26,0.15)] ${
+                    editorMessage.type === 'success'
+                      ? 'bg-white border-teal/25'
+                      : 'bg-white border-red-200'
+                  }`}
+                >
+                  <div
+                    className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 ${
+                      editorMessage.type === 'success' ? 'bg-teal/10 text-teal' : 'bg-red-100 text-red-600'
+                    }`}
                   >
-                    {savingContent ? (
-                      <>
-                        <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
-                        Saving changes...
-                      </>
+                    {editorMessage.type === 'success' ? (
+                      <Check className="w-4 h-4" strokeWidth={2.5} />
                     ) : (
-                      'Save bulletin board'
+                      <AlertCircle className="w-4 h-4" />
                     )}
+                  </div>
+                  <p className={`text-[14px] font-medium flex-1 ${editorMessage.type === 'success' ? 'text-teal' : 'text-red-700'}`}>
+                    {editorMessage.text}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setEditorMessage(null)}
+                    className="text-ink/35 hover:text-ink/60 p-1 cursor-pointer"
+                    aria-label="Dismiss"
+                  >
+                    ✕
                   </button>
                 </div>
               </div>
