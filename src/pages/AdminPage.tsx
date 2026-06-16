@@ -18,6 +18,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { supabase, supabaseConfigured } from '../lib/supabase';
+import { getAdminRedirectUrl, normalizeAdminOrigin } from '../lib/adminRedirect';
 
 interface Registration {
   id: string;
@@ -332,6 +333,11 @@ export default function AdminPage() {
   const [uploadingImage, setUploadingImage] = useState<string | null>(null); // tracks which field is uploading
   const sessionHandledRef = useRef(false);
 
+  // Keep admin on www in production so OAuth callbacks are not broken by apex→www redirects.
+  useEffect(() => {
+    normalizeAdminOrigin();
+  }, []);
+
   // Handle Google OAuth redirect and automatic session restore
   useEffect(() => {
     if (!supabaseConfigured || !supabase) return;
@@ -340,8 +346,8 @@ export default function AdminPage() {
     let oauthTimeout: ReturnType<typeof setTimeout> | undefined;
 
     const clearOAuthHash = () => {
-      if (window.location.hash) {
-        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      if (window.location.hash || window.location.search.includes('code=')) {
+        window.history.replaceState(null, '', window.location.pathname);
       }
     };
 
@@ -371,7 +377,10 @@ export default function AdminPage() {
 
       if (session) {
         handleSession(session.access_token, session.user.email ?? '');
-      } else if (window.location.hash.includes('access_token')) {
+      } else if (
+        window.location.hash.includes('access_token') ||
+        window.location.search.includes('code=')
+      ) {
         // OAuth tokens are in the URL — wait for Supabase to parse them
         setAuthState('checking');
         oauthTimeout = setTimeout(() => {
@@ -638,7 +647,7 @@ export default function AdminPage() {
     setAuthState('loading');
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/admin` },
+      options: { redirectTo: getAdminRedirectUrl() },
     });
     if (error) {
       setAuthState('error');
