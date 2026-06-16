@@ -1,26 +1,12 @@
 import { motion } from 'motion/react';
 import { fadeInUp, staggerContainer } from '../lib/motion';
 import BlurText from './shared/BlurText';
-import comicPanel1 from '../assets/comic_panel_1.png';
-import comicPanel2 from '../assets/comic_panel_2.png';
-import comicPanel3 from '../assets/comic_panel_3.png';
-import comicPanel4 from '../assets/comic_panel_4.png';
 import contentData from '../data/content.json';
-
-const IMAGE_MAP: Record<string, string> = {
-  'comicPanel1': comicPanel1,
-  'comicPanel2': comicPanel2,
-  'comicPanel3': comicPanel3,
-  'comicPanel4': comicPanel4,
-  '/src/assets/comic_panel_1.png': comicPanel1,
-  '/src/assets/comic_panel_2.png': comicPanel2,
-  '/src/assets/comic_panel_3.png': comicPanel3,
-  '/src/assets/comic_panel_4.png': comicPanel4,
-};
+import { resolveContentImageUrl } from '../lib/contentImages';
 
 const comicPanels = contentData.comic.map(panel => ({
   ...panel,
-  image: IMAGE_MAP[panel.image] || panel.image
+  image: resolveContentImageUrl(panel.image),
 }));
 
 export default function Philosophy() {

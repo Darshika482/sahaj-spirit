@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { supabase, supabaseConfigured } from '../lib/supabase';
 import { getAdminRedirectUrl, normalizeAdminOrigin } from '../lib/adminRedirect';
+import { resolveContentImageUrl } from '../lib/contentImages';
 
 interface Registration {
   id: string;
@@ -1082,7 +1083,7 @@ export default function AdminPage() {
                         {/* Inline preview thumbnail */}
                         <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-teal/5 border border-teal/10 overflow-hidden shrink-0">
                           <img
-                            src={panel.image}
+                            src={resolveContentImageUrl(panel.image)}
                             alt={panel.title}
                             className="w-full h-full object-cover"
                             onError={(e) => {
@@ -1262,7 +1263,7 @@ export default function AdminPage() {
                                 <div key={imgIdx} className="bg-white/40 border border-teal/5 rounded-xl p-2.5">
                                   <div className="aspect-[4/3] w-full rounded-lg bg-teal/5 border border-teal/10 overflow-hidden mb-2">
                                     <img
-                                      src={exp.images[imgIdx]}
+                                      src={resolveContentImageUrl(exp.images[imgIdx])}
                                       alt={`${exp.title} ${imgIdx + 1}`}
                                       className="w-full h-full object-cover"
                                       onError={(e) => {
