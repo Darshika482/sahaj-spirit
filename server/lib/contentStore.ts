@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { supabase } from './supabase.js';
-import bundledContent from '../../src/data/content.json';
+import bundledContent from '../../src/data/content.json' with { type: 'json' };
 
 /**
  * Content persistence that works in both environments:
