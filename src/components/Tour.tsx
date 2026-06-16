@@ -100,10 +100,10 @@ export default function Tour({ onRegisterClick }: TourProps) {
         <div className="w-full max-w-4xl grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 justify-items-center mb-20">
           
           {/* Days block */}
-          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-[#FBF7F0] border border-teal/10 rounded-full flex flex-col items-center justify-center shadow-[0_12px_30px_-8px_rgba(43,168,158,0.06)] hover:border-teal/20 transition-all duration-300 group">
+          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-white/95 border border-teal/15 rounded-full flex flex-col items-center justify-center shadow-[0_16px_36px_-12px_rgba(43,168,158,0.08)] hover:border-teal/30 hover:scale-105 transition-all duration-300 group">
             <svg className="absolute w-full h-full rotate-[-90deg] p-1" viewBox="0 0 120 120">
               {/* Background dial ring */}
-              <circle cx="60" cy="60" r="54" fill="transparent" stroke="var(--color-cream)" strokeWidth="3.5" />
+              <circle cx="60" cy="60" r="54" fill="transparent" stroke="rgba(43, 168, 158, 0.1)" strokeWidth="4" />
               {/* Dynamic progress ring */}
               <circle
                 cx="60"
@@ -111,7 +111,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 r="54"
                 fill="transparent"
                 stroke="var(--color-teal)"
-                strokeWidth="3.5"
+                strokeWidth="4"
                 strokeDasharray={circumference}
                 strokeDashoffset={circumference - daysRatio * circumference}
                 strokeLinecap="round"
@@ -121,26 +121,26 @@ export default function Tour({ onRegisterClick }: TourProps) {
             
             {/* Center Info */}
             <div className="flex flex-col items-center justify-center z-10">
-              <span className="font-mono text-[28px] sm:text-[32px] font-medium text-ink leading-none">
+              <span className="font-serif text-[32px] sm:text-[36px] font-normal text-ink leading-none">
                 {String(timeLeft.days).padStart(2, '0')}
               </span>
-              <span className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-[#8B8B8B] mt-2 group-hover:text-teal transition-colors duration-300">
+              <span className="font-sans text-[9px] font-bold uppercase tracking-[0.2em] text-ink-mute mt-2 group-hover:text-teal transition-colors duration-300">
                 Days
               </span>
             </div>
           </div>
           
           {/* Hours block */}
-          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-[#FBF7F0] border border-teal/10 rounded-full flex flex-col items-center justify-center shadow-[0_12px_30px_-8px_rgba(43,168,158,0.06)] hover:border-teal/20 transition-all duration-300 group">
+          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-white/95 border border-teal/15 rounded-full flex flex-col items-center justify-center shadow-[0_16px_36px_-12px_rgba(43,168,158,0.08)] hover:border-teal/30 hover:scale-105 transition-all duration-300 group">
             <svg className="absolute w-full h-full rotate-[-90deg] p-1" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="54" fill="transparent" stroke="var(--color-cream)" strokeWidth="3.5" />
+              <circle cx="60" cy="60" r="54" fill="transparent" stroke="rgba(43, 168, 158, 0.1)" strokeWidth="4" />
               <circle
                 cx="60"
                 cy="60"
                 r="54"
                 fill="transparent"
                 stroke="var(--color-teal)"
-                strokeWidth="3.5"
+                strokeWidth="4"
                 strokeDasharray={circumference}
                 strokeDashoffset={circumference - hoursRatio * circumference}
                 strokeLinecap="round"
@@ -149,26 +149,26 @@ export default function Tour({ onRegisterClick }: TourProps) {
             </svg>
             
             <div className="flex flex-col items-center justify-center z-10">
-              <span className="font-mono text-[28px] sm:text-[32px] font-medium text-ink leading-none">
+              <span className="font-serif text-[32px] sm:text-[36px] font-normal text-ink leading-none">
                 {String(timeLeft.hours).padStart(2, '0')}
               </span>
-              <span className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-[#8B8B8B] mt-2 group-hover:text-teal transition-colors duration-300">
+              <span className="font-sans text-[9px] font-bold uppercase tracking-[0.2em] text-ink-mute mt-2 group-hover:text-teal transition-colors duration-300">
                 Hours
               </span>
             </div>
           </div>
           
           {/* Minutes block */}
-          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-[#FBF7F0] border border-teal/10 rounded-full flex flex-col items-center justify-center shadow-[0_12px_30px_-8px_rgba(43,168,158,0.06)] hover:border-teal/20 transition-all duration-300 group">
+          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-white/95 border border-teal/15 rounded-full flex flex-col items-center justify-center shadow-[0_16px_36px_-12px_rgba(43,168,158,0.08)] hover:border-teal/30 hover:scale-105 transition-all duration-300 group">
             <svg className="absolute w-full h-full rotate-[-90deg] p-1" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="54" fill="transparent" stroke="var(--color-cream)" strokeWidth="3.5" />
+              <circle cx="60" cy="60" r="54" fill="transparent" stroke="rgba(43, 168, 158, 0.1)" strokeWidth="4" />
               <circle
                 cx="60"
                 cy="60"
                 r="54"
                 fill="transparent"
                 stroke="var(--color-teal)"
-                strokeWidth="3.5"
+                strokeWidth="4"
                 strokeDasharray={circumference}
                 strokeDashoffset={circumference - minsRatio * circumference}
                 strokeLinecap="round"
@@ -177,19 +177,19 @@ export default function Tour({ onRegisterClick }: TourProps) {
             </svg>
             
             <div className="flex flex-col items-center justify-center z-10">
-              <span className="font-mono text-[28px] sm:text-[32px] font-medium text-ink leading-none">
+              <span className="font-serif text-[32px] sm:text-[36px] font-normal text-ink leading-none">
                 {String(timeLeft.minutes).padStart(2, '0')}
               </span>
-              <span className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-[#8B8B8B] mt-2 group-hover:text-teal transition-colors duration-300">
+              <span className="font-sans text-[9px] font-bold uppercase tracking-[0.2em] text-ink-mute mt-2 group-hover:text-teal transition-colors duration-300">
                 Mins
               </span>
             </div>
           </div>
           
           {/* Seconds block */}
-          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-[#FBF7F0] border border-teal/10 rounded-full flex flex-col items-center justify-center shadow-[0_12px_30px_-8px_rgba(43,168,158,0.06)] hover:border-teal/20 transition-all duration-300 group">
+          <div className="relative w-32 h-32 sm:w-36 sm:h-36 bg-white/95 border border-teal/15 rounded-full flex flex-col items-center justify-center shadow-[0_16px_36px_-12px_rgba(243,112,33,0.08)] hover:border-orange/30 hover:scale-105 transition-all duration-300 group">
             <svg className="absolute w-full h-full rotate-[-90deg] p-1" viewBox="0 0 120 120">
-              <circle cx="60" cy="60" r="54" fill="transparent" stroke="var(--color-cream)" strokeWidth="3.5" />
+              <circle cx="60" cy="60" r="54" fill="transparent" stroke="rgba(243, 112, 33, 0.12)" strokeWidth="4" />
               {/* Rotating faint sub-ticks */}
               <circle cx="60" cy="60" r="50" fill="transparent" stroke="var(--color-orange)" strokeWidth="0.5" strokeDasharray="2 12" className="opacity-10 animate-spin [animation-duration:30s]" />
               <circle
@@ -198,7 +198,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 r="54"
                 fill="transparent"
                 stroke="var(--color-orange)"
-                strokeWidth="3.5"
+                strokeWidth="4"
                 strokeDasharray={circumference}
                 strokeDashoffset={circumference - secsRatio * circumference}
                 strokeLinecap="round"
@@ -207,10 +207,10 @@ export default function Tour({ onRegisterClick }: TourProps) {
             </svg>
             
             <div className="flex flex-col items-center justify-center z-10">
-              <span className="font-mono text-[28px] sm:text-[32px] font-semibold text-orange leading-none">
+              <span className="font-serif text-[32px] sm:text-[36px] font-normal text-orange leading-none">
                 {String(timeLeft.seconds).padStart(2, '0')}
               </span>
-              <span className="font-sans text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.2em] text-[#8B8B8B] mt-2 group-hover:text-orange transition-colors duration-300">
+              <span className="font-sans text-[9px] font-bold uppercase tracking-[0.2em] text-ink-mute mt-2 group-hover:text-orange transition-colors duration-300">
                 Secs
               </span>
             </div>
