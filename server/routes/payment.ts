@@ -62,12 +62,16 @@ router.post('/verify', async (req, res) => {
 router.post('/webhook', async (req, res) => {
   try {
     const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET;
+    const rawBody = req.body;
+    const isRaw = Buffer.isBuffer(rawBody);
 
-    if (webhookSecret) {
+    // Signature verification requires the raw body. On platforms that pre-parse
+    // the body (e.g. Vercel) it arrives as an object, so we can only verify when raw.
+    if (webhookSecret && isRaw) {
       const signature = req.headers['x-razorpay-signature'] as string;
       const expected = crypto
         .createHmac('sha256', webhookSecret)
-        .update(req.body)
+        .update(rawBody)
         .digest('hex');
 
       if (signature !== expected) {
@@ -75,7 +79,7 @@ router.post('/webhook', async (req, res) => {
       }
     }
 
-    const event = JSON.parse(req.body.toString());
+    const event = isRaw ? JSON.parse(rawBody.toString()) : rawBody;
 
     if (event.event === 'payment.captured' && supabase) {
       const orderId = event.payload.payment.entity.order_id;

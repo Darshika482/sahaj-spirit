@@ -1,12 +1,6 @@
 import { Router, Request, Response, NextFunction } from 'express';
 import { supabase } from '../lib/supabase.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const contentFilePath = path.join(__dirname, '../../src/data/content.json');
+import { readContent, writeContent } from '../lib/contentStore.js';
 
 const router = Router();
 
@@ -102,26 +96,22 @@ router.get('/export', verifyAdmin, requireRole('can_view_registrations'), async 
   res.send(header + rows);
 });
 
-router.get('/content', verifyAdmin, requireRole('can_edit_content'), (req, res) => {
+router.get('/content', verifyAdmin, requireRole('can_edit_content'), async (req, res) => {
   try {
-    if (!fs.existsSync(contentFilePath)) {
-      return res.status(404).json({ error: 'Content file not found' });
-    }
-    const raw = fs.readFileSync(contentFilePath, 'utf8');
-    const data = JSON.parse(raw);
+    const data = await readContent();
     res.json(data);
   } catch (err: any) {
     res.status(500).json({ error: err.message });
   }
 });
 
-router.post('/content', verifyAdmin, requireRole('can_edit_content'), (req, res) => {
+router.post('/content', verifyAdmin, requireRole('can_edit_content'), async (req, res) => {
   try {
     const data = req.body;
     if (!data.comic || !data.experiences || !data.bulletin) {
       return res.status(400).json({ error: 'Invalid content structure' });
     }
-    fs.writeFileSync(contentFilePath, JSON.stringify(data, null, 2), 'utf8');
+    await writeContent(data);
     res.json({ success: true });
   } catch (err: any) {
     res.status(500).json({ error: err.message });
