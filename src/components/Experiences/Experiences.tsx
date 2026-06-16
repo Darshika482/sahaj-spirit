@@ -195,7 +195,8 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
           <BlurText
             as="p"
             delay={0.2}
-            className="font-sans text-[15px] text-ink-soft max-w-md mx-auto mt-2 leading-relaxed"
+            blur={0}
+            className="font-sans text-[16px] sm:text-[17px] text-ink/80 max-w-md mx-auto mt-2 leading-[1.7] antialiased"
           >
             Every Sahaj assembly hosts 9 signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
           </BlurText>
@@ -234,11 +235,11 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                     {item.title}
                   </h3>
 
-                  <p className="font-serif italic text-[13.5px] text-ink-soft mb-2.5 border-l border-teal/20 pl-2.5 leading-relaxed">
+                  <p className="font-serif italic text-[15px] sm:text-[16px] text-ink/75 mb-3 border-l-2 border-teal/25 pl-3 leading-relaxed">
                     “{item.tagline}”
                   </p>
 
-                  <p className="font-sans text-[13px] leading-relaxed text-ink-soft mb-6">
+                  <p className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 mb-6 antialiased">
                     {item.body}
                   </p>
                 </div>
@@ -383,7 +384,7 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                     <UnderlineSvg />
                   </span>
                 </h2>
-                <p className="font-sans text-[17px] sm:text-[18px] text-ink-soft max-w-xl leading-relaxed mb-10">
+                <p className="font-sans text-[17px] sm:text-[18px] text-ink/80 max-w-xl leading-[1.7] mb-10 antialiased">
                   Every Sahaj assembly hosts 9 signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
                 </p>
                 <div className="mt-4 flex flex-col items-center gap-3">
@@ -441,7 +442,7 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                   “And every one of these waits for you at the Sahaj Summit.”
                 </h2>
                 
-                <p className="font-sans text-[16px] text-ink-soft max-w-xl leading-relaxed mb-10">
+                <p className="font-sans text-[16px] sm:text-[17px] text-ink/80 max-w-xl leading-[1.7] mb-10 antialiased">
                   Join hundreds of youth on 6 Sep 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
                 </p>
 

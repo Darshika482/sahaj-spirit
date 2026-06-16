@@ -40,6 +40,8 @@ interface BlurTextProps {
  *
  *  • mode="fade"  : the whole block fades + de-blurs as one (default for paragraphs)
  *  • mode="words" : splits children/text into words and staggers them (great for headings)
+ *
+ * Pass blur={0} for body copy — avoids CSS filter artifacts on small text.
  */
 export default function BlurText({
   children,
@@ -55,6 +57,8 @@ export default function BlurText({
   once = true,
   amount = 0.3,
 }: BlurTextProps) {
+  const useBlur = blur > 0;
+
   if (mode === 'words') {
     const source = text ?? (typeof children === 'string' ? children : '');
     const words = source.split(/(\s+)/); // keep spaces as separate tokens
@@ -66,12 +70,18 @@ export default function BlurText({
       },
     };
 
+    const wordHidden = useBlur
+      ? { opacity: 0, y, filter: `blur(${blur}px)` }
+      : { opacity: 0, y };
+
+    const wordVisible = useBlur
+      ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+      : { opacity: 1, y: 0 };
+
     const wordVariants: Variants = {
-      hidden: { opacity: 0, y, filter: `blur(${blur}px)` },
+      hidden: wordHidden,
       visible: {
-        opacity: 1,
-        y: 0,
-        filter: 'blur(0px)',
+        ...wordVisible,
         transition: { duration, ease: SAHAJ_EASE },
       },
     };
@@ -93,7 +103,10 @@ export default function BlurText({
             <motion.span
               key={`w-${i}`}
               variants={wordVariants}
-              style={{ display: 'inline-block', willChange: 'transform, filter, opacity' }}
+              style={{
+                display: 'inline-block',
+                willChange: useBlur ? 'transform, filter, opacity' : 'transform, opacity',
+              }}
             >
               {w}
             </motion.span>
@@ -104,11 +117,13 @@ export default function BlurText({
   }
 
   const variants: Variants = {
-    hidden: { opacity: 0, y, filter: `blur(${blur}px)` },
+    hidden: useBlur
+      ? { opacity: 0, y, filter: `blur(${blur}px)` }
+      : { opacity: 0, y },
     visible: {
-      opacity: 1,
-      y: 0,
-      filter: 'blur(0px)',
+      ...(useBlur
+        ? { opacity: 1, y: 0, filter: 'blur(0px)' }
+        : { opacity: 1, y: 0 }),
       transition: { duration, ease: SAHAJ_EASE, delay },
     },
   };
@@ -122,7 +137,7 @@ export default function BlurText({
       initial="hidden"
       whileInView="visible"
       viewport={{ once, amount }}
-      style={{ willChange: 'transform, filter, opacity' }}
+      style={{ willChange: useBlur ? 'transform, filter, opacity' : 'transform, opacity' }}
     >
       {children ?? text}
     </MotionTag>

@@ -46,7 +46,8 @@ export default function BulletinBoard() {
           <BlurText
             as="p"
             delay={0.2}
-            className="font-sans text-[15px] sm:text-[16px] leading-[1.6] text-ink-soft max-w-xl mx-auto"
+            blur={0}
+            className="font-sans text-[16px] sm:text-[17px] leading-[1.7] text-ink/80 max-w-xl mx-auto antialiased"
           >
             A mindful space for daily pause, vocabulary alignment, and spontaneous mini-challenges to bring you back to center.
           </BlurText>
@@ -95,7 +96,7 @@ export default function BulletinBoard() {
               <cite className="font-sans font-bold text-xs text-ink uppercase tracking-wider not-italic block mb-1">
                 — {bulletin.thought.author}
               </cite>
-              <span className="font-sans text-[11.5px] text-ink-soft/80 leading-relaxed block">
+              <span className="font-sans text-[13px] text-ink/70 leading-relaxed block">
                 {bulletin.thought.tip}
               </span>
             </div>
@@ -128,17 +129,17 @@ export default function BulletinBoard() {
                 Phonetic: {bulletin.word.phonetic}
               </p>
 
-              <p className="font-serif italic text-teal/95 text-[14.5px] mb-3 leading-relaxed">
+              <p className="font-serif italic text-teal/95 text-[15px] sm:text-[16px] mb-4 leading-relaxed">
                 “{bulletin.word.translation}”
               </p>
 
-              <p className="font-sans text-[13px] leading-[1.6] text-ink-soft">
+              <p className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 antialiased">
                 {bulletin.word.meaning}
               </p>
             </div>
 
             <div className="border-t border-teal/5 pt-5 mt-auto">
-              <span className="font-sans text-[11px] text-ink-mute leading-normal block">
+              <span className="font-sans text-[13px] text-ink/65 leading-normal block">
                 Brought to you by Sahaj Philosophy.
               </span>
             </div>
@@ -172,7 +173,7 @@ export default function BulletinBoard() {
                 {bulletin.challenge.title}
               </h3>
               
-              <p className="font-sans text-[13.5px] leading-[1.65] text-ink-soft mb-4">
+              <p className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 mb-4 antialiased">
                 {bulletin.challenge.desc}
               </p>
             </div>

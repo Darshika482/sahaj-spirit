@@ -50,7 +50,8 @@ export default function Philosophy() {
           <BlurText
             as="p"
             delay={0.2}
-            className="font-sans text-[16px] sm:text-[18px] leading-[1.6] text-ink-soft"
+            blur={0}
+            className="font-sans text-[16px] sm:text-[18px] leading-[1.7] text-ink/80 antialiased"
           >
             Founded in 2024, Sahaj Spirit is a secular, spiritual alliance designed specifically for modern youth. We bridge timeless principles and contemporary realities to guide you home.
           </BlurText>
@@ -67,7 +68,8 @@ export default function Philosophy() {
           </BlurText>
           <BlurText
             as="p"
-            className="font-sans text-[15px] text-ink-soft"
+            blur={0}
+            className="font-sans text-[16px] sm:text-[17px] leading-[1.7] text-ink/80 antialiased"
           >
             A visual story of leaving the chaos behind to rediscover the unforced rhythm of your being.
           </BlurText>
@@ -101,7 +103,7 @@ export default function Philosophy() {
               <h4 className="font-serif text-[18px] font-normal text-ink mb-1.5 leading-snug">
                 {panel.title}
               </h4>
-              <p className="font-sans text-[13px] leading-[1.5] text-ink-soft flex-grow">
+              <p className="font-sans text-[15px] sm:text-[16px] leading-[1.65] text-ink/80 antialiased flex-grow">
                 {panel.desc}
               </p>
             </motion.div>

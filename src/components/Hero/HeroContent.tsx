@@ -108,7 +108,7 @@ export default function HeroContent({ onSummitClick, onPhilosophyClick }: HeroCo
       {/* Body */}
       <motion.p
         variants={itemFadeInUp}
-        className="font-sans font-normal text-[16px] sm:text-[18px] leading-[1.6] text-ink-soft mb-10 max-w-[540px]"
+        className="font-sans font-normal text-[16px] sm:text-[18px] leading-[1.7] text-ink/80 mb-10 max-w-[540px] antialiased"
       >
         Somewhere beneath the anxiety, the noise, the pressure — there is a version of you that has always been calm. Always been whole. Always been enough. That is your <span className="font-medium text-ink">Sahaj self</span>. And it was never lost.
       </motion.p>

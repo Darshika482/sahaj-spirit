@@ -250,7 +250,8 @@ export default function Tour({ onRegisterClick }: TourProps) {
               <BlurText
                 as="p"
                 delay={0.1}
-                className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-ink-soft mb-5"
+                blur={0}
+                className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 mb-5 antialiased"
               >
                 The Sahaj Summit is not just a destination. It is held on the birthplace of multiple Jain Tirthankaras — where the soil itself vibrates with the memories of massive renunciations, absolute stillness, and ultimate wisdom.
               </BlurText>
@@ -258,7 +259,8 @@ export default function Tour({ onRegisterClick }: TourProps) {
               <BlurText
                 as="p"
                 delay={0.2}
-                className="font-sans text-[14px] sm:text-[15px] leading-[1.65] text-ink-soft mb-6"
+                blur={0}
+                className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 mb-6 antialiased"
               >
                 On <strong>September 6, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
               </BlurText>

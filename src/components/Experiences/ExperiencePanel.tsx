@@ -111,12 +111,12 @@ export default function ExperiencePanel({ item, onSummitClick }: ExperiencePanel
               </h3>
 
               {/* Poetic tagline descriptor */}
-              <p className="font-serif italic text-[19px] sm:text-[22px] leading-relaxed text-ink-soft mb-5 border-l-2 border-teal/25 pl-5">
+              <p className="font-serif italic text-[18px] sm:text-[22px] leading-relaxed text-ink/75 mb-5 border-l-2 border-teal/25 pl-5">
                 “{item.tagline}”
               </p>
 
               {/* Body description */}
-              <p className="font-sans text-[15.5px] sm:text-[16.5px] leading-[1.75] text-ink-soft mb-8 max-w-xl">
+              <p className="font-sans text-[16px] sm:text-[17px] leading-[1.75] text-ink/80 mb-8 max-w-xl antialiased">
                 {item.body}
               </p>
 
