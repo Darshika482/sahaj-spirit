@@ -1,8 +1,33 @@
 import { motion } from 'motion/react';
 import { fadeInUp, staggerContainer } from '../lib/motion';
 import BlurText from './shared/BlurText';
-import sahajLogoExplained from '../assets/sahaj logo explained.jpg';
+import comicPanel1 from '../assets/comic_panel_1.png';
+import comicPanel2 from '../assets/comic_panel_2.png';
+import comicPanel3 from '../assets/comic_panel_3.png';
+import comicPanel4 from '../assets/comic_panel_4.png';
 
+const comicPanels = [
+  {
+    image: comicPanel1,
+    title: "The Digital Noise",
+    desc: "Overwhelmed by infinite feeds, constant pings, and chaotic notifications of the modern day."
+  },
+  {
+    image: comicPanel2,
+    title: "The Conscious Pause",
+    desc: "Unplugging, closing your eyes, and taking a single deep breath to reclaim your quiet space."
+  },
+  {
+    image: comicPanel3,
+    title: "The Quiet Path",
+    desc: "Walking with light steps on a serene, sunlit path, guided by nature and absolute simplicity."
+  },
+  {
+    image: comicPanel4,
+    title: "The Homecoming",
+    desc: "Finding your tribe, meditating under a clear sky, and coming back home to yourself."
+  }
+];
 
 export default function Philosophy() {
   return (
@@ -38,37 +63,55 @@ export default function Philosophy() {
         </div>
 
 
-        {/* Gallery / Showcases */}
+        {/* Comic Section Header */}
+        <div className="w-full text-center max-w-2xl mb-10 mt-8">
+          <BlurText
+            as="h3"
+            className="font-serif text-[28px] font-normal text-ink mb-3"
+          >
+            The Sahaj Comic
+          </BlurText>
+          <BlurText
+            as="p"
+            className="font-sans text-[15px] text-ink-soft"
+          >
+            A visual story of leaving the chaos behind to rediscover the unforced rhythm of your being.
+          </BlurText>
+        </div>
+
+        {/* 4-Image Grid Comic Panel */}
         <motion.div
-          variants={staggerContainer(0.12, 0.1)}
+          variants={staggerContainer(0.1, 0.05)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="w-full flex flex-col gap-12 sm:gap-16"
+          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {/* Card 1: Logo Explained */}
-          <motion.div
-            variants={fadeInUp}
-            className="group flex flex-col bg-[#F7F3EC]/50 hover:bg-[#F7F3EC]/80 border border-teal/5 rounded-2xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.015)] transition-all duration-500 w-full"
-          >
-            <div>
-              <div className="overflow-hidden rounded-xl bg-white border border-teal/5 flex items-center justify-center p-6 sm:p-8 relative w-full">
+          {comicPanels.map((panel, idx) => (
+            <motion.div
+              key={idx}
+              variants={fadeInUp}
+              className="group flex flex-col bg-white hover:bg-[#FBF7F0]/60 border border-teal/5 rounded-2xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_16px_40px_rgba(43,168,158,0.06)] transition-all duration-500"
+            >
+              <div className="overflow-hidden rounded-xl bg-white border border-teal/5 aspect-square flex items-center justify-center relative w-full mb-4">
                 <img
-                  src={sahajLogoExplained}
-                  alt="Sahaj Logo Explained"
-                  className="w-full h-auto object-contain transition-transform duration-750 group-hover:scale-[1.01]"
+                  src={panel.image}
+                  alt={panel.title}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
                   draggable={false}
                 />
+                <span className="absolute top-3 left-3 bg-teal/90 text-white font-mono text-[10px] px-2.5 py-0.5 rounded-full z-10 shadow-sm">
+                  PANEL {idx + 1}
+                </span>
               </div>
-              <h4 className="font-serif text-[22px] font-normal text-ink mt-6 mb-2">
-                The Sahaj Emblem Explained
+              <h4 className="font-serif text-[18px] font-normal text-ink mb-1.5 leading-snug">
+                {panel.title}
               </h4>
-              <p className="font-sans text-[15px] leading-[1.6] text-ink-soft">
-                A visual guide to the sacred geometry and profound spiritual symbolism integrated into the Sahaj Summit identity.
+              <p className="font-sans text-[13px] leading-[1.5] text-ink-soft flex-grow">
+                {panel.desc}
               </p>
-            </div>
-          </motion.div>
-
+            </motion.div>
+          ))}
         </motion.div>
       </div>
     </section>
