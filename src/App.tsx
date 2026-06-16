@@ -7,6 +7,7 @@ import Hero from './components/Hero/Hero';
 import LogoTicker from './components/LogoTicker';
 import Philosophy from './components/Philosophy';
 import Experiences from './components/Experiences/Experiences';
+import BulletinBoard from './components/BulletinBoard';
 import Tour from './components/Tour';
 import Footer from './components/Footer';
 import RegistrationModal from './components/RegistrationModal';
@@ -40,6 +41,7 @@ function HomePage() {
         <LogoTicker />
         <Philosophy />
         <Experiences onSummitClick={handleSummitScroll} />
+        <BulletinBoard />
         <Tour onRegisterClick={() => setIsModalOpen(true)} />
         <Footer />
         <RegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

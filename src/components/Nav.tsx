@@ -64,9 +64,8 @@ export default function Nav({ onRegisterClick }: NavProps) {
           const el = document.querySelector(link.href);
           if (el) {
             const rect = el.getBoundingClientRect();
-            if (rect.top <= triggerPoint && rect.bottom > triggerPoint) {
+            if (rect.top <= triggerPoint) {
               currentActive = link.name;
-              break;
             }
           }
         }
