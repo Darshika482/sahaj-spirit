@@ -18,7 +18,7 @@ app.use(cors({
 // Raw body needed for webhook signature verification — must be before express.json()
 app.use('/api/payment/webhook', express.raw({ type: 'application/json' }));
 
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 app.use('/api/registration', registrationRouter);
 app.use('/api/payment', paymentRouter);

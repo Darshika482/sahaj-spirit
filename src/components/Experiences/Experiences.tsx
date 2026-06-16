@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { experiences } from './experienceData';
+import contentData from '../../data/content.json';
+const experiences = contentData.experiences;
 import ExperiencePanel from './ExperiencePanel';
 import CyclingImage from './CyclingImage';
 import BlurText from '../shared/BlurText';

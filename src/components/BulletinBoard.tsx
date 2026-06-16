@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Pin, Sparkles, BookOpen, Check } from 'lucide-react';
 import BlurText from './shared/BlurText';
 import corkTexture from '../assets/cork_texture.png';
+import contentData from '../data/content.json';
+
+const bulletin = contentData.bulletin;
 
 export default function BulletinBoard() {
   const [challengeAccepted, setChallengeAccepted] = useState(false);
@@ -84,16 +87,16 @@ export default function BulletinBoard() {
               </div>
 
               <blockquote className="font-serif text-[19px] sm:text-[21px] text-ink leading-relaxed font-normal mb-6">
-                “Your calm mind is the ultimate weapon against your challenges. So, relax.”
+                {bulletin.thought.quote}
               </blockquote>
             </div>
 
             <div className="border-t border-orange/10 pt-5 mt-auto">
               <cite className="font-sans font-bold text-xs text-ink uppercase tracking-wider not-italic block mb-1">
-                — Bryant McGill
+                — {bulletin.thought.author}
               </cite>
               <span className="font-sans text-[11.5px] text-ink-soft/80 leading-relaxed block">
-                Take a deep inhalation of ease, hold for three seconds, and let it go.
+                {bulletin.thought.tip}
               </span>
             </div>
           </motion.div>
@@ -119,18 +122,18 @@ export default function BulletinBoard() {
               </div>
 
               <h3 className="font-serif text-[28px] sm:text-[32px] font-bold text-ink leading-tight mb-1">
-                Sahajta <span className="font-serif font-normal text-teal/80">(सहजता)</span>
+                {bulletin.word.word} <span className="font-serif font-normal text-teal/80">({bulletin.word.sanskrit})</span>
               </h3>
               <p className="font-sans text-[11px] tracking-wider text-ink-mute uppercase font-bold mb-4">
-                Phonetic: /sə.hədʒ.t̪aː/
+                Phonetic: {bulletin.word.phonetic}
               </p>
 
               <p className="font-serif italic text-teal/95 text-[14.5px] mb-3 leading-relaxed">
-                “Spontaneous, effortless naturalness.”
+                “{bulletin.word.translation}”
               </p>
 
               <p className="font-sans text-[13px] leading-[1.6] text-ink-soft">
-                The supreme spiritual state of being in constant, unforced flow with existence. Acting from your true nature, completely free of anxiety, pretense, or struggle.
+                {bulletin.word.meaning}
               </p>
             </div>
 
@@ -166,11 +169,11 @@ export default function BulletinBoard() {
               </div>
 
               <h3 className="font-serif text-[22px] sm:text-[24px] text-ink font-normal leading-tight mb-3">
-                Digital Detox Hour
+                {bulletin.challenge.title}
               </h3>
               
               <p className="font-sans text-[13.5px] leading-[1.65] text-ink-soft mb-4">
-                Disconnect from all screens (phone, laptop, television) for exactly 1 hour after sunset today. Spend that time walking, writing, or sitting in absolute quiet.
+                {bulletin.challenge.desc}
               </p>
             </div>
 

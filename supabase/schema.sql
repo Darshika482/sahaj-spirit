@@ -1,6 +1,8 @@
 -- Run this in your Supabase project: Dashboard → SQL Editor → New Query
 
--- Whitelisted admin emails (add rows manually)
+-- Whitelisted admin emails (add rows manually — only these emails can access /admin)
+-- Example:
+-- insert into admins (email, name) values ('you@gmail.com', 'Your Name');
 create table if not exists admins (
   id uuid primary key default gen_random_uuid(),
   email text unique not null,
@@ -46,3 +48,27 @@ alter table members enable row level security;
 
 -- Allow service role full access (service role bypasses RLS by default in Supabase)
 -- No public access needed — all access goes through our backend API
+
+-- ═══════════════════════════════════════════════════════════════════════════════
+-- STORAGE: Content Images Bucket
+-- ═══════════════════════════════════════════════════════════════════════════════
+
+-- Create the storage bucket for admin-uploaded content images
+insert into storage.buckets (id, name, public)
+values ('content-images', 'content-images', true)
+on conflict (id) do nothing;
+
+-- Allow public read access to all images in the bucket (they are served on the website)
+create policy "Public can view content images"
+  on storage.objects for select
+  using (bucket_id = 'content-images');
+
+-- Allow service role to upload images (our backend uses the service role key)
+-- Service role bypasses RLS by default, but this explicit policy ensures clarity
+create policy "Service role can upload content images"
+  on storage.objects for insert
+  with check (bucket_id = 'content-images');
+
+create policy "Service role can delete content images"
+  on storage.objects for delete
+  using (bucket_id = 'content-images');

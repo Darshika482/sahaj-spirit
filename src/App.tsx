@@ -60,7 +60,7 @@ export default function App() {
       <Route path="/pricing" element={<PricingPage />} />
       <Route path="/delivery" element={<DeliveryPage />} />
       <Route path="/contact" element={<ContactPage />} />
-      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin" element={<div className="show-system-cursor"><AdminPage /></div>} />
     </Routes>
   );
 }
