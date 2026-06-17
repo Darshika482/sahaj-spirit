@@ -1,11 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import contentData from '../../data/content.json';
-const experiences = contentData.experiences;
 import ExperiencePanel from './ExperiencePanel';
 import CyclingImage from './CyclingImage';
 import BlurText from '../shared/BlurText';
 import { SAHAJ_EASE } from '../../lib/motion';
+import { useSiteContent } from '../../lib/useSiteContent';
 
 interface ExperiencesProps {
   onSummitClick?: () => void;
@@ -91,6 +90,7 @@ function PremiumIconOrnament() {
 }
 
 export default function Experiences({ onSummitClick }: ExperiencesProps) {
+  const { experiences } = useSiteContent();
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isMobile, setIsMobile] = useState(false);

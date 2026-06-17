@@ -3,11 +3,10 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Pin, Sparkles, BookOpen, Check } from 'lucide-react';
 import BlurText from './shared/BlurText';
 import corkTexture from '../assets/cork_texture.png';
-import contentData from '../data/content.json';
-
-const bulletin = contentData.bulletin;
+import { useSiteContent } from '../lib/useSiteContent';
 
 export default function BulletinBoard() {
+  const { bulletin } = useSiteContent();
   const [challengeAccepted, setChallengeAccepted] = useState(false);
 
   return (

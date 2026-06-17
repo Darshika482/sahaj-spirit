@@ -4,6 +4,7 @@ import 'dotenv/config';
 import registrationRouter from './routes/registration.js';
 import paymentRouter from './routes/payment.js';
 import adminRouter from './routes/admin.js';
+import contentRouter from './routes/content.js';
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use('/api/registration', registrationRouter);
 app.use('/api/payment', paymentRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api/content', contentRouter);
 
 app.get('/api/health', (_req, res) => res.json({ ok: true }));
 

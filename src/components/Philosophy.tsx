@@ -1,15 +1,10 @@
 import { motion } from 'motion/react';
 import { fadeInUp, staggerContainer } from '../lib/motion';
 import BlurText from './shared/BlurText';
-import contentData from '../data/content.json';
-import { resolveContentImageUrl } from '../lib/contentImages';
-
-const comicPanels = contentData.comic.map(panel => ({
-  ...panel,
-  image: resolveContentImageUrl(panel.image),
-}));
+import { useSiteContent } from '../lib/useSiteContent';
 
 export default function Philosophy() {
+  const { comic: comicPanels } = useSiteContent();
   return (
     <section id="philosophy" className="py-24 sm:py-32 px-6 sm:px-12 bg-[#FBF7F0] border-t border-teal/5 relative">
       {/* Dynamic graphic accents */}
