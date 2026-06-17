@@ -5,6 +5,8 @@ import { useSiteContent } from '../lib/useSiteContent';
 
 export default function Philosophy() {
   const { comic: comicPanels } = useSiteContent();
+  const visiblePanels = comicPanels.filter((panel) => panel.visible !== false);
+
   return (
     <section id="philosophy" className="py-24 sm:py-32 px-6 sm:px-12 bg-[#FBF7F0] border-t border-teal/5 relative">
       {/* Dynamic graphic accents */}
@@ -56,25 +58,25 @@ export default function Philosophy() {
           </BlurText>
         </div>
 
-        {/* 4-Image Grid Comic Panel */}
+        {/* Comic panels — only visible ones; image box follows original aspect ratio */}
         <motion.div
           variants={staggerContainer(0.1, 0.05)}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6"
         >
-          {comicPanels.map((panel, idx) => (
+          {visiblePanels.map((panel, idx) => (
             <motion.div
-              key={idx}
+              key={`${panel.title}-${idx}`}
               variants={fadeInUp}
               className="group flex flex-col bg-white hover:bg-[#FBF7F0]/60 border border-teal/5 rounded-2xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_16px_40px_rgba(43,168,158,0.06)] transition-all duration-500"
             >
-              <div className="overflow-hidden rounded-xl bg-white border border-teal/5 aspect-square flex items-center justify-center relative w-full mb-4">
+              <div className="overflow-hidden rounded-xl bg-white border border-teal/5 relative w-full mb-4">
                 <img
                   src={panel.image}
                   alt={panel.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                  className="w-full h-auto block transition-transform duration-700 group-hover:scale-[1.02]"
                   draggable={false}
                 />
                 <span className="absolute top-3 left-3 bg-teal/90 text-white font-mono text-[10px] px-2.5 py-0.5 rounded-full z-10 shadow-sm">

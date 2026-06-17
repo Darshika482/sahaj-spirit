@@ -16,6 +16,8 @@ import {
   ChevronDown,
   Check,
   AlertCircle,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import { supabase, supabaseConfigured } from '../lib/supabase';
 import { getAdminRedirectUrl, normalizeAdminOrigin } from '../lib/adminRedirect';
@@ -524,7 +526,7 @@ export default function AdminPage() {
   };
 
   // Helper updates for contentData
-  const updateComicPanel = (index: number, field: string, value: string) => {
+  const updateComicPanel = (index: number, field: string, value: string | boolean) => {
     if (!contentData) return;
     const updatedComic = [...contentData.comic];
     updatedComic[index] = { ...updatedComic[index], [field]: value };
@@ -1077,33 +1079,61 @@ export default function AdminPage() {
             {activeSubTab === 'comic' && contentData && (
               <div className="space-y-4 sm:space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-2 gap-4 sm:gap-6">
-                  {contentData.comic.map((panel: any, idx: number) => (
-                    <div key={idx} className="bg-white/60 border border-teal/10 rounded-2xl p-4 sm:p-6 relative">
-                      <div className="flex items-start gap-3 mb-3">
-                        {/* Inline preview thumbnail */}
-                        <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-xl bg-teal/5 border border-teal/10 overflow-hidden shrink-0">
-                          <img
-                            src={resolveContentImageUrl(panel.image)}
-                            alt={panel.title}
-                            className="w-full h-full object-cover"
-                            onError={(e) => {
-                              (e.target as HTMLImageElement).src = 'https://placehold.co/150x150?text=Comic';
-                            }}
-                          />
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <span className="text-[12px] font-semibold text-teal bg-teal/10 px-2.5 py-1 rounded-full">
-                            Panel {idx + 1}
-                          </span>
-                          <input
-                            type="text"
-                            value={panel.title}
-                            onChange={(e) => updateComicPanel(idx, 'title', e.target.value)}
-                            placeholder="Panel title..."
-                            className="mt-2 bg-transparent border-none text-[18px] font-serif font-bold text-ink focus:outline-none w-full placeholder:text-ink/30 antialiased"
-                          />
-                        </div>
+                  {contentData.comic.map((panel: any, idx: number) => {
+                    const isVisible = panel.visible !== false;
+                    return (
+                    <div
+                      key={idx}
+                      className={`bg-white/60 border rounded-2xl p-4 sm:p-6 relative transition-opacity ${
+                        isVisible ? 'border-teal/10' : 'border-ink/10 opacity-60'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between gap-3 mb-4">
+                        <span className="text-[12px] font-semibold text-teal bg-teal/10 px-2.5 py-1 rounded-full">
+                          Panel {idx + 1}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => updateComicPanel(idx, 'visible', !isVisible)}
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-medium border transition-all cursor-pointer ${
+                            isVisible
+                              ? 'bg-teal/5 text-teal border-teal/20 hover:bg-teal/10'
+                              : 'bg-ink/5 text-ink/60 border-ink/15 hover:bg-ink/10'
+                          }`}
+                        >
+                          {isVisible ? (
+                            <>
+                              <Eye className="w-3.5 h-3.5" />
+                              Visible on site
+                            </>
+                          ) : (
+                            <>
+                              <EyeOff className="w-3.5 h-3.5" />
+                              Hidden on site
+                            </>
+                          )}
+                        </button>
                       </div>
+
+                      {/* Preview — natural image aspect ratio */}
+                      <div className="rounded-xl bg-teal/5 border border-teal/10 overflow-hidden mb-4 flex items-center justify-center">
+                        <img
+                          src={resolveContentImageUrl(panel.image)}
+                          alt={panel.title}
+                          className="w-full h-auto max-h-64 object-contain"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).src = 'https://placehold.co/400x300?text=Comic';
+                          }}
+                        />
+                      </div>
+
+                      <input
+                        type="text"
+                        value={panel.title}
+                        onChange={(e) => updateComicPanel(idx, 'title', e.target.value)}
+                        placeholder="Panel title..."
+                        className="mb-4 bg-transparent border-none text-[18px] font-serif font-bold text-ink focus:outline-none w-full placeholder:text-ink/30 antialiased"
+                      />
 
                       <div className="space-y-4">
                         <div>
@@ -1150,7 +1180,8 @@ export default function AdminPage() {
                         </div>
                       </div>
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
                 
                 <EditorSaveBar
