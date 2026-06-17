@@ -2,24 +2,28 @@
   "comic": [
     {
       "image": "/src/assets/comic_panel_1.png",
+      "pageLabel": "Page 1",
       "title": "The Digital Noise",
       "desc": "Overwhelmed by infinite feeds, constant pings, and chaotic notifications of the modern day.",
       "visible": true
     },
     {
       "image": "/src/assets/comic_panel_2.png",
+      "pageLabel": "Page 2",
       "title": "The Conscious Pause",
       "desc": "Unplugging, closing your eyes, and taking a single deep breath to reclaim your quiet space.",
       "visible": true
     },
     {
       "image": "/src/assets/comic_panel_3.png",
+      "pageLabel": "Page 3",
       "title": "The Quiet Path",
       "desc": "Walking with light steps on a serene, sunlit path, guided by nature and absolute simplicity.",
       "visible": true
     },
     {
       "image": "/src/assets/comic_panel_4.png",
+      "pageLabel": "Page 4",
       "title": "The Homecoming",
       "desc": "Finding your tribe, meditating under a clear sky, and coming back home to yourself. ",
       "visible": true

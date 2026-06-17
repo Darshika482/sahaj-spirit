@@ -22,6 +22,7 @@ import {
 import { supabase, supabaseConfigured } from '../lib/supabase';
 import { getAdminRedirectUrl, normalizeAdminOrigin } from '../lib/adminRedirect';
 import { resolveContentImageUrl } from '../lib/contentImages';
+import { getComicPageLabel } from '../lib/comicLabels';
 
 interface Registration {
   id: string;
@@ -1089,9 +1090,16 @@ export default function AdminPage() {
                       }`}
                     >
                       <div className="flex items-center justify-between gap-3 mb-4">
-                        <span className="text-[12px] font-semibold text-teal bg-teal/10 px-2.5 py-1 rounded-full">
-                          Panel {idx + 1}
-                        </span>
+                        <div className="flex-1 min-w-0">
+                          <EditorFieldLabel>Page label</EditorFieldLabel>
+                          <input
+                            type="text"
+                            value={panel.pageLabel ?? ''}
+                            onChange={(e) => updateComicPanel(idx, 'pageLabel', e.target.value)}
+                            placeholder={getComicPageLabel({}, idx)}
+                            className={`${editorInputClass} text-[14px] font-mono uppercase tracking-wide`}
+                          />
+                        </div>
                         <button
                           type="button"
                           onClick={() => updateComicPanel(idx, 'visible', !isVisible)}
@@ -1131,7 +1139,7 @@ export default function AdminPage() {
                         type="text"
                         value={panel.title}
                         onChange={(e) => updateComicPanel(idx, 'title', e.target.value)}
-                        placeholder="Panel title..."
+                        placeholder="Story title..."
                         className="mb-4 bg-transparent border-none text-[18px] font-serif font-bold text-ink focus:outline-none w-full placeholder:text-ink/30 antialiased"
                       />
 
