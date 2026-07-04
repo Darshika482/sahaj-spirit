@@ -24,7 +24,7 @@ export default function DeliveryPage() {
       <div className="mt-8 p-5 rounded-2xl bg-teal/5 border border-teal/15">
         <p className="text-[15px] text-ink/75 leading-relaxed">
           All registrations are for attendance at a <strong>physical event</strong> (Sahaj Summit 2026,
-          September 6, 2026). No physical goods, merchandise, or tickets are shipped.
+          September 27, 2026). No physical goods, merchandise, or tickets are shipped.
           All confirmations are delivered digitally.
         </p>
       </div>
@@ -87,9 +87,9 @@ export default function DeliveryPage() {
 
       <Section title="5. Event Venue & On-Site Delivery">
         <p>
-          The Sahaj Summit 2026 is held at a sacred Jain heritage site in India. Further venue details,
+          The Sahaj Summit 2026 is held at <strong>KL Sahani</strong>. Further venue details,
           travel guidance, and on-site schedule will be shared with all confirmed registrants via email
-          at least <strong>14 days before the event</strong> (by August 23, 2026).
+          at least <strong>14 days before the event</strong> (by September 13, 2026).
         </p>
       </Section>
     </PolicyLayout>

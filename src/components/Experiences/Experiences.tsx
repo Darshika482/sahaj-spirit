@@ -95,6 +95,10 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const experiences = content?.experiences ?? [];
+  const visibleExperiences = experiences.filter((exp) => exp.visible !== false);
+  const totalSteps = visibleExperiences.length + 2;
+  const lastStep = totalSteps - 1;
+  const expCount = visibleExperiences.length;
 
   // Check responsiveness on mount & resize
   useEffect(() => {
@@ -108,14 +112,13 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
 
   // Update current scroll step for desktop pinning
   useEffect(() => {
-    if (isMobile) return;
+    if (isMobile || totalSteps < 2) return;
 
     const handleScroll = () => {
       if (!containerRef.current) return;
       
       const rect = containerRef.current.getBoundingClientRect();
       const scrollTop = -rect.top;
-      // Scrollable distance inside the stickiness
       const scrollableHeight = rect.height - window.innerHeight;
 
       if (rect.top > 0) {
@@ -124,18 +127,15 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
       }
 
       const fraction = Math.max(0, Math.min(1, scrollTop / scrollableHeight));
-      // Map fraction to 11 steps (0 is Intro, 1-9 is Experiences, 10 is Outro)
-      // Dividing by 11 discrete chunks
-      const step = Math.min(10, Math.floor(fraction * 11));
+      const step = Math.min(lastStep, Math.floor(fraction * totalSteps));
       setCurrentStep(step);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // Run once at start
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isMobile]);
+  }, [isMobile, totalSteps, lastStep]);
 
   // Scroll smoothly to a specific step
   const scrollToStep = (step: number) => {
@@ -145,8 +145,7 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
     const containerTop = window.scrollY + rect.top;
     const scrollableHeight = rect.height - window.innerHeight;
     
-    // Each step spans roughly 1/11th of scrollableHeight
-    const stepHeight = scrollableHeight / 11;
+    const stepHeight = scrollableHeight / totalSteps;
     // Aim for the center-to-upper portion of that step segment
     const targetScroll = containerTop + (step * stepHeight) + (stepHeight * 0.1);
 
@@ -157,7 +156,7 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
   };
 
   const handleNext = () => {
-    if (currentStep < 10) {
+    if (currentStep < lastStep) {
       scrollToStep(currentStep + 1);
     }
   };
@@ -195,7 +194,7 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
             duration={0.9}
             className="font-serif text-[32px] sm:text-[40px] text-ink leading-[1.2] font-normal mb-8 max-w-md px-2"
           >
-            Nine ways to come home{' '}
+            {expCount} ways to come home{' '}
             <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal to-teal-deep italic font-serif">
               to yourself.
               <UnderlineSvg />
@@ -207,13 +206,13 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
             blur={0}
             className="font-sans text-[16px] sm:text-[17px] text-ink/80 max-w-md mx-auto mt-2 leading-[1.7] antialiased"
           >
-            Every Sahaj assembly hosts 9 signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
+            Every Sahaj assembly hosts {expCount} signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
           </BlurText>
         </div>
 
         {/* Mobile Experience Horizontal Scroll List */}
         <div className="flex flex-row overflow-x-auto gap-6 px-4 sm:px-6 pb-8 snap-x snap-mandatory scrollbar-none items-stretch w-full">
-          {experiences.map((item) => (
+          {visibleExperiences.map((item) => (
             <div 
               key={item.id} 
               className="flex flex-col bg-white rounded-2xl border border-teal/10 shadow-sm overflow-hidden w-[85vw] max-w-[310px] shrink-0 snap-center"
@@ -293,7 +292,7 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
       ref={containerRef}
       id="experiences" 
       className="relative w-full bg-[#F7F3EC]"
-      style={{ height: '1100vh' }}
+      style={{ height: `${totalSteps * 100}vh` }}
     >
       {/* Sticky Sub-wrapper */}
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden flex flex-col justify-center select-none bg-gradient-to-b from-[#F7F3EC] via-[#FBF7F0] to-[#F7F3EC]">
@@ -327,11 +326,11 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
 
           {/* Dots representation for quick jumps */}
           <div className="flex flex-col gap-2.5 py-2">
-            {Array.from({ length: 11 }).map((_, stepIdx) => {
+            {Array.from({ length: totalSteps }).map((_, stepIdx) => {
               let titleText = 'Intro';
-              if (stepIdx > 0 && stepIdx <= 9) {
-                titleText = experiences[stepIdx - 1].title;
-              } else if (stepIdx === 10) {
+              if (stepIdx > 0 && stepIdx <= expCount) {
+                titleText = visibleExperiences[stepIdx - 1].title;
+              } else if (stepIdx === lastStep) {
                 titleText = 'Outro';
               }
 
@@ -353,11 +352,11 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
           {/* Next Link */}
           <motion.button
             onClick={handleNext}
-            disabled={currentStep === 10}
-            whileHover={currentStep < 10 ? { scale: 1.1, backgroundColor: 'rgba(43, 168, 158, 0.1)' } : {}}
+            disabled={currentStep === lastStep}
+            whileHover={currentStep < lastStep ? { scale: 1.1, backgroundColor: 'rgba(43, 168, 158, 0.1)' } : {}}
             whileTap={{ scale: 0.9 }}
             className={`w-12 h-12 rounded-full border border-teal/20 flex items-center justify-center transition-opacity duration-300 bg-cream/50 cursor-pointer ${
-              currentStep === 10 ? 'opacity-30 cursor-not-allowed' : 'opacity-100'
+              currentStep === lastStep ? 'opacity-30 cursor-not-allowed' : 'opacity-100'
             }`}
             title="Scroll to next experience"
             data-cursor-label="view"
@@ -387,14 +386,14 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                 </span>
                 <PremiumIconOrnament />
                 <h2 className="font-serif font-normal text-[clamp(44px,5.5vw,76px)] text-ink leading-tight max-w-4xl tracking-tight mb-10">
-                  Nine ways to come home{' '}
+                  {expCount} ways to come home{' '}
                   <span className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-teal to-teal-deep italic font-serif pb-2">
                     to yourself.
                     <UnderlineSvg />
                   </span>
                 </h2>
                 <p className="font-sans text-[17px] sm:text-[18px] text-ink/80 max-w-xl leading-[1.7] mb-10 antialiased">
-                  Every Sahaj assembly hosts 9 signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
+                  Every Sahaj assembly hosts {expCount} signature experiences loaded with deep traditional wisdom, delivered with contemporary vibration.
                 </p>
                 <div className="mt-4 flex flex-col items-center gap-3">
                   <span className="text-teal/60 font-sans text-xs uppercase tracking-[0.25em] font-medium">
@@ -417,8 +416,8 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
               </motion.div>
             )}
 
-            {/* Step 1 to 9: EXPERIENCE PANELS */}
-            {currentStep >= 1 && currentStep <= 9 && (
+            {/* Experience panels */}
+            {currentStep >= 1 && currentStep <= expCount && (
               <motion.div
                 key={`panel-step-${currentStep}`}
                 initial={{ opacity: 0 }}
@@ -428,16 +427,16 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                 className="w-full h-full flex items-center"
               >
                 <ExperiencePanel
-                  item={experiences[currentStep - 1]}
+                  item={visibleExperiences[currentStep - 1]}
                   index={currentStep - 1}
-                  total={experiences.length}
+                  total={visibleExperiences.length}
                   onSummitClick={onSummitClick}
                 />
               </motion.div>
             )}
 
-            {/* Step 10: OUTRO PANEL */}
-            {currentStep === 10 && (
+            {/* Outro panel */}
+            {currentStep === lastStep && (
               <motion.div
                 key="outro"
                 initial={{ opacity: 0, y: 30 }}
@@ -452,7 +451,7 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                 </h2>
                 
                 <p className="font-sans text-[16px] sm:text-[17px] text-ink/80 max-w-xl leading-[1.7] mb-10 antialiased">
-                  Join hundreds of youth on 6 Sep 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
+                  Join hundreds of youth on 27 Sep 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
                 </p>
 
                 <motion.button

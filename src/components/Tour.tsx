@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import BlurText from './shared/BlurText';
+import ComingSoonBadge from './shared/ComingSoonBadge';
 
-interface TourProps {
-  onRegisterClick?: () => void;
-}
-
-export default function Tour({ onRegisterClick }: TourProps) {
+export default function Tour() {
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -15,8 +12,8 @@ export default function Tour({ onRegisterClick }: TourProps) {
   });
 
   useEffect(() => {
-    // Target: 6 September 2026 (the specified Sahaj Tour date)
-    const targetDate = new Date('2026-09-06T08:00:00Z').getTime();
+    // Target: 27 September 2026, 12:00 PM IST
+    const targetDate = new Date('2026-09-27T06:30:00Z').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -262,7 +259,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 blur={0}
                 className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 mb-6 antialiased"
               >
-                On <strong>September 6, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
+                On <strong>September 27, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
               </BlurText>
             </div>
 
@@ -280,7 +277,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-sans text-[9px] tracking-wider text-[#8B8B8B] uppercase font-bold">Date</span>
-                  <span className="font-sans text-xs font-semibold text-ink leading-tight">6 Sep 2026</span>
+                  <span className="font-sans text-xs font-semibold text-ink leading-tight">27 Sep 2026</span>
                 </div>
               </div>
 
@@ -294,7 +291,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-sans text-[9px] tracking-wider text-[#8B8B8B] uppercase font-bold">Venue</span>
-                  <span className="font-sans text-xs font-semibold text-ink leading-tight">Sahaj Summit</span>
+                  <span className="font-sans text-xs font-semibold text-ink leading-tight">KL Sahani</span>
                 </div>
               </div>
 
@@ -308,7 +305,7 @@ export default function Tour({ onRegisterClick }: TourProps) {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-sans text-[9px] tracking-wider text-[#8B8B8B] uppercase font-bold">Time</span>
-                  <span className="font-sans text-xs font-semibold text-ink leading-tight">06:00 AM IST</span>
+                  <span className="font-sans text-xs font-semibold text-ink leading-tight">12:00 PM IST</span>
                 </div>
               </div>
 
@@ -386,27 +383,11 @@ export default function Tour({ onRegisterClick }: TourProps) {
                   <div className="w-[1px] h-full bg-ink" />
                   <div className="w-[4px] h-full bg-ink" />
                 </div>
-                <span className="font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-06092026-CONFIRMED</span>
+                <span className="font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-27092026-CONFIRMED</span>
               </div>
             </div>
 
-            {/* Book Ticket Button with Shimmer sweep */}
-            <motion.button
-              whileHover={{ scale: 1.015 }}
-              whileTap={{ scale: 0.985 }}
-              onClick={onRegisterClick}
-              className="relative overflow-hidden bg-orange text-[#F7F3EC] px-7 py-4 rounded-xl font-sans font-bold text-[13px] tracking-wider uppercase mt-4 w-full flex items-center justify-center gap-2 shadow-[0_10px_24px_-8px_rgba(243,112,33,0.4)] hover:shadow-[0_16px_36px_-8px_rgba(243,112,33,0.5)] transition-all duration-300 cursor-pointer border border-transparent group/btn"
-              data-cursor-label="look"
-            >
-              {/* Shimmer Light element */}
-              <motion.div 
-                className="absolute inset-0 w-[50%] h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg]"
-                initial={{ left: '-100%' }}
-                whileHover={{ left: '150%' }}
-                transition={{ duration: 0.85, ease: "easeOut" }}
-              />
-              <span>Book My Ticket →</span>
-            </motion.button>
+            <ComingSoonBadge className="mt-4 w-full py-4 text-[13px] tracking-wider" />
           </div>
         </div>
 

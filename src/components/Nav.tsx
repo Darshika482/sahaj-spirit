@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import sahajLogo from '../assets/hero/logo.png';
+import ComingSoonBadge from './shared/ComingSoonBadge';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -9,10 +10,6 @@ const navLinks = [
   { name: 'Sahaj Summit', href: '#summit' },
   { name: 'Contact', href: '#contact' }
 ];
-
-interface NavProps {
-  onRegisterClick?: () => void;
-}
 
 function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
   return (
@@ -44,7 +41,7 @@ function HamburgerIcon({ isOpen }: { isOpen: boolean }) {
   );
 }
 
-export default function Nav({ onRegisterClick }: NavProps) {
+export default function Nav() {
   const [activeLink, setActiveLink] = useState('Home');
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -158,24 +155,7 @@ export default function Nav({ onRegisterClick }: NavProps) {
 
         {/* Right: CTA Pill & Mobile Menu Toggle */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={onRegisterClick}
-            className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-4 py-2 sm:px-5 sm:py-2.5 rounded-full font-sans font-medium text-[12px] sm:text-[14px] flex items-center gap-1.5 shadow-[0_8px_20px_-8px_rgba(243,112,33,0.4)] transition-colors duration-300 pointer-events-auto cursor-pointer"
-            data-cursor-label="orange"
-          >
-            <span>Register</span>
-            <svg
-              className="w-3.5 h-3.5 sm:w-4 sm:h-4"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </motion.button>
+          <ComingSoonBadge />
 
           {/* Mobile Menu Toggle Button */}
           <motion.button

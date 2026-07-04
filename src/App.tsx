@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LenisProvider from './components/shared/LenisProvider';
 import Cursor from './components/shared/Cursor';
@@ -10,7 +9,6 @@ import Experiences from './components/Experiences/Experiences';
 import BulletinBoard from './components/BulletinBoard';
 import Tour from './components/Tour';
 import Footer from './components/Footer';
-import RegistrationModal from './components/RegistrationModal';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import RefundPage from './pages/RefundPage';
@@ -20,8 +18,6 @@ import ContactPage from './pages/ContactPage';
 import AdminPage from './pages/AdminPage';
 
 function HomePage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const handlePhilosophyScroll = () => {
     const el = document.querySelector('#philosophy');
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -36,15 +32,14 @@ function HomePage() {
     <LenisProvider>
       <div className="relative min-h-screen bg-[#F7F3EC] text-ink selection:bg-teal/20 selection:text-teal font-sans">
         <Cursor />
-        <Nav onRegisterClick={() => setIsModalOpen(true)} />
+        <Nav />
         <Hero onSummitClick={handleSummitScroll} onPhilosophyClick={handlePhilosophyScroll} />
         <LogoTicker />
         <Philosophy />
         <Experiences onSummitClick={handleSummitScroll} />
         <BulletinBoard />
-        <Tour onRegisterClick={() => setIsModalOpen(true)} />
+        <Tour />
         <Footer />
-        <RegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       </div>
     </LenisProvider>
   );

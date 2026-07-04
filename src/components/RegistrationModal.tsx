@@ -564,7 +564,7 @@ export default function RegistrationModal({ isOpen, onClose }: RegistrationModal
 
                   <div className="bg-[#FBF7F0] border border-teal/10 rounded-xl px-4 py-3 w-full text-left">
                     <p className="text-[11px] text-ink/40 font-mono uppercase tracking-wider mb-1">Event Details</p>
-                    <p className="text-[13px] text-ink/70">Sahaj Summit 2026 · September 6, 2026</p>
+                    <p className="text-[13px] text-ink/70">Sahaj Summit 2026 · September 27, 2026 · KL Sahani · 12:00 PM IST</p>
                     <p className="text-[13px] text-ink/50 mt-0.5">Sacred Jain Heritage Site, India</p>
                   </div>
 

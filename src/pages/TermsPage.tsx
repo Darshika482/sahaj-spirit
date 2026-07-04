@@ -24,7 +24,7 @@ export default function TermsPage() {
       <Section title="1. About the Event">
         <p>
           Sahaj Summit 2026 is a spiritual retreat organised by Sahaj Spirit Foundation, scheduled for
-          <strong> September 6, 2026</strong>, at a sacred Jain heritage site in India. The event brings
+          <strong> September 27, 2026</strong>, at <strong>KL Sahani</strong>. The event brings
           together over 500 participants for nine immersive experiences rooted in Jain philosophy and values.
         </p>
       </Section>

@@ -78,16 +78,15 @@ export default function ContactPage() {
           <div>
             <p className="font-semibold text-[15px] text-ink">Sahaj Summit 2026</p>
             <p className="text-[14px] text-ink/55 mt-1 leading-relaxed">
-              Sacred Jain Heritage Site<br />
-              Birthplace of Jain Tirthankaras<br />
+              KL Sahani<br />
               India
             </p>
-            <p className="text-[12px] text-ink/40 mt-2">September 6, 2026</p>
+            <p className="text-[12px] text-ink/40 mt-2">September 27, 2026 · 12:00 PM IST</p>
           </div>
         </div>
         <p className="text-[13px] text-ink/50 mt-3 leading-relaxed max-w-sm">
           Detailed venue address and travel guidance will be shared with confirmed registrants
-          by August 23, 2026.
+          by September 13, 2026.
         </p>
       </div>
 
