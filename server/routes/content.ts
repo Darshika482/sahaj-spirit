@@ -7,7 +7,7 @@ const router = Router();
 router.get('/', async (_req, res) => {
   try {
     const data = await readContent();
-    res.setHeader('Cache-Control', 'public, s-maxage=30, stale-while-revalidate=60');
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.json(data);
   } catch (err: any) {
     res.status(500).json({ error: err.message });

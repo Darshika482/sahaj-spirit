@@ -90,10 +90,11 @@ function PremiumIconOrnament() {
 }
 
 export default function Experiences({ onSummitClick }: ExperiencesProps) {
-  const { experiences } = useSiteContent();
+  const { content, isLoading } = useSiteContent();
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const experiences = content?.experiences ?? [];
 
   // Check responsiveness on mount & resize
   useEffect(() => {
@@ -168,6 +169,14 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
   };
 
   // --- MOBILE LAYOUT: Full-bleed vertical scroll of cards ---
+  if (isLoading) {
+    return (
+      <section id="experiences" className="py-20 bg-[#F7F3EC] px-6">
+        <div className="max-w-7xl mx-auto h-96 bg-teal/5 border border-teal/10 rounded-2xl animate-pulse" />
+      </section>
+    );
+  }
+
   if (isMobile) {
     return (
       <section 

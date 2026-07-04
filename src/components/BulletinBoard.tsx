@@ -6,7 +6,7 @@ import corkTexture from '../assets/cork_texture.png';
 import { useSiteContent } from '../lib/useSiteContent';
 
 export default function BulletinBoard() {
-  const { bulletin } = useSiteContent();
+  const { content, isLoading } = useSiteContent();
   const [challengeAccepted, setChallengeAccepted] = useState(false);
 
   return (
@@ -65,7 +65,12 @@ export default function BulletinBoard() {
 
           {/* Board grid for cards */}
           <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-12 items-stretch relative z-10">
-          
+          {isLoading ? (
+            [0, 1, 2].map((i) => (
+              <div key={i} className="min-h-[380px] bg-white/40 border border-teal/10 rounded-xl animate-pulse" />
+            ))
+          ) : content ? (
+          <>
           {/* CARD 1: THOUGHT OF THE DAY (Yellow sticky note style) */}
           <motion.div
             initial={{ opacity: 0, y: 30, rotate: -2 }}
@@ -87,16 +92,16 @@ export default function BulletinBoard() {
               </div>
 
               <blockquote className="font-serif text-[19px] sm:text-[21px] text-ink leading-relaxed font-normal mb-6">
-                {bulletin.thought.quote}
+                {content.bulletin.thought.quote}
               </blockquote>
             </div>
 
             <div className="border-t border-orange/10 pt-5 mt-auto">
               <cite className="font-sans font-bold text-xs text-ink uppercase tracking-wider not-italic block mb-1">
-                — {bulletin.thought.author}
+                — {content.bulletin.thought.author}
               </cite>
               <span className="font-sans text-[13px] text-ink/70 leading-relaxed block">
-                {bulletin.thought.tip}
+                {content.bulletin.thought.tip}
               </span>
             </div>
           </motion.div>
@@ -122,18 +127,18 @@ export default function BulletinBoard() {
               </div>
 
               <h3 className="font-serif text-[28px] sm:text-[32px] font-bold text-ink leading-tight mb-1">
-                {bulletin.word.word} <span className="font-serif font-normal text-teal/80">({bulletin.word.sanskrit})</span>
+                {content.bulletin.word.word} <span className="font-serif font-normal text-teal/80">({content.bulletin.word.sanskrit})</span>
               </h3>
               <p className="font-sans text-[11px] tracking-wider text-ink-mute uppercase font-bold mb-4">
-                Phonetic: {bulletin.word.phonetic}
+                Phonetic: {content.bulletin.word.phonetic}
               </p>
 
               <p className="font-serif italic text-teal/95 text-[15px] sm:text-[16px] mb-4 leading-relaxed">
-                “{bulletin.word.translation}”
+                “{content.bulletin.word.translation}”
               </p>
 
               <p className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 antialiased">
-                {bulletin.word.meaning}
+                {content.bulletin.word.meaning}
               </p>
             </div>
 
@@ -169,11 +174,11 @@ export default function BulletinBoard() {
               </div>
 
               <h3 className="font-serif text-[22px] sm:text-[24px] text-ink font-normal leading-tight mb-3">
-                {bulletin.challenge.title}
+                {content.bulletin.challenge.title}
               </h3>
               
               <p className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 mb-4 antialiased">
-                {bulletin.challenge.desc}
+                {content.bulletin.challenge.desc}
               </p>
             </div>
 
@@ -214,6 +219,8 @@ export default function BulletinBoard() {
             </div>
           </motion.div>
 
+        </>
+          ) : null}
         </div>
         </div>
 

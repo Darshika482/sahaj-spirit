@@ -5,10 +5,12 @@ import { useSiteContent } from '../lib/useSiteContent';
 import { getComicPageLabel } from '../lib/comicLabels';
 
 export default function Philosophy() {
-  const { comic: comicPanels } = useSiteContent();
-  const visiblePanels = comicPanels
-    .map((panel, idx) => ({ panel, idx }))
-    .filter(({ panel }) => panel.visible !== false);
+  const { content, isLoading } = useSiteContent();
+  const visiblePanels = content
+    ? content.comic
+        .map((panel, idx) => ({ panel, idx }))
+        .filter(({ panel }) => panel.visible !== false)
+    : [];
 
   return (
     <section id="philosophy" className="py-24 sm:py-32 px-6 sm:px-12 bg-[#FBF7F0] border-t border-teal/5 relative">
@@ -61,7 +63,14 @@ export default function Philosophy() {
           </BlurText>
         </div>
 
-        {/* Comic panels — only visible ones; image box follows original aspect ratio */}
+        {/* Comic pages — fetched from admin-saved content (no placeholder flash) */}
+        {isLoading ? (
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {[0, 1].map((i) => (
+              <div key={i} className="h-72 bg-teal/5 border border-teal/10 rounded-2xl animate-pulse" />
+            ))}
+          </div>
+        ) : visiblePanels.length > 0 ? (
         <motion.div
           variants={staggerContainer(0.1, 0.05)}
           initial="hidden"
@@ -95,6 +104,7 @@ export default function Philosophy() {
             </motion.div>
           ))}
         </motion.div>
+        ) : null}
       </div>
     </section>
   );

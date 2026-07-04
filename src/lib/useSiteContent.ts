@@ -16,21 +16,34 @@ function normalizeContent(data: SiteContent): SiteContent {
 
 const fallbackContent = normalizeContent(defaultContent as SiteContent);
 
-/** Loads site content from the API, falling back to bundled defaults. */
+function isValidContent(data: unknown): data is SiteContent {
+  if (!data || typeof data !== 'object') return false;
+  const d = data as SiteContent;
+  return Boolean(d.comic && d.experiences && d.bulletin);
+}
+
+/**
+ * Loads site content from /api/content (Supabase in production).
+ * Returns null content while loading — never flash bundled placeholder comics.
+ */
 export function useSiteContent() {
-  const [content, setContent] = useState<SiteContent>(fallbackContent);
+  const [content, setContent] = useState<SiteContent | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     let cancelled = false;
 
-    fetch('/api/content')
-      .then((res) => (res.ok ? res.json() : null))
+    fetch('/api/content', { cache: 'no-store' })
+      .then((res) => (res.ok ? res.json() : Promise.reject(new Error('content fetch failed'))))
       .then((data) => {
-        if (cancelled || !data?.comic || !data?.experiences || !data?.bulletin) return;
-        setContent(normalizeContent(data as SiteContent));
+        if (cancelled) return;
+        setContent(isValidContent(data) ? normalizeContent(data) : fallbackContent);
       })
       .catch(() => {
-        /* keep bundled fallback */
+        if (!cancelled) setContent(fallbackContent);
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoading(false);
       });
 
     return () => {
@@ -38,5 +51,5 @@ export function useSiteContent() {
     };
   }, []);
 
-  return content;
+  return { content, isLoading };
 }
