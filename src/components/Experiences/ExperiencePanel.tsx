@@ -2,15 +2,15 @@ import { motion, AnimatePresence } from 'motion/react';
 import { ExperienceItem } from './experienceData';
 import { SAHAJ_EASE } from '../../lib/motion';
 import CyclingImage from './CyclingImage';
+import { REGISTRATION_URL } from '../shared/RegisterButton';
 
 interface ExperiencePanelProps {
   item: ExperienceItem;
   index: number;
   total: number;
-  onSummitClick?: () => void;
 }
 
-export default function ExperiencePanel({ item, onSummitClick }: ExperiencePanelProps) {
+export default function ExperiencePanel({ item }: ExperiencePanelProps) {
 
   // Variants according to guidelines
   const numberVariants = {
@@ -122,16 +122,18 @@ export default function ExperiencePanel({ item, onSummitClick }: ExperiencePanel
 
               {/* CTA Button */}
               <div className="mt-2 flex flex-wrap items-center gap-5">
-                <motion.button
+                <motion.a
+                  href={REGISTRATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.03, y: -2 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={onSummitClick}
                   className="group bg-orange hover:bg-orange-hover text-[#F7F3EC] px-7 py-3.5 rounded-full font-sans font-medium text-[15px] flex items-center gap-2.5 shadow-[0_10px_28px_-10px_rgba(243,112,33,0.55)] hover:shadow-[0_15px_32px_-8px_rgba(243,112,33,0.65)] transition-all duration-300 cursor-pointer pointer-events-auto"
-                  data-cursor-label="look"
+                  data-cursor-label="register"
                 >
-                  <span>Experience this at Sahaj Summit</span>
+                  <span>Register for Sahaj Summit</span>
                   <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">→</span>
-                </motion.button>
+                </motion.a>
               </div>
             </motion.div>
           </AnimatePresence>

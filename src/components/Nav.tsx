@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import sahajLogo from '../assets/hero/logo.png';
-import ComingSoonBadge from './shared/ComingSoonBadge';
+import RegisterButton from './shared/RegisterButton';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
@@ -155,7 +155,7 @@ export default function Nav() {
 
         {/* Right: CTA Pill & Mobile Menu Toggle */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <ComingSoonBadge />
+          <RegisterButton />
 
           {/* Mobile Menu Toggle Button */}
           <motion.button

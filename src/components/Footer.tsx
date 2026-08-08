@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import BlurText from './shared/BlurText';
+import RegisterButton from './shared/RegisterButton';
 
 export default function Footer() {
   const handleScrollTo = (id: string) => {
@@ -42,6 +43,7 @@ export default function Footer() {
                   </span>
                 </button>
               ))}
+              <RegisterButton className="mt-2" />
             </div>
           </div>
 

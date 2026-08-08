@@ -10,9 +10,9 @@ import bgTexture from '../../assets/hero/bg-texture.png';
 import heroBg from '../../assets/hero/hero-bg.png';
 import sahajLogo from '../../assets/hero/logo.png';
 import { SAHAJ_EASE } from '../../lib/motion';
+import { REGISTRATION_URL } from '../shared/RegisterButton';
 
 interface HeroProps {
-  onSummitClick?: () => void;
   onPhilosophyClick?: () => void;
 }
 
@@ -37,8 +37,8 @@ function TextWord({ text, color = '#0a0a0a', fontWeight = 'light' }: TextWordPro
     fontWeight === 'black'
       ? 'font-black'
       : fontWeight === 'bold'
-      ? 'font-bold'
-      : 'font-light';
+        ? 'font-bold'
+        : 'font-light';
   const fontClass = `font-['Fraunces',sans-serif] ${weightClass}`;
 
   return (
@@ -182,7 +182,7 @@ function CentralCircle() {
   );
 }
 
-export default function Hero({ onSummitClick, onPhilosophyClick }: HeroProps) {
+export default function Hero({ onPhilosophyClick }: HeroProps) {
   return (
     <section id="home" className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#fdfcfa] via-white to-[#f8f6f3] pt-28 lg:pt-32">
       <div className="absolute inset-0">
@@ -252,27 +252,6 @@ export default function Hero({ onSummitClick, onPhilosophyClick }: HeroProps) {
             visible: { transition: { staggerChildren: 0.06, delayChildren: 0.15 } },
           }}
         >
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, y: 16, filter: 'blur(10px)' },
-              visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: SAHAJ_EASE } },
-            }}
-            className="space-y-2"
-          >
-            <div className="inline-flex items-center gap-3 rounded-full border border-teal/20 bg-teal/10 px-4 py-2">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-teal" />
-              <p className="font-['Inter_Tight',sans-serif] text-[11px] font-semibold uppercase tracking-[0.15em] text-teal sm:text-xs">
-                A Jain Youth Movement - Since 2024
-              </p>
-            </div>
-            <p
-              className="font-['Inter_Tight',sans-serif] text-[13px] text-[#3a3a3a]"
-              style={{ opacity: 0.6 }}
-            >
-              10,000+ youth  ·  across India
-            </p>
-          </motion.div>
-
           <div>
             {/* Three-line cascading statement, all lines share the same font size. */}
             {/* L1 lands hardest (near-black, bold), L2 recedes (muted dark @ 0.75), */}
@@ -306,7 +285,7 @@ export default function Hero({ onSummitClick, onPhilosophyClick }: HeroProps) {
             }}
             className="max-w-xl font-['Inter_Tight',sans-serif] text-[clamp(0.95rem,1.2vw,1.15rem)] leading-relaxed text-[#6b6b6b]"
           >
-            Somewhere beneath the anxiety, the noise, the pressure - there is a version of you that has always been calm. Always been whole. Always been enough. That is your Sahaj self. And it was never lost.
+            Beneath the noise, your calm Sahaj self was never lost.
           </motion.p>
 
           <motion.div
@@ -314,20 +293,24 @@ export default function Hero({ onSummitClick, onPhilosophyClick }: HeroProps) {
               hidden: { opacity: 0, y: 18, filter: 'blur(10px)' },
               visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.9, ease: SAHAJ_EASE } },
             }}
-            className="flex flex-wrap items-center gap-5 pt-4"
+            className="flex flex-wrap items-center gap-3 sm:gap-5 pt-2 sm:pt-4"
           >
-            <button
-              className="group flex items-center gap-3 rounded-full bg-gradient-to-r from-[#f47f1f] to-[#ff9a3d] px-8 py-4 shadow-xl transition-all duration-300 hover:scale-105 hover:from-[#e67010] hover:to-[#f47f1f] hover:shadow-2xl"
-              onClick={onSummitClick}
+            <a
+              href={REGISTRATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 sm:gap-3 rounded-full bg-gradient-to-r from-[#f47f1f] to-[#ff9a3d] px-5 py-2.5 sm:px-8 sm:py-4 shadow-lg sm:shadow-xl transition-all duration-300 hover:scale-105 hover:from-[#e67010] hover:to-[#f47f1f] hover:shadow-2xl"
+              data-cursor-label="register"
             >
-              <span className="font-['Inter_Tight',sans-serif] text-base font-semibold text-white">
-                Experience Sahaj Summit '26
+              <span className="font-['Inter_Tight',sans-serif] text-[13px] sm:text-base font-semibold text-white">
+                <span className="sm:hidden">Register Now</span>
+                <span className="hidden sm:inline">Register for Sahaj Summit '26</span>
               </span>
-              <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 16 16">
+              <svg className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 16 16">
                 <path d="M3.33333 8H12.6667" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
                 <path d={svgPaths.p1d405500} stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
               </svg>
-            </button>
+            </a>
 
             <button
               className="group flex items-center gap-2 text-teal/80 transition-colors duration-300 hover:text-teal"

@@ -1,12 +1,12 @@
 import { motion } from 'motion/react';
 import { SAHAJ_EASE } from '../../lib/motion';
+import { REGISTRATION_URL } from '../shared/RegisterButton';
 
 interface HeroContentProps {
-  onSummitClick?: () => void;
   onPhilosophyClick?: () => void;
 }
 
-export default function HeroContent({ onSummitClick, onPhilosophyClick }: HeroContentProps) {
+export default function HeroContent({ onPhilosophyClick }: HeroContentProps) {
   const headlinePart1 = "You are not broken.".split(" ");
   const headlinePart2 = "You are just forgetting".split(" ");
 
@@ -65,14 +65,6 @@ export default function HeroContent({ onSummitClick, onPhilosophyClick }: HeroCo
       animate="visible"
       className="flex flex-col items-start text-left max-w-[640px] z-10"
     >
-      {/* Eyebrow */}
-      <motion.div
-        variants={itemFadeInUp}
-        className="font-sans font-medium text-[12px] uppercase tracking-[0.18em] text-teal mb-6"
-      >
-        A JAIN YOUTH MOVEMENT • SINCE 2024
-      </motion.div>
-
       {/* Headline */}
       <h1 className="font-serif text-[clamp(44px,6.5vw,96px)] leading-[1.05] tracking-[-0.02em] text-ink font-normal mb-8">
         <span className="block overflow-hidden pb-1">
@@ -110,7 +102,7 @@ export default function HeroContent({ onSummitClick, onPhilosophyClick }: HeroCo
         variants={itemFadeInUp}
         className="font-sans font-normal text-[16px] sm:text-[18px] leading-[1.7] text-ink/80 mb-10 max-w-[540px] antialiased"
       >
-        Somewhere beneath the anxiety, the noise, the pressure — there is a version of you that has always been calm. Always been whole. Always been enough. That is your <span className="font-medium text-ink">Sahaj self</span>. And it was never lost.
+        Beneath the noise, your calm Sahaj self was never lost.
       </motion.p>
 
       {/* CTAs */}
@@ -118,15 +110,17 @@ export default function HeroContent({ onSummitClick, onPhilosophyClick }: HeroCo
         variants={itemFadeInUp}
         className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8 w-full"
       >
-        {/* Primary CTA (Orange Pill) */}
-        <motion.button
+        {/* Primary CTA — Register */}
+        <motion.a
+          href={REGISTRATION_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           whileHover={{ scale: 1.03 }}
           whileTap={{ scale: 0.98 }}
-          onClick={onSummitClick}
           className="group relative bg-orange hover:bg-orange-hover text-[#F7F3EC] px-8 py-4.5 rounded-full font-sans font-medium text-16 flex items-center gap-2 shadow-[0_8px_24px_-8px_rgba(243,112,33,0.4)] transition-all duration-300 pointer-events-auto cursor-pointer"
-          data-cursor-label="look"
+          data-cursor-label="register"
         >
-          <span>Experience Sahaj Summit '26</span>
+          <span>Register for Sahaj Summit '26</span>
           <motion.span
             animate={{ x: [0, 4, 0] }}
             transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
@@ -134,7 +128,7 @@ export default function HeroContent({ onSummitClick, onPhilosophyClick }: HeroCo
           >
             →
           </motion.span>
-        </motion.button>
+        </motion.a>
 
         {/* Secondary CTA */}
         <button

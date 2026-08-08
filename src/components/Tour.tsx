@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 import BlurText from './shared/BlurText';
-import ComingSoonBadge from './shared/ComingSoonBadge';
+import RegisterButton from './shared/RegisterButton';
 
 export default function Tour() {
   const [timeLeft, setTimeLeft] = useState({
@@ -387,7 +387,7 @@ export default function Tour() {
               </div>
             </div>
 
-            <ComingSoonBadge className="mt-4 w-full py-4 text-[13px] tracking-wider" />
+            <RegisterButton className="mt-4 w-full py-4 text-[13px] tracking-wider" />
           </div>
         </div>
 

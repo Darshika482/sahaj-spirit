@@ -23,20 +23,15 @@ function HomePage() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleSummitScroll = () => {
-    const el = document.querySelector('#summit');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <LenisProvider>
       <div className="relative min-h-screen bg-[#F7F3EC] text-ink selection:bg-teal/20 selection:text-teal font-sans">
         <Cursor />
         <Nav />
-        <Hero onSummitClick={handleSummitScroll} onPhilosophyClick={handlePhilosophyScroll} />
+        <Hero onPhilosophyClick={handlePhilosophyScroll} />
         <LogoTicker />
         <Philosophy />
-        <Experiences onSummitClick={handleSummitScroll} />
+        <Experiences />
         <BulletinBoard />
         <Tour />
         <Footer />

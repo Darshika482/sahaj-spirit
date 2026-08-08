@@ -5,10 +5,7 @@ import CyclingImage from './CyclingImage';
 import BlurText from '../shared/BlurText';
 import { SAHAJ_EASE } from '../../lib/motion';
 import { useSiteContent } from '../../lib/useSiteContent';
-
-interface ExperiencesProps {
-  onSummitClick?: () => void;
-}
+import { REGISTRATION_URL } from '../shared/RegisterButton';
 
 function SiddhaJiIcon({ className = "w-10 h-10 text-teal/80" }: { className?: string }) {
   return (
@@ -89,7 +86,7 @@ function PremiumIconOrnament() {
   );
 }
 
-export default function Experiences({ onSummitClick }: ExperiencesProps) {
+export default function Experiences() {
   const { content, isLoading } = useSiteContent();
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentStep, setCurrentStep] = useState(0);
@@ -253,14 +250,17 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                 </div>
 
                 {/* Compact Action Button */}
-                <motion.button
+                <motion.a
+                  href={REGISTRATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileTap={{ scale: 0.98 }}
-                  onClick={onSummitClick}
                   className="w-full bg-orange hover:bg-orange-hover text-[#F7F3EC] py-2.5 rounded-full font-sans font-medium text-[13px] flex items-center justify-center gap-1.5 shadow-[0_6px_16px_-6px_rgba(243,112,33,0.5)] transition-colors duration-300"
+                  data-cursor-label="register"
                 >
-                  <span>Book Experience</span>
+                  <span>Register Now</span>
                   <span className="inline-block">→</span>
-                </motion.button>
+                </motion.a>
               </div>
             </div>
           ))}
@@ -272,14 +272,17 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
             <h4 className="font-serif italic text-[22px] sm:text-[26px] text-ink leading-snug mb-6 max-w-sm">
               And every one of these waits for you at the Sahaj Summit.
             </h4>
-            <motion.button
+            <motion.a
+              href={REGISTRATION_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               whileTap={{ scale: 0.98 }}
-              onClick={onSummitClick}
               className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-6 py-3 rounded-full font-sans font-medium text-[13px] shadow-md flex items-center gap-2"
+              data-cursor-label="register"
             >
-              See Sahaj Summit 2026
+              Register for Sahaj Summit
               <span className="inline-block">→</span>
-            </motion.button>
+            </motion.a>
           </div>
         </div>
       </section>
@@ -430,7 +433,6 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                   item={visibleExperiences[currentStep - 1]}
                   index={currentStep - 1}
                   total={visibleExperiences.length}
-                  onSummitClick={onSummitClick}
                 />
               </motion.div>
             )}
@@ -454,16 +456,18 @@ export default function Experiences({ onSummitClick }: ExperiencesProps) {
                   Join hundreds of youth on 27 Sep 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
                 </p>
 
-                <motion.button
+                <motion.a
+                  href={REGISTRATION_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.98 }}
-                  onClick={onSummitClick}
                   className="bg-orange hover:bg-orange-hover text-[#F7F3EC] px-8 py-4.5 rounded-full font-sans font-medium text-16 flex items-center gap-2 shadow-[0_12px_28px_-8px_rgba(243,112,33,0.5)] transition-all duration-300 pointer-events-auto cursor-pointer"
-                  data-cursor-label="look"
+                  data-cursor-label="register"
                 >
-                  <span>See Sahaj Summit 2026</span>
+                  <span>Register for Sahaj Summit 2026</span>
                   <span className="inline-block">→</span>
-                </motion.button>
+                </motion.a>
               </motion.div>
             )}
 
