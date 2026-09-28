@@ -12,8 +12,8 @@ export default function Tour() {
   });
 
   useEffect(() => {
-    // Target: 27 September 2026, 12:00 PM IST
-    const targetDate = new Date('2026-09-27T06:30:00Z').getTime();
+    // Target: 11 October 2026, 12:00 PM IST
+    const targetDate = new Date('2026-10-11T06:30:00Z').getTime();
 
     const interval = setInterval(() => {
       const now = new Date().getTime();
@@ -259,7 +259,7 @@ export default function Tour() {
                 blur={0}
                 className="font-sans text-[15px] sm:text-[16px] leading-[1.7] text-ink/80 mb-6 antialiased"
               >
-                On <strong>September 27, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
+                On <strong>October 11, 2026</strong>, Sahaj Spirit brings together over 500 modern minds to tread this sacred geometry together, unlocking simplicity in a highly complex age.
               </BlurText>
             </div>
 
@@ -277,7 +277,7 @@ export default function Tour() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-sans text-[9px] tracking-wider text-[#8B8B8B] uppercase font-bold">Date</span>
-                  <span className="font-sans text-xs font-semibold text-ink leading-tight">27 Sep 2026</span>
+                  <span className="font-sans text-xs font-semibold text-ink leading-tight">11 Oct 2026</span>
                 </div>
               </div>
 
@@ -291,7 +291,7 @@ export default function Tour() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-sans text-[9px] tracking-wider text-[#8B8B8B] uppercase font-bold">Venue</span>
-                  <span className="font-sans text-xs font-semibold text-ink leading-tight">KL Sahani</span>
+                  <span className="font-sans text-xs font-semibold text-ink leading-tight">Br. Ambedkar International Center, Delhi</span>
                 </div>
               </div>
 
@@ -383,7 +383,7 @@ export default function Tour() {
                   <div className="w-[1px] h-full bg-ink" />
                   <div className="w-[4px] h-full bg-ink" />
                 </div>
-                <span className="font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-27092026-CONFIRMED</span>
+                <span className="font-mono text-[8px] tracking-[0.25em] text-[#8B8B8B] uppercase">SAHAJSUMMIT-11102026-CONFIRMED</span>
               </div>
             </div>
 
