@@ -453,7 +453,7 @@ export default function Experiences() {
                 </h2>
                 
                 <p className="font-sans text-[16px] sm:text-[17px] text-ink/80 max-w-xl leading-[1.7] mb-10 antialiased">
-                  Join hundreds of youth on 27 Sep 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
+                  Join hundreds of youth on 11 Oct 2026 for a sacred journey of companionship, exploration, delicious Specialized Jain Food, and ancient temple walkathons.
                 </p>
 
                 <motion.a

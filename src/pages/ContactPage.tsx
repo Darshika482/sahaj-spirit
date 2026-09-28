@@ -78,15 +78,15 @@ export default function ContactPage() {
           <div>
             <p className="font-semibold text-[15px] text-ink">Sahaj Summit 2026</p>
             <p className="text-[14px] text-ink/55 mt-1 leading-relaxed">
-              KL Sahani<br />
+              Br. Ambedkar International Center, Delhi<br />
               India
             </p>
-            <p className="text-[12px] text-ink/40 mt-2">September 27, 2026 · 12:00 PM IST</p>
+            <p className="text-[12px] text-ink/40 mt-2">October 11, 2026 · 12:00 PM IST</p>
           </div>
         </div>
         <p className="text-[13px] text-ink/50 mt-3 leading-relaxed max-w-sm">
           Detailed venue address and travel guidance will be shared with confirmed registrants
-          by September 13, 2026.
+          by September 27, 2026.
         </p>
       </div>
 
